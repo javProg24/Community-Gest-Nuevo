@@ -1,0 +1,35 @@
+<fieldset class="field" *ngIf="formGroup" [formGroup]="formGroup">
+    <!-- <legend class="field__title">{{title}}</legend> -->
+    <!----------------------------------------------->
+    <!---------------------------------------------->
+    <section class="insured">
+            <!--Campo de nombre-->
+            <mat-form-field appearance="fill">
+                <mat-label>Nombre</mat-label>
+                <input matInput formControlName="name" type="text">
+                <mat-error *ngIf="formGroup.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+                <mat-error *ngIf="formGroup.get('nombre')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+            </mat-form-field>
+            <!--Campo de apellido-->
+            <mat-form-field appearance="fill">
+                <mat-label>Apellido</mat-label>
+                <input matInput formControlName="lastname" type="text">
+                <mat-error *ngIf="formGroup.get('apellido')?.hasError('required')">El apellido es obligatorio</mat-error>
+                <mat-error *ngIf="formGroup.get('apellido')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+            </mat-form-field>
+            <!--Campo de correo-->
+            <mat-form-field appearance="fill">
+                <mat-label>Correo</mat-label>
+                <input matInput formControlName="email" type="email">
+                <mat-error *ngIf="formGroup.get('correo')?.hasError('required')">El correo es obligatorio</mat-error>
+                <mat-error *ngIf="formGroup.get('correo')?.hasError('email')">Correo no valido</mat-error>
+            </mat-form-field>
+            <!--Campo de telefono-->
+            <mat-form-field appearance="fill">
+                <mat-label>Telefono</mat-label>
+                <input matInput formControlName="phone" type="text">
+                <mat-error *ngIf="formGroup.get('telefono')?.hasError('required')">El telefono es obligatorio></mat-error>
+                <mat-error *ngIf="formGroup.get('telefono')?.hasError('pattern')">Caracter no valido. Solo se permiten numeros de 10 digitos</mat-error>
+            </mat-form-field>
+        </section>
+</fieldset>

@@ -1,0 +1,12 @@
+<div class="main-content">
+    <section class="bienvenida">
+        <h2><strong>Reservas</strong></h2>
+    </section>
+    <section class="cards">
+        <mat-card *ngFor="let item of items" class="card">
+            <mat-icon width="500px">{{item.icon}}</mat-icon>
+            <h3>{{item.title}}</h3>
+            <button mat-raised-button [routerLink]="item.router" routerLinkActive="active">Entrar</button>
+        </mat-card>
+    </section>
+</div>

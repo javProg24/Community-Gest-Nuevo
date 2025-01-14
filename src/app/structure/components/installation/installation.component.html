@@ -1,0 +1,13 @@
+<div class="buttons">
+    <h1><strong>Instalaciones</strong></h1>
+    <!-- <button mat-flat-button (click)="openInstallForm()"><mat-icon>add</mat-icon>Nuevo</button> -->
+    <!-- <button mat-raised-button color="accent" (click)="openDialog(InstallationFormComponent)">Nuevo</button> -->
+    <button mat-flat-button color="accent" 
+    (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+        Nuevo
+    </button>
+</div>
+<div class="table-section">
+    <app-table [titulo]="title" [columnas]="columns" [datos]="installList" (action)="onAction($event)"></app-table>
+</div>

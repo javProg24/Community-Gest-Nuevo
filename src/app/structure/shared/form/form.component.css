@@ -1,0 +1,31 @@
+/* .title {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.field__title {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 0 10px;
+  color: #333;
+  position: relative;
+  top: -px;
+  background-color: #f9f9f9;
+  margin-bottom: 20px;
+} */
+
+.insured {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+}
+
+.mat-form-field {
+  width: 100%;
+}
+
+.mat-form-field .mat-label {
+  font-weight: bold;
+}

@@ -1,0 +1,78 @@
+<mat-tab-group>
+    <mat-tab label="Reservar Herramienta">
+        <div class="register-card">
+            <mat-card-title class="title">
+                <strong>Datos de la Reserva de Herramientas</strong>
+            </mat-card-title>
+            <mat-card-content>
+                <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Usuario</mat-label>
+                        <mat-select formControlName="usuario">
+                            <mat-option value="" disabled="">Seleccione..</mat-option>
+                            <mat-option *ngFor="let user of users" [value]="user.id">
+                                {{user.concatenated}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Herramienta</mat-label>
+                        <mat-select formControlName="herramienta">
+                        <mat-option value="" disabled="">Seleccione..</mat-option>
+                        <mat-option *ngFor="let herr of herrs" [value]="herr.id">
+                            {{herr.attributeValue}}
+                        </mat-option>
+                    </mat-select>
+                    </mat-form-field>      
+        
+                    <mat-form-field>
+                        <mat-label>Fecha</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="fecha">
+                        <mat-hint>MM/DD/YYYY</mat-hint>
+                        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Estado</mat-label>
+                        <mat-select formControlName="estado">
+                            <mat-option value="" disabled="">Seleccione...</mat-option>
+                            <mat-option *ngFor="let item of items" [value]="item.value">
+                                {{item.label}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+        
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Seleccione hora inicio</mat-label>
+                        <input matInput [matTimepicker]="pickerInicio" formControlName="hora_Inicio">
+                        <mat-timepicker-toggle matIconSuffix [for]="pickerInicio"/>
+                        <mat-timepicker #pickerInicio/>
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Seleccione hora fin</mat-label>
+                        <input matInput [matTimepicker]="pickerFin" formControlName="hora_Fin">
+                        <mat-timepicker-toggle matIconSuffix [for]="pickerFin"/>
+                        <mat-timepicker #pickerFin/>
+                    </mat-form-field>
+                    <div class="form-buttons">
+                        <button mat-raised-button color="primary" type="submit">
+                          Guardar
+                        </button>
+                        <button mat-raised-button color="warn" type="reset" (click)="close()">
+                          Cancelar
+                        </button>
+                      </div>
+                </form>
+            </mat-card-content>
+        </div>
+    </mat-tab>
+    <mat-tab label="Registros" >
+        <div class="table-section">
+            <app-table [title]="title" [columnas]="columns" [datos]="HerrllList" (action)="onAction($event)"></app-table>
+        </div>
+        
+    </mat-tab>
+</mat-tab-group>

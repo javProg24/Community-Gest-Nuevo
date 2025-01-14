@@ -1,0 +1,46 @@
+.title{
+    margin-top: 5px;
+    margin-bottom: 15px;
+    margin-left: 5px;
+    font-size: 20px;
+}
+th{
+    background-color: rgb(168, 243, 205);
+}
+.action-buttons {
+    margin-top: 21px;
+    margin-bottom: 21px;
+     /* Activa flexbox para la celda */
+    align-items: center; /* Alinea verticalmente los elementos */
+    justify-content: center; /* Alinea los botones al inicio (izquierda) */
+    gap: 20px; /* Espaciado horizontal entre los botones */
+}
+
+.action-buttons button {
+    /* display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer; */
+    display: inline-flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 10px 20px; /* Tamaño del botón */
+    
+    border: none; /* Sin bordes */
+    border-radius: 4px; /* Bordes redondeados */
+    font-size: 14px; /* Tamaño del texto */
+    transition: all 0.3s ease; /* Transiciones suaves */
+    cursor: pointer; /* Indica que es clickeable */
+}
+.action-buttons button:hover {
+    background-color: #0056b3; /* Cambia el color de fondo */
+    color: #e6e6e6; /* Cambia el color del texto */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+    transform: translateY(-4px); /* Levanta más el botón */
+}
+
+.action-buttons button:active {
+    transform: translateY(0); /* Restaura la posición al hacer clic */
+    background-color: #003f7f; /* Color más oscuro al presionar */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Sombra más tenue */
+}

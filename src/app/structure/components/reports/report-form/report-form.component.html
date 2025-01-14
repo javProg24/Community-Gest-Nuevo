@@ -1,0 +1,44 @@
+<div class="register-card">
+    <mat-card-title>
+      <strong>Datos del reporte</strong> 
+    </mat-card-title>
+    <mat-card-content>
+        <form class="register-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Titulo</mat-label>
+                <input type="text" formControlName="titulo" matInput>
+                <mat-error *ngIf="formGroup.get('titulo')?.hasError('required')">El nombre es obligatorio</mat-error>
+                <mat-error *ngIf="formGroup.get('titulo')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Descripción</mat-label>
+                <input type="text" formControlName="descripcion" matInput>
+                <mat-error *ngIf="formGroup.get('descripcion')?.hasError('required')">La descripcion es obligatoria</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="fill" class="full-width">
+                <mat-label>Recurso Afectado</mat-label>
+                <input type="text" matInput formControlName="recursoAfectado">
+                <mat-error *ngIf="formGroup.get('recursoAfectado')?.hasError('required')">La descripcion es obligatoria</mat-error>
+            </mat-form-field>
+            <div class="formElement">
+                <mat-label>Estado</mat-label>
+                <mat-radio-group aria-label="Seleccione la opción" formControlName="estado">
+                  <mat-radio-button [value]="true">Solucionado</mat-radio-button>
+                  <mat-radio-button [value]="false">Sin Solucionar</mat-radio-button>
+                </mat-radio-group>
+                <mat-error *ngIf="submitted && formGroup.get('estado')?.hasError('required')">
+                    Seleccionar un estado es obligatorio
+                  </mat-error>
+            </div>
+            
+            <div class="form-buttons">
+                <button mat-raised-button color="primary" type="submit">
+                  Guardar
+                </button>
+                <button mat-raised-button color="warn" type="reset" (click)="close()">
+                  Cancelar
+                </button>
+              </div>
+        </form>
+    </mat-card-content>
+</div>

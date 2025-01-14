@@ -1,0 +1,25 @@
+<app-notification
+*ngIf="notification.message"
+[message]="notification.message"
+[type]="notification.type"
+></app-notification>
+<mat-card class="register-card">
+        <mat-card-content>
+            <form class="register-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+                        <app-form title="Datos Personales" 
+                        controlKey="dataPerson"></app-form>
+                        <mat-form-field appearance="fill" class="full-width">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput formControlName="password" type="password">
+                        </mat-form-field>
+                        <div class="form-buttons">
+                            <button mat-raised-button color="primary" type="submit">
+                                Crear cuenta
+                            </button>
+                            <button mat-raised-button color="warn" type="submit">
+                                Cancelar
+                            </button>
+                        </div>  
+            </form>
+        </mat-card-content>
+</mat-card>

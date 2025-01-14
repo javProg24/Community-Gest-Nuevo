@@ -1,0 +1,41 @@
+<app-notification *ngIf="notification.message"
+		[message]="notification.message"
+		[type]="notification.type">
+</app-notification>
+<div class="container">
+    <div class="form-section">
+        <mat-card>
+            <legend class="field__title">{{title}}</legend>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+                <!--Campo de nombre-->
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="nombre" type="text">
+                    <mat-error *ngIf="userForm.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+                    <mat-error *ngIf="userForm.get('nombre')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+                </mat-form-field>
+                <!--Campo de apellido-->
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput formControlName="apellido" type="text">
+                    <mat-error *ngIf="userForm.get('apellido')?.hasError('required')">El apellido es obligatorio</mat-error>
+                    <mat-error *ngIf="userForm.get('apellido')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+                </mat-form-field>
+                <!--Campo de correo-->
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Correo</mat-label>
+                    <input matInput formControlName="correo" type="email">
+                    <mat-error *ngIf="userForm.get('correo')?.hasError('required')">El correo es obligatorio</mat-error>
+                    <mat-error *ngIf="userForm.get('correo')?.hasError('email')">Correo no valido</mat-error>
+                </mat-form-field>
+                <!--Campo de telefono-->
+                <mat-form-field appearance="fill" class="full-width">
+                    <mat-label>Telefono</mat-label>
+                    <input matInput formControlName="telefono" type="text">
+                    <mat-error *ngIf="userForm.get('telefono')?.hasError('required')">El telefono es obligatorio></mat-error>
+                    <mat-error *ngIf="userForm.get('telefono')?.hasError('pattern')">Caracter no valido. Solo se permiten numeros de 10 digitos</mat-error>
+                </mat-form-field>
+            </form>
+        </mat-card>
+    </div>
+</div>

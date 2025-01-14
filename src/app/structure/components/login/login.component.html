@@ -1,0 +1,37 @@
+<p>login works!</p>
+<section>
+    <aside id="center">
+        <div class="formulario">
+            <form (submit)="verify()">
+                <h2>Iniciar Sesion</h2>
+                <div class="input-center">
+                    <i class="fa fa-envelope"></i>
+                    <input type="email" required>
+                    <label>Email</label>
+                </div>
+                <div class="input-center">
+                    <i class="fa fa-lock"></i>
+                    <input type="password" required>
+                    <label>Contraseña</label>
+                </div>
+                <div class="olvidar">
+                    <label>
+                        <input type="checkbox"> Recordar
+                        <a href="#">Olvide la contrasena</a>
+                    </label>
+                </div>
+            </form>
+            <div>
+                <button>Acceder</button>
+                <div class="registrar">
+                    <p>No tengo cuenta 
+                        <a routerLink="/Register" 
+                        routerLinkActive="active">
+                            Crear una cuenta
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </aside>
+</section>

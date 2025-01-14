@@ -1,0 +1,16 @@
+<div class="card">
+  <button (click)="closeDialog()" class="close-button" disableRipple>
+    <mat-icon >close</mat-icon>
+  </button>
+  <div class="mat-dialog-content">
+    <ng-container [ngComponentOutlet]="data.component"></ng-container>
+  </div>
+</div>
+<!-- <mat-card>
+  <mat-card-content>
+    <ng-container *ngComponentOutlet="data.component"></ng-container>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="dialogRef.close()">Cerrar</button>
+  </mat-card-actions>
+</mat-card> -->

@@ -1,0 +1,46 @@
+export interface SideNavToogle{
+    screenWidth:number;
+    collapsed:boolean;
+}
+export const navbarData =[
+    {
+        routerLink:'Home',
+        icon:'home',
+        label:'Inicio'
+    },
+    {
+        routerLink:'User',
+        icon:'person',
+        label:'Usuarios'
+    },
+    {
+        routerLink:'Installation',
+        icon:'location_on',
+        label:'Instalaciones'
+    },
+    {
+        routerLink:'Time',
+        icon:'calendar_month',
+        label:'Horario'
+    },
+    {
+        routerLink:'Tool',
+        icon:'construction',
+        label:'Herramientas'
+    },
+    {
+        routerLink:'Reservation',
+        icon:'event',
+        label:'Reservas'
+    },
+    {
+        routerLink:'Report',
+        icon:'description',
+        label:'Reportes'
+    },
+    {
+        routerLink:'History',
+        icon:'history',
+        label:'Historial'
+    },
+]

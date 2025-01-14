@@ -1,0 +1,78 @@
+/* .close-button {
+    position: sticky;
+    top: 5px;
+    right: 16px;
+    
+   
+    
+  }
+  
+  .close-button mat-icon {
+    font-size: 24px;
+    color: #000;
+  }
+.card{
+    padding: 0;
+    background-color: #f9f9f9;
+}
+   */
+   /* .card {
+    position: relative;
+    padding: 0;
+    background-color: #f9f9f9;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 15px; 
+    right: 13px;
+    background: transparent;
+    z-index: 1000; 
+    cursor: pointer;
+    border: none;
+  }
+  
+  .close-button mat-icon {
+    font-size: 20px;
+    color: #000; 
+    
+  } */
+  .card {
+    position: relative; /* Necesario para que el botón se posicione correctamente */
+    padding: 20px;
+    background-color: #ffffff;
+    width: 100%;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 15px; /* Ajusta según tu diseño */
+    right: 13px; /* Ajusta según tu diseño */
+    background: transparent;
+    z-index: 1000; /* Asegura que el botón esté por encima del contenido */
+    cursor: pointer;
+    border: none;
+    border-radius: 25%; /* Hace el fondo del botón circular */
+    padding: 8px; /* Asegura que el área del botón sea suficientemente grande */
+    transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s; /* Transición suave */
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  
+  .close-button:hover {
+    transform: scale(1.2); /* Agranda el botón ligeramente al pasar el cursor */
+    background-color: rgba(0, 0, 0, 0.1); /* Fondo sombreado circular */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3); /* Sombreado suave alrededor del botón */
+  }
+  
+  .close-button mat-icon {
+    font-size: 25px;
+    color: #000; /* Color inicial */
+    transition: color 0.2s; /* Transición suave para el cambio de color */
+  }
+  
+  .close-button:hover mat-icon {
+    color: #d32f2f; /* Cambia a rojo al pasar el cursor */
+  }
+  

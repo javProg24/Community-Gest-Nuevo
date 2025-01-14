@@ -1,0 +1,10 @@
+<div class="buttons">
+    <h1><strong>Herramientas</strong></h1>
+    <button mat-flat-button color="accent" (click)="openDialog()">
+        <mat-icon>add</mat-icon>
+        Nuevo
+    </button>
+</div>
+<div class="table-section">
+    <app-table [titulo]="title" [columnas]="columns" [datos]="toolList" (action)="onAction($event)"></app-table>
+</div>

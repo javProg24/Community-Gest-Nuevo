@@ -1,0 +1,82 @@
+<mat-card class="register-card">
+  <mat-card-title class="title">
+    <strong>Datos de la Instalacion</strong>
+  </mat-card-title>
+  <mat-card-content>
+    <form class="register-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+      <!--Instalacion-->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Instalacion</mat-label>
+        <input matInput formControlName="instalacion" type="text" >
+        <mat-error *ngIf="formGroup.get('instalacion')?.hasError('required')">El nombre es obligatorio</mat-error>
+        <mat-error *ngIf="formGroup.get('instalacion')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+      </mat-form-field>
+      <!--Tipo-->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Tipo</mat-label>
+        <input matInput type="text" formControlName="tipo">
+        <mat-error *ngIf="formGroup.get('tipo')?.hasError('required')">El nombre es obligatorio</mat-error>
+        <mat-error *ngIf="formGroup.get('tipo')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+      </mat-form-field>
+      <!--Capacidad-->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Capacidad</mat-label>
+        <input matInput type="number" formControlName="capacidad">
+        <mat-error *ngIf="formGroup.get('capacidad')?.hasError('required')">
+          La capacidad es obligatoria
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('capacidad')?.hasError('min')">
+          El valor mínimo permitido es {{ formGroup.get('capacidad')?.errors?.['min']?.min }}
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('capacidad')?.hasError('max')">
+          El valor máximo permitido es {{ formGroup.get('capacidad')?.errors?.['max']?.max }}
+        </mat-error>
+        <mat-error *ngIf="formGroup.get('capacidad')?.hasError('pattern')">
+          Solo se permiten números positivos
+        </mat-error>
+      </mat-form-field>
+      <!--Descripcion-->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Descripcion</mat-label>
+        <input matInput type="text" formControlName="descripcion">
+        <mat-error *ngIf="formGroup.get('descripcion')?.hasError('required')">El nombre es obligatorio</mat-error>
+        <mat-error *ngIf="formGroup.get('descripcion')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Dia</mat-label>
+        <mat-select formControlName="dia">   
+            <mat-option value="" disabled>Seleccione...</mat-option>
+            <mat-option *ngFor="let dia of dias" [value]="dia.value">
+                {{dia.label}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Seleccione hora inicio</mat-label>
+        <input matInput [matTimepicker]="pickerInicio" formControlName="hora_Inicio">
+        <mat-timepicker-toggle matIconSuffix [for]="pickerInicio"/>
+        <mat-timepicker #pickerInicio/>
+    </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Seleccione hora fin</mat-label>
+        <input matInput [matTimepicker]="pickerFin" formControlName="hora_Fin">
+        <mat-timepicker-toggle matIconSuffix [for]="pickerFin"/>
+        <mat-timepicker #pickerFin/>
+    </mat-form-field>
+    <section class="example-section">
+        <mat-checkbox class="example-margin" [disabled]="true">Estado</mat-checkbox>
+      </section>
+
+
+      <div class="form-buttons">
+        <button mat-raised-button color="primary" type="submit">
+          Guardar
+        </button>
+        <button mat-raised-button color="warn" type="reset" (click)="close()">
+          Cancelar
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

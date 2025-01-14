@@ -1,0 +1,331 @@
+{
+  "usuario": [
+    {
+      "id": "1",
+      "nombre": "Carlos",
+      "apellido":"Andrade",
+      "correo": "carlos.andrade@outlook.com",
+      "telefono": "0985123456"
+    },
+    {
+      "id": "2",
+      "nombre": "Luis Enrique",
+      "apellido":"Sánchez",
+      "correo": "luis.sanchez@hotmail.com",
+      "telefono": "0983246789"
+    },
+    {
+      "id": "3",
+      "nombre": "Veronica",
+      "apellido":"Delgado",
+      "correo": "paola.delgado@yahoo.com",
+      "telefono": "0994578234"
+    },
+    {
+      "id": "4",
+      "nombre": "Natalia",
+      "apellido":"Gómez",
+      "correo": "natalia.gomez@icloud.com",
+      "telefono": "0976543210"
+    },
+    {
+      "id": "5",
+      "nombre": "Marco",
+      "apellido":"Diaz",
+      "correo": "Marco.diaz@live.com",
+      "telefono": "0941234567"
+    }
+  ],
+  "historial": [
+    {
+      "id": "08f2",
+      "usuario": "Carlos Andrade",
+      "tipo": "Instalacion",
+      "descripcion": "Salón comunal",
+      "fechaInicio": "2024-06-15T10:00:00",
+      "fechaFin": "2024-06-15T12:00:00"
+    },
+    {
+      "id": "bfd5",
+      "usuario": "Luis Enrique Sánchez",
+      "tipo": "Herramienta",
+      "descripcion": "Cortadora de Césped Eléctrica",
+      "fechaInicio": "2024-06-20T14:00:00",
+      "fechaFin": "2024-06-20T16:00:00"
+    },
+    {
+      "id": "54cc",
+      "usuario": "Carlos Andrade",
+      "tipo": "Instalacion",
+      "descripcion": "Salón comunal",
+      "fechaInicio": "2024-06-15T10:00:00",
+      "fechaFin": "2024-06-15T12:00:00"
+    },
+    {
+      "id": "547f",
+      "usuario": "Luis Enrique Sánchez",
+      "tipo": "Herramienta",
+      "descripcion": "Cortadora de Césped Eléctrica",
+      "fechaInicio": "2024-06-20T14:00:00",
+      "fechaFin": "2024-06-20T16:00:00"
+    }
+  ],
+  "reporte": [
+    {
+      "id": "1",
+      "titulo": "Fuga de agua en la calle principal",
+      "descripcion": "Hay una fuga de agua cerca del mercado central.",
+      "recursoAfectado": "Agua",
+      "estado": true
+    },
+    {
+      "id": "2",
+      "titulo": "Árbol caído en el parque",
+      "descripcion": "Un árbol cayó bloqueando la entrada al parque.",
+      "recursoAfectado": "Árbol",
+      "estado": false
+    },
+    {
+      "id": "3",
+      "titulo": "Alumbrado público dañado",
+      "descripcion": "La luz en la esquina de la avenida principal no funciona.",
+      "recursoAfectado": "Electricidad",
+      "estado": false
+    },
+    {
+      "id": "4",
+      "titulo": "Basura acumulada en la plaza",
+      "descripcion": "Montones de basura están obstruyendo la vía.",
+      "recursoAfectado": "Limpieza",
+      "estado": false
+    },
+    {
+      "id": "5",
+      "titulo": "Transformador dañado en la zona residencial",
+      "descripcion": "Se reporta un apagón debido a un transformador quemado.",
+      "recursoAfectado": "Electricidad",
+      "estado": false
+    },
+    {
+      "id": "6",
+      "titulo": "Hueco en la carretera principal",
+      "descripcion": "Hay un hueco que representa peligro para los vehículos.",
+      "recursoAfectado": "Carretera",
+      "estado": true
+    },
+    {
+      "id": "7",
+      "titulo": "Plaga en los árboles del parque",
+      "descripcion": "Una plaga está afectando los árboles del parque central.",
+      "recursoAfectado": "Árboles",
+      "estado": true
+    },
+    {
+      "titulo": "Falla en semáforos",
+      "descripcion": "El semáforo de la intersección principal no está funcionando.",
+      "recursoAfectado": "Semáforos",
+      "estado": true,
+      "id": "8"
+    },
+    {
+      "titulo": "Falla sistema de sonido",
+      "descripcion": "El sistema de sonido comunitario suena muy alterado y mal.",
+      "recursoAfectado": "Sistema Sonido C.",
+      "estado": true,
+      "id": "68bc"
+    },
+    {
+      "titulo": "Problema Alcantarillado",
+      "descripcion": "El alcantarillado se encuentra colapsado.",
+      "recursoAfectado": "Alcantarillado",
+      "estado": true,
+      "id": "5edb"
+    }
+  ],
+  "reserva_Herramientas":[
+    {
+      "id": 1,
+      "id_usuario": 1,
+      "dia":"Lunes",
+      "fecha":"2025-01-15",
+      "hora_Inicio":"08:00",
+      "hora_Fin":"16:00",
+      "disponibilidad":"Reservado"
+    }
+  ],
+  "reserva_Instalacion": [
+    {
+      "id": 1,
+      "id_usuario": 1,
+      "id_instalacion":1,
+      "fecha":"2025-01-15",
+      "disponibilidad":"Reservado"
+    },
+    {
+      "id": 1,
+      "id_usuario":2,
+      "id_instalacion":2,
+      "fecha":"2025-01-15",
+      "disponibilidad":"Reservado"
+    }
+  ],
+  "herramientas": [
+    {
+      "id": 1,
+      "herramienta": "Cortadora de Césped Eléctrica",
+      "ubicacion": "Almacén Central",
+      "descripcion": "Herramienta eléctrica para cortar césped de áreas pequeñas y medianas.",
+      "cantidad":10,
+      "estado":"Disponible"
+    },
+    {
+      "id": 2,
+      "herramienta": "Mesa de Eventos Plegable",
+      "ubicacion": "Almacén de Eventos",
+      "descripcion": "Mesa de eventos para colocar en salones o áreas al aire libre.",
+      "cantidad":10,
+      "estado":"Disponible"
+    },
+    {
+      "id": 3,
+      "herramienta": "Pistola de Pintura Eléctrica",
+      "ubicacion": "Almacén de Herramientas",
+      "descripcion": "Herramienta eléctrica para pintar grandes superficies de manera uniforme.",
+      "cantidad":10,
+      "estado":"Disponible"
+    },
+    {
+      "id": 4,
+      "herramienta": "Escalera Extensible",
+      "ubicacion": "Almacén de Herramientas",
+      "descripcion": "Escalera de aluminio, ideal para trabajos de jardinería y mantenimiento.",
+      "cantidad":10,
+      "estado":"Disponible"
+    }
+  ],
+  "instalaciones": [
+    {
+      "id": 1,
+      "instalacion": "Salón Comunal A",
+      "tipo": "Recreativa",
+      "capacidad": 50,
+      "descripcion":"Sala comunal",
+      "dia": "Lunes",
+      "hora_Inicio": "08:00",
+      "hora_Fin":"12:00",
+      "activo":"Disponible"
+    },
+    {
+      "id": "2",
+      "instalacion": "Cancha de Fútbol",
+      "tipo": "Deportiva",
+      "capacidad": 20,
+      "disponibilidad":"Disponible",
+      "descripcion":"Sala comunal",
+      "dia": "Martes",
+      "hora_Inicio": "08:00",
+      "hora_Fin":"12:00",
+      "activo":"Disponible"
+    },
+    {
+      "id": "3",
+      "instalacion": "Salón de Eventos",
+      "tipo": "Recreativa",
+      "capacidad": 100,
+      "descripcion":"Sala comunal",
+      "dia": "Martes",
+      "hora_Inicio": "08:00",
+      "hora_Fin":"12:00",
+      "activo":"Disponible"
+    },
+    {
+      "id": "4",
+      "instalacion": "Gimnasio Comunitario",
+      "tipo": "Deportiva",
+      "capacidad": 30,
+      "descripcion":"Sala comunal",
+      "dia": "Martes",
+      "hora_Inicio": "08:00",
+      "hora_Fin":"12:00",
+      "activo":"Disponible"
+    }
+  ],
+  "integrantes": [
+    {
+      "id": "1",
+      "name": "Felix Javier",
+      "lastName": "Tomala Gonzalez",
+      "photo": "https://avatars.githubusercontent.com/u/170821192?v=4",
+      "link": "https://github.com/javProg24",
+      "phone": 9667182694,
+      "role": "Lider - Colaborador en CRUD Historial"
+    },
+    {
+      "id": "2",
+      "name": "Pedro Andres",
+      "lastName": "Aviles Baque",
+      "photo": "https://avatars.githubusercontent.com/u/177564096?v=4",
+      "link": "https://github.com/Peter16Xo",
+      "phone": 946593534,
+      "role": "Colaborador en CRUD Usuario"
+    },
+    {
+      "id": "3",
+      "name": "Jean Marco",
+      "lastName": "Romero Serrano",
+      "photo": "https://avatars.githubusercontent.com/u/163467322?v=4",
+      "link": "https://github.com/JMarco20",
+      "phone": 954456734,
+      "role": "Colaborador en CRUD Reportes"
+    },
+    {
+      "id": "4",
+      "name": "Marcos Isaac",
+      "lastName": "Falconni Villamar",
+      "photo": "https://avatars.githubusercontent.com/u/189173702?v=4",
+      "link": "https://github.com/FalconMarc",
+      "phone": 945643578,
+      "role": "Colaborador en CRUD Herramientas"
+    },
+    {
+      "id": "5",
+      "name": "Steven David",
+      "lastName": "Falquez Pico",
+      "photo": "https://avatars.githubusercontent.com/u/172863156?v=4",
+      "link": "https://github.com/ING-DAVID-777",
+      "phone": 945678534,
+      "role": "Colaborador en CRUD Herramientas"
+    },
+    {
+      "id": "6",
+      "name": "Kevin Andres",
+      "lastName": "Leon Suarez",
+      "photo": "https://avatars.githubusercontent.com/u/108085865?v=4",
+      "link": "https://github.com/KevinLeon2002",
+      "phone": 906330537,
+      "role": "Colaborador en CRUD Reservas"
+    }
+  ],
+  "horarios":[
+    {
+      "id":1,
+      "id_instalacion":1,
+      "dia": "Lunes",
+      "hora_Inicio": "08:00",
+      "hora_Fin":"12:00",
+      "activo":"Disponible",
+      "instalacion_ID":1,
+      "nombre_Instalacion":"Salón Comunal A"
+    }
+  ],
+  "administrador":[
+    {
+      "id": "1",
+      "name": "Felix Javier",
+      "lastName": "Tomala Gonzalez",
+      "email": "carlos.andrade@outlook.com",
+      "phone": "0985123456",
+      "password":"admin123"
+    }
+  ]
+}

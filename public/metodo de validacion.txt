@@ -1,0 +1,20 @@
+logindata(login:formgroup){
+	this.http.get<any>("ruta-json").subscribe(
+	res=>{
+	const user = res.find((a:any)=>{
+	return a.fname===this.login.value.fname && a.pasword===this.login.value.pasword
+})
+if(user){
+	alert('')
+	this.login.reset()
+	this._route.navigate(['rutadenombre'])
+}else
+{
+	alert()
+	this._route.navigate(['login'])
+},err=>{
+	alert('no se enucentra')
+}
+}
+)
+}

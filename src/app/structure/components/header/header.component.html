@@ -1,0 +1,22 @@
+<header>
+  
+    <div class="navbar-left">
+        <!-- <h1>Sistema de recursos comunitarios</h1> -->
+        <h1>CommunityGest</h1>
+    </div>
+    <nav class="navbar-right">
+        <ul>
+            <li *ngFor="let item of menuNav">
+                <button mat-button [routerLink]="item.routerLink" 
+                        routerLinkActive="active" 
+                        [disabled]="isHomeActive() && item.routerLink === '/Home'">
+                        <span *ngIf="!item.icon">{{ item.title }}</span>
+                        <span *ngIf="item.icon" class="icon">
+                            <mat-icon>{{ item.icon }}</mat-icon>
+                        </span>
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+</header>
