@@ -13,7 +13,7 @@ if(user){
 	alert()
 	this._route.navigate(['login'])
 },err=>{
-	alert('no se enucentra')
+	alert('no se encuentra')
 }
 }
 )
