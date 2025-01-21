@@ -32,7 +32,7 @@ export class HorarioService {
           )
           return{
             ...timetable,
-            nombreInstall:instalacion?instalacion.instalacion:'Desconocida'
+            nombreInstall:instalacion?instalacion.nombre:'Desconocida'
           }
         })
       })

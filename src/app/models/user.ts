@@ -3,6 +3,7 @@ import { IPersonDataForm } from "./person.data";
 
 export interface User{
     id?:number;
+    cedula:string;
     nombre:string;
     apellido:string;
     correo:string;
@@ -10,6 +11,7 @@ export interface User{
 }
 export class userResponse{
     id?=0;
+    cedula='';
     nombre='';
     apellido='';
     correo='';

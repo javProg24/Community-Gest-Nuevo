@@ -1,16 +1,16 @@
 export interface Tool{
     id?:number;
-    herramienta:string;
+    nombre:string;
     ubicacion:string;
     descripcion:string;
     cantidad:number;
-    estado:string
+    disponibilidad:string
 }
 export class toolResponse{
     id?=0;
-    herramienta='';
+    nombre='';
     ubicacion='';
     descripcion='';
     cantidad=0;
-    estado=''
+    disponibilidad=''
 }

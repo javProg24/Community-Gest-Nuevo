@@ -15,7 +15,7 @@ export class InstallationService {
   }
   getNombreInstal():Observable<string[]>{
     return this.http.get<Installation[]>(this.jsonUrl).pipe(
-      map(instalacion => instalacion.map(instalacion => instalacion.instalacion))
+      map(instalacion => instalacion.map(instalacion => instalacion.nombre))
     )
   }
   getHorario(instalacionId: number): Observable<string | null> {
