@@ -26,23 +26,3 @@ export const getEntityProperties=(entidad:string):Array<string>=>{
     const instance=new EntityClass()
     return Object.keys(instance)
 }
-// export const getEntityProperties = (entidad:string):Array<any>=>{
-//     let resultados:any=[];
-//     let clase:any;
-//     switch(entidad){
-//         case 'instalation':
-//             clase = new instalationResponse();break;
-//         case 'user':
-//             clase = new userResponse();break;
-//         case 'tool':
-//             clase = new toolResponse();break;
-//         case 'report':
-//             clase = new reportResponse();break;
-//         case 'reservation':
-//             clase = new reservationResponse();break;
-//     }
-//     if(clase){
-//         resultados = Object.keys(clase);
-//     }
-//     return resultados;
-// }

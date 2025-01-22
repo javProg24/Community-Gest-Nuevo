@@ -14,30 +14,5 @@ export class InstallationService {
   getInstall():Observable<Installation[]>{
     return this.services.getService<Installation>(this.jsonAPI)
   }
-  // getNombreInstal():Observable<string[]>{
-  //   return this.http.get<Installation[]>(this.jsonUrl).pipe(
-  //     map(instalacion => instalacion.map(instalacion => instalacion.nombre))
-  //   )
-  // }
-  // getHorario(instalacionId: number): Observable<string | null> {
-  //   return new Observable(observer => {
-  //     this.http.get<any[]>(this.jsonUrl).subscribe(
-  //       (instalaciones) => {
-  //         // Buscar la instalación por ID
-  //         const instalacion = instalaciones.find(inst => inst.id === instalacionId);
-          
-  //         if (instalacion) {
-  //           // Concatenar el horario de inicio y fin
-  //           observer.next(`${instalacion.hora_Inicio} - ${instalacion.hora_Fin}`);
-  //         } else {
-  //           observer.next(null);  // Si no encuentra la instalación, devuelve null
-  //         }
-  //       },
-  //       (error) => {
-  //         observer.error('Error al cargar los horarios');
-  //       }
-  //     );
-  //   });
-  // }
   
 }

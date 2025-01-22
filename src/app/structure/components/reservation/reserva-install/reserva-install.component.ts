@@ -33,48 +33,18 @@ import { MatTabsModule } from '@angular/material/tabs';
   templateUrl: './reserva-install.component.html',
   styleUrl: './reserva-install.component.css'
 })
-export class ReservaInstallComponent implements OnInit,AfterViewInit{
-Eliminar(_t166: any) {
-throw new Error('Method not implemented.');
-}
-Editar(_t166: any) {
-throw new Error('Method not implemented.');
-}
+export class ReservaInstallComponent implements OnInit{
   dataSource=new MatTableDataSource<Reservation_Install>();
-onAction($event: Accion<any>) {
-throw new Error('Method not implemented.');
-}
-  installList: Reservation_Install[] = [];
-  columns: string[] = [];
-  title = 'Instalaciones';
-  displayedColumns = ['usuario', 'instalacion', 'dia','horaInicio','horaFin','fecha','disponibilidad','acciones'];
-close() {
-throw new Error('Method not implemented.');
-}
-getReserIn(){
-  this.columns=getEntityProperties('reserva_Install')
-  this.instalser.getReserva_Ins().subscribe((data)=>{
-    this.installList=data;
-  })
-}
-onSubmit() {
-throw new Error('Method not implemented.');
-}
-  users: { id?: number; concatenated: string }[] = [];
-  formGroup!:FormGroup;
-  installations: { id?: number; attributeValue: string }[] = [];
-  horarioSeleccionado: string | null = null;
-  constructor(private fb:FormBuilder,
-    private instalser:ReservationService,
-  ){}
-  @ViewChild(MatPaginator) paginator!:MatPaginator;
-  ngAfterViewInit(): void {
-    this.dataSource.paginator=this.paginator;
-  }
   items=[
     {value:'reservada',label:'Reservada'},
     {value:'finalizada',label:'Finalizada'},
   ]
+  installList: Reservation_Install[] = [];
+  columns: string[] = [];
+  title = 'Instalaciones';
+  constructor(private fb:FormBuilder,
+    private instalser:ReservationService,
+  ){}
   ngOnInit(): void {
     this.formGroup=this.fb.group({
           usuario:['',[Validators.required,]],
@@ -86,35 +56,20 @@ throw new Error('Method not implemented.');
     // this.loadInstallations()
     this.getReserIn()
   }
-  // loadUsers(): void {
-  //   this.service.getUserNameWithID().subscribe(
-  //     (data) => {
-  //       this.users = data; // Asignar los datos obtenidos a la variable users
-  //     },
-  //     (error) => {
-  //       console.error('Error al cargar usuarios', error);
-  //     }
-  //   );
-  // }
-  // loadInstallations() {
-  //   this.services.getInstallationNamesWithId().subscribe(
-  //     (data) => {
-  //       this.installations = data; // Asignar las instalaciones obtenidas
-  //     },
-  //     (error) => {
-  //       console.error('Error al cargar instalaciones', error);
-  //     }
-  //   );
-  // }
-
-  // loadHorarios(instalacionID:number){
-  //   this.serviHor.getHorario(instalacionID).subscribe(
-  //     (horario)=>{
-  //       this.horarioSeleccionado=horario
-  //     },
-  //     (error)=>{
-  //       console.error('Error al cargar horarios', error);
-  //     }
-  //   )
-  // }
+    close() {
+      throw new Error('Method not implemented.');
+    }
+    getReserIn(){
+      this.columns=getEntityProperties('reserva_Install')
+      this.instalser.getReserva_Ins().subscribe((data)=>{
+        this.installList=data;
+      })
+    }
+  onSubmit() {
+    throw new Error('Method not implemented.');
+  }  formGroup!:FormGroup;
+  onAction($event: Accion<any>) {
+    throw new Error('Method not implemented.');
+  }
+  
 }

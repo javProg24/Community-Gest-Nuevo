@@ -12,12 +12,4 @@ export class UserService {
   getUsers():Observable<User[]>{
     return this.services.getService<User>(this.jsonAPI)
   }
-  // getUserNameWithID(): Observable<{ id?: number; concatenated: string }[]> {
-  //   return this.services.getAttributeWithConcatenation(
-  //     this.jsonUrl,
-  //     (entity:User) => `${entity.nombre} ${entity.apellido}` // Concatenación de atributos
-  //   );
-  // }
-  
-  
 }

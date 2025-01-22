@@ -6,7 +6,7 @@
             </mat-card-title>
             <mat-card-content>
                 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-                    <mat-form-field appearance="fill" class="full-width">
+                    <!-- <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Usuario</mat-label>
                         <mat-select formControlName="usuario">
                             <mat-option value="" disabled="">Seleccione..</mat-option>
@@ -14,7 +14,7 @@
                                 {{user.concatenated}}
                             </mat-option>
                         </mat-select>
-                    </mat-form-field>
+                    </mat-form-field> -->
                     
                     <!-- <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Instalacion</mat-label>
@@ -27,10 +27,10 @@
                         </mat-select>
                     </mat-form-field> -->
         
-                    <mat-form-field appearance="fill">
+                    <!-- <mat-form-field appearance="fill">
                         <mat-label>Horario</mat-label>
                         <input matInput [value]="horarioSeleccionado" readonly class="disabled-field" />
-                      </mat-form-field>
+                    </mat-form-field> -->
         
                     <mat-form-field>
                         <mat-label>Fecha</mat-label>
@@ -64,57 +64,6 @@
     <mat-tab label="Registros" >
         <div class="table-section">
             <app-table [title]="title" [columnas]="columns" [datos]="installList" (action)="onAction($event)"></app-table>
-            <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-                <ng-container matColumnDef="usuario">
-                    <th mat-header-cell *matHeaderCellDef>Usuario</th>
-                    <td mat-cell *matCellDef="let reserva">
-                        {{reserva.usuario.nombre}}
-                        {{reserva.usuario.apellido}}
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="instalacion">
-                    <th mat-header-cell *matHeaderCellDef>Instalacion</th>
-                    <td mat-cell *matCellDef="let reserva">
-                        {{reserva.instalacion.nombre}}
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="dia">
-                    <th mat-header-cell *matHeaderCellDef>Dia</th>
-                    <td mat-cell *matCellDef="let reserva">{{reserva.instalacion.dia}}</td>
-                </ng-container>
-                 <ng-container matColumnDef="horaInicio">
-                    <th mat-header-cell *matHeaderCellDef>Hora Inicio</th>
-                    <td mat-cell *matCellDef="let reserva">{{reserva.instalacion.horaInicio}}</td>
-                </ng-container>
-                <ng-container matColumnDef="horaFin">
-                    <th mat-header-cell *matHeaderCellDef>Hora Fin</th>
-                    <td mat-cell *matCellDef="let reserva">{{reserva.instalacion.horaFin}}</td>
-                </ng-container>
-                <ng-container matColumnDef="fecha">
-                    <th mat-header-cell *matHeaderCellDef>Fecha</th>
-                    <td mat-cell *matCellDef="let reserva">{{reserva.fecha}}</td>
-                </ng-container>
-                <ng-container matColumnDef="disponibilidad">
-                    <th mat-header-cell *matHeaderCellDef>Disponibilidad</th>
-                    <td mat-cell *matCellDef="let reserva">{{reserva.disponibilidad}}</td>
-                </ng-container>
-                <ng-container matColumnDef="acciones">
-                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                    <td class="px-2 py-3 text-left action-buttons" width="auto" mat-cell *matCellDef="let reserva">
-                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-6"
-                        mat-icon-button color="primary" (click)="Editar(reserva)">
-                            <mat-icon>edit</mat-icon>
-                        </button>
-                        <button class="font-medium text-red-800 dark:text-red-700 hover:underline pr-6"
-                        mat-icon-button color="primary" (click)="Eliminar(reserva)">
-                            <mat-icon>delete</mat-icon>
-                        </button>
-                    </td>
-                </ng-container>
-                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                <tr mat-row *matRowDef="let row;columns:displayedColumns;"></tr>
-            </table>
-            <mat-paginator [length]="200" [pageSizeOptions]="[10, 7, 20]" aria-label="Select page" showFirstLastButtons></mat-paginator> -->
         </div>
     </mat-tab>
 </mat-tab-group>

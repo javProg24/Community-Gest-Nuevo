@@ -13,7 +13,4 @@ export class ToolService {
   getTools():Observable<Tool[]>{
     return this.services.getService<Tool>(this.jsonAPI)
   }
-  // getHerramWithID(): Observable<{ id?: number; attributeValue: string }[]> {
-  //     return this.services.getAttribute<Tool, 'nombre'>(this.jsonUrl, 'nombre');
-  // }
 }

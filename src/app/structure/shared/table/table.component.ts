@@ -1,16 +1,21 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NativeDateModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { Accion } from '../../../models/tabla-columna';
 import { EstadoTextoPipe } from "../../../pipe/estado-texto.pipe";
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-table',
-  imports: [MatIconModule, NativeDateModule, EstadoTextoPipe],
+  imports: [MatIconModule, NativeDateModule, EstadoTextoPipe,MatPaginator],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
-export class TableComponent {
+export class TableComponent implements AfterViewInit{
+  @ViewChild(MatPaginator) paginator!:MatPaginator;
+  ngAfterViewInit(): void {
+    // this.dataSource.paginator = this.paginator;
+  }
   title='';
   columns:string[]=[]
   dataSource:any[]=[]

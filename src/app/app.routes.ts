@@ -20,7 +20,6 @@ import { ReportFormComponent } from './structure/components/reports/report-form/
 import { TimetableformComponent } from './structure/components/timetable/timetableform/timetableform.component';
 import { ReservaInstallComponent } from './structure/components/reservation/reserva-install/reserva-install.component';
 import { ReservaHerraComponent } from './structure/components/reservation/reserva-herra/reserva-herra.component';
-// import { SideMenuComponent } from './structure/components/side-menu/side-menu.component';
 
 export const routes: Routes = [
     {path: '', redirectTo: 'Home', pathMatch: 'full'},

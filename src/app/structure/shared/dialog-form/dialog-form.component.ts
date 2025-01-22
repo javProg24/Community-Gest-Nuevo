@@ -32,8 +32,4 @@ export class DialogFormComponent {
   closeDialog(){
     this.dialogRef.close();
   }
-  // public dialogRef!: MatDialogRef<DialogFormComponent>;
-  // constructor(
-  //   @Inject(MAT_DIALOG_DATA) public data: { component: Type<I_FormComponent> },
-  // ) {}
 }
