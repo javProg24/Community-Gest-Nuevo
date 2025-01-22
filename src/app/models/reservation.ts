@@ -25,6 +25,7 @@ export interface Reserva_Herr{
     id?: number,
     usuario_ID: number,
     herramienta_ID:number,
+    dia:string,
     fecha:Date,
     horaInicio:string,
     horaFin:string,
@@ -36,6 +37,7 @@ export class reserva_Herra_Response{
     id?=0;
     usuario= "";
     herramienta="";
+    dia="";
     fecha=new Date()
     horaInicio="";
     horaFin=""
