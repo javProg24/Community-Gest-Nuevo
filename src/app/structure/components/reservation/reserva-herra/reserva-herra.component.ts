@@ -61,8 +61,8 @@ export class ReservaHerraComponent implements OnInit{
       hora_Inicio:['',[Validators.required,]],
       hora_Fin:['',[Validators.required,]]
     })
-    this.loadUsers();
-    this.loadHerr()
+    // this.loadUsers();
+    // this.loadHerr()
     this.getReseHer()
   }
   users: { id?: number; concatenated: string }[] = [];
@@ -75,24 +75,24 @@ export class ReservaHerraComponent implements OnInit{
     throw new Error('Method not implemented.');
   }
   formGroup!:FormGroup;
-  loadUsers(): void {
-    this.service.getUserNameWithID().subscribe(
-      (data) => {
-        this.users = data; // Asignar los datos obtenidos a la variable users
-      },
-      (error) => {
-        console.error('Error al cargar usuarios', error);
-      }
-    );
-  }
-  loadHerr(){
-    this.serviceHe.getHerramWithID().subscribe(
-      (data) => {
-        this.herrs = data; // Asignar las instalaciones obtenidas
-      },
-      (error) => {
-        console.error('Error al cargar instalaciones', error);
-      }
-    );
-  }
+  // loadUsers(): void {
+  //   this.service.getUserNameWithID().subscribe(
+  //     (data) => {
+  //       this.users = data; // Asignar los datos obtenidos a la variable users
+  //     },
+  //     (error) => {
+  //       console.error('Error al cargar usuarios', error);
+  //     }
+  //   );
+  // }
+  // loadHerr(){
+  //   this.serviceHe.getHerramWithID().subscribe(
+  //     (data) => {
+  //       this.herrs = data; // Asignar las instalaciones obtenidas
+  //     },
+  //     (error) => {
+  //       console.error('Error al cargar instalaciones', error);
+  //     }
+  //   );
+  // }
 }

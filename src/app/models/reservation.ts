@@ -1,6 +1,6 @@
-import { Installation } from "./instalation";
+import { Installation as Instalacion } from "./instalation";
 import { Tool } from "./tool";
-import { User } from "./user";
+import { User as Usuario } from "./user";
 
 export interface Reservation_Install{
     id?: number;
@@ -8,16 +8,16 @@ export interface Reservation_Install{
     instalacion_ID:number,
     fecha:Date,
     disponibilidad:string
-    instalacion?:Installation|null
-    usuario?:User|null
+    instalacion?:Instalacion|null
+    usuario?:Usuario|null
 }
 export class reservation_Install_Response{
     id?=0;
     usuario="";
-    nombre_Instalacion="";
+    instalacion="";
     dia=""
-    Hora_Inicio=""
-    Hora_Fin=""
+    HoraInicio=""
+    HoraFin=""
     fecha=new Date();
     disponibilidad=""
 }
@@ -27,11 +27,11 @@ export interface Reserva_Herr{
     herramienta_ID:number,
     dia:string,
     fecha:Date,
-    hora_Inicio:string,
-    hora_Fin:string,
+    horaInicio:string,
+    horaFin:string,
     disponibilidad:string
     herramienta?:Tool|null
-    usuario?:User|null
+    usuario?:Usuario|null
 }
 export class reserva_Herra_Response{
     id?=0;
@@ -39,7 +39,7 @@ export class reserva_Herra_Response{
     herramienta="";
     dia="";
     fecha=new Date()
-    hora_Inicio="";
-    hora_Fin=""
+    horaInicio="";
+    horaFin=""
     disponibilidad=""
 }

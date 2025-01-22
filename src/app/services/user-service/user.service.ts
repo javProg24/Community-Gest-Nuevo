@@ -7,17 +7,17 @@ import { User } from '../../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  private jsonUrl='http://localhost:3000/usuario'
+  private jsonAPI='http://localhost:5199/api/Usuarios'
   constructor(private services:GeneralService) { }
   getUsers():Observable<User[]>{
-    return this.services.getService<User>(this.jsonUrl)
+    return this.services.getService<User>(this.jsonAPI)
   }
-  getUserNameWithID(): Observable<{ id?: number; concatenated: string }[]> {
-    return this.services.getAttributeWithConcatenation(
-      this.jsonUrl,
-      (entity:User) => `${entity.nombre} ${entity.apellido}` // Concatenación de atributos
-    );
-  }
+  // getUserNameWithID(): Observable<{ id?: number; concatenated: string }[]> {
+  //   return this.services.getAttributeWithConcatenation(
+  //     this.jsonUrl,
+  //     (entity:User) => `${entity.nombre} ${entity.apellido}` // Concatenación de atributos
+  //   );
+  // }
   
   
 }

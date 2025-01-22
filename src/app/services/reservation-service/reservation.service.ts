@@ -7,8 +7,8 @@ import { Reserva_Herr, Reservation_Install } from '../../models/reservation';
   providedIn: 'root'
 })
 export class ReservationService {
-  private jsonUrlI='http://localhost:3000/reserva_Instalacion'
-  private jsonURLH='http://localhost:3000/reserva_Herramientas'
+  private jsonUrlI='http://localhost:5199/api/ReservacionInstalacions'
+  private jsonURLH='http://localhost:5199/api/ReservacionHerramientas'
   constructor(private services:GeneralService) { }
   getReserva_Ins():Observable<Reservation_Install[]>{
     return this.services.getService<Reservation_Install>(this.jsonUrlI)

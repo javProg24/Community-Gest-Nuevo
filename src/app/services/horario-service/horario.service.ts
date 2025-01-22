@@ -12,7 +12,7 @@ export class HorarioService {
     private jsonUrl='http://localhost:3000/horarios'
     private jsonUrlI: string;
   constructor(private service:GeneralService, private install: InstallationService) { 
-    this.jsonUrlI = this.install.jsonUrl;
+    this.jsonUrlI = this.install.jsonAPI;
   }
   addHorario(Entidad:Timetable):Observable<Timetable>{
     return this.service.addService<Timetable>(this.jsonUrl,Entidad);
@@ -39,6 +39,6 @@ export class HorarioService {
     )
   }
   getInstallationNamesWithId(): Observable<{ id?: number; attributeValue: string }[]> {
-    return this.service.getAttribute<Installation, 'instalacion'>(this.jsonUrlI, 'instalacion');
+    return this.service.getAttribute<Installation, 'nombre'>(this.jsonUrlI, 'nombre');
   }
 }

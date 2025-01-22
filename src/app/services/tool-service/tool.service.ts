@@ -7,12 +7,13 @@ import { Tool } from '../../models/tool';
   providedIn: 'root'
 })
 export class ToolService {
-  private jsonUrl='http://localhost:3000/herramientas'
+  // private jsonUrl='http://localhost:3000/herramientas'
+  private jsonAPI='http://localhost:5199/api/Herramientas'
   constructor(private services:GeneralService) { }
   getTools():Observable<Tool[]>{
-    return this.services.getService<Tool>(this.jsonUrl)
+    return this.services.getService<Tool>(this.jsonAPI)
   }
-  getHerramWithID(): Observable<{ id?: number; attributeValue: string }[]> {
-      return this.services.getAttribute<Tool, 'herramienta'>(this.jsonUrl, 'herramienta');
-  }
+  // getHerramWithID(): Observable<{ id?: number; attributeValue: string }[]> {
+  //     return this.services.getAttribute<Tool, 'nombre'>(this.jsonUrl, 'nombre');
+  // }
 }

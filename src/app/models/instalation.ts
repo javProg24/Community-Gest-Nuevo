@@ -5,8 +5,8 @@ export interface Installation{
     capacidad:number;
     descripcion:string,
     dia:string,
-    hora_Inicio:string,
-    hora_Fin:string,
+    horaInicio:string,
+    horaFin:string,
     disponibilidad:string,
 }
 export class installationResponse{
@@ -16,7 +16,7 @@ export class installationResponse{
     capacidad=0;
     descripcion='';
     dia='';
-    hora_Inicio='';
-    hora_Fin='';
+    horaInicio='';
+    horaFin='';
     disponibilidad='';
 }
