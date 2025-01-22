@@ -26,10 +26,10 @@ import { MatTabsModule } from '@angular/material/tabs';
   selector: 'app-reserva-install',
   imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule,
     MatDatepickerModule, MatInputModule, MatPaginatorModule,
-    MatCheckboxModule, MatSelectModule, MatOptionModule, MatRow, MatHeaderRow,
+    MatCheckboxModule, MatSelectModule, MatOptionModule,
     NgFor, MatNativeDateModule, MatFormField, MatTimepickerModule,
     MatButtonModule, MatTabsModule, MatTableModule, CommonModule,
-    MatIconModule, MatButtonModule],
+    MatIconModule, MatButtonModule, TableComponent],
   templateUrl: './reserva-install.component.html',
   styleUrl: './reserva-install.component.css'
 })
@@ -44,7 +44,7 @@ throw new Error('Method not implemented.');
 onAction($event: Accion<any>) {
 throw new Error('Method not implemented.');
 }
-  // installList: Reservation_Install[] = [];
+  installList: Reservation_Install[] = [];
   columns: string[] = [];
   title = 'Instalaciones';
   displayedColumns = ['usuario', 'instalacion', 'dia','horaInicio','horaFin','fecha','disponibilidad','acciones'];
@@ -52,9 +52,9 @@ close() {
 throw new Error('Method not implemented.');
 }
 getReserIn(){
-  // this.columns=getEntityProperties('reserva_Install')
+  this.columns=getEntityProperties('reserva_Install')
   this.instalser.getReserva_Ins().subscribe((data)=>{
-    this.dataSource.data=data;
+    this.installList=data;
   })
 }
 onSubmit() {

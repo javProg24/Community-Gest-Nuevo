@@ -12,6 +12,9 @@ export class GeneralService implements I_Metodos{
   getService<T>(url: string): Observable<T[]>{
     return this.http.get<T[]>(url);
   }
+  getServiceEntity<T>(url:string,ruta:string):Observable<T[]>{
+    return this.http.get<T[]>(url+ruta);
+  }
   addService<T>(url: string, Entidad: any): Observable<T> {
     return this.http.post<T>(url,Entidad);
   }
