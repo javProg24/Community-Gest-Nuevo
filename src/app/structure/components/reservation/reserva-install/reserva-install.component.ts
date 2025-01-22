@@ -15,21 +15,21 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { UserService } from '../../../../services/user-service/user.service';
 import { HorarioService } from '../../../../services/horario-service/horario.service';
 import { InstallationService } from '../../../../services/installation-service/installation.service';
-import { MatTabsModule } from '@angular/material/tabs';
 import { TableComponent } from "../../../shared/table/table.component";
 import { Reservation_Install } from '../../../../models/reservation';
 import { Accion, getEntityProperties } from '../../../../models/tabla-columna';
 import { ReservationService } from '../../../../services/reservation-service/reservation.service';
 import { MatHeaderRow, MatRow, MatTableDataSource, MatTableModule} from '@angular/material/table'
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { MatTabsModule } from '@angular/material/tabs';
 @Component({
   selector: 'app-reserva-install',
   imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule,
-    MatDatepickerModule, MatInputModule,MatPaginatorModule,
-    MatCheckboxModule, MatSelectModule, MatOptionModule,MatRow,MatHeaderRow,
+    MatDatepickerModule, MatInputModule, MatPaginatorModule,
+    MatCheckboxModule, MatSelectModule, MatOptionModule, MatRow, MatHeaderRow,
     NgFor, MatNativeDateModule, MatFormField, MatTimepickerModule,
-    MatButtonModule, MatTabsModule, MatTableModule,CommonModule,
-    MatIconModule,DatePipe,MatButtonModule],
+    MatButtonModule, MatTabsModule, MatTableModule, CommonModule,
+    MatIconModule, MatButtonModule],
   templateUrl: './reserva-install.component.html',
   styleUrl: './reserva-install.component.css'
 })
@@ -64,9 +64,8 @@ throw new Error('Method not implemented.');
   formGroup!:FormGroup;
   installations: { id?: number; attributeValue: string }[] = [];
   horarioSeleccionado: string | null = null;
-  constructor(private fb:FormBuilder,private service:UserService,
-    private services:HorarioService,private instalser:ReservationService,
-    private serviHor:InstallationService
+  constructor(private fb:FormBuilder,
+    private instalser:ReservationService,
   ){}
   @ViewChild(MatPaginator) paginator!:MatPaginator;
   ngAfterViewInit(): void {

@@ -82,7 +82,7 @@
                     <th mat-header-cell *matHeaderCellDef>Dia</th>
                     <td mat-cell *matCellDef="let reserva">{{reserva.instalacion.dia}}</td>
                 </ng-container>
-                <ng-container matColumnDef="horaInicio">
+                 <ng-container matColumnDef="horaInicio">
                     <th mat-header-cell *matHeaderCellDef>Hora Inicio</th>
                     <td mat-cell *matCellDef="let reserva">{{reserva.instalacion.horaInicio}}</td>
                 </ng-container>
@@ -92,22 +92,21 @@
                 </ng-container>
                 <ng-container matColumnDef="fecha">
                     <th mat-header-cell *matHeaderCellDef>Fecha</th>
-                    <td mat-cell *matCellDef="let reserva">{{reserva.fecha | date: 'dd/MM/yyyy'}}</td>
+                    <td mat-cell *matCellDef="let reserva">{{reserva.fecha}}</td>
                 </ng-container>
                 <ng-container matColumnDef="disponibilidad">
-                    <th matCellDef *matHeaderCellDef>Disponibilidad</th>
+                    <th mat-header-cell *matHeaderCellDef>Disponibilidad</th>
                     <td mat-cell *matCellDef="let reserva">{{reserva.disponibilidad}}</td>
-                </ng-container>
+                </ng-container> <!---->
                 <ng-container matColumnDef="acciones">
                     <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                    <td class="px-6 py-3 text-left action-buttons" width="auto"
-                    mat-cell *matCellDef="let reserva">
-                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-7"
+                    <td class="px-2 py-3 text-left action-buttons" width="auto" mat-cell *matCellDef="let reserva">
+                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-6"
                         mat-icon-button color="primary" (click)="Editar(reserva)">
                             <mat-icon>edit</mat-icon>
                         </button>
-                        <button class="font-medium text-red-600 dark:text-blue-500 hover:underline pr-7"
-                        mat-icon-button color="warn" (click)="Eliminar(reserva)">
+                        <button class="font-medium text-red-800 dark:text-red-700 hover:underline pr-6"
+                        mat-icon-button color="primary" (click)="Eliminar(reserva)">
                             <mat-icon>delete</mat-icon>
                         </button>
                     </td>
