@@ -16,14 +16,14 @@ import { UserService } from '../../../../services/user-service/user.service';
 import { HorarioService } from '../../../../services/horario-service/horario.service';
 import { InstallationService } from '../../../../services/installation-service/installation.service';
 import { TableComponent } from "../../../shared/table/table.component";
-import { Reservation_Install } from '../../../../models/reservation';
+import { Reserva_Instalacion } from '../../../../models/reservation';
 import { Accion, getEntityProperties } from '../../../../models/tabla-columna';
 import { ReservationService } from '../../../../services/reservation-service/reservation.service';
 import { MatHeaderRow, MatRow, MatTableDataSource, MatTableModule} from '@angular/material/table'
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
 import { Usuario } from '../../../../models/user';
-import { Installation } from '../../../../models/instalation';
+import { Instalacion } from '../../../../models/instalation';
 @Component({
   selector: 'app-reserva-install',
   imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule,
@@ -43,12 +43,12 @@ export class ReservaInstallComponent implements OnInit{
         this.horaInicioSeleccionada = `${instalacionSeleccionada?.horaInicio} - ${instalacionSeleccionada?.horaFin}`;
   }
   usuarios!:Usuario[];
-  instalaciones!:Installation[];
+  instalaciones!:Instalacion[];
   items=[
     {value:'reservada',label:'Reservada'},
     {value:'finalizada',label:'Finalizada'},
   ]
-  installList: Reservation_Install[] = [];
+  installList: Reserva_Instalacion[] = [];
   columns: string[] = [];
   title = 'Instalaciones';
   constructor(private fb:FormBuilder,
@@ -74,7 +74,7 @@ export class ReservaInstallComponent implements OnInit{
     })
   }
   getInstalacion(){
-    this.instSer.getInstall().subscribe((data:Installation[])=>{
+    this.instSer.getInstall().subscribe((data:Instalacion[])=>{
       this.instalaciones=data;
       // console.log(this.instalaciones);
     })

@@ -4,7 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { HorarioService } from '../../../../services/horario-service/horario.service';
-import { Installation } from '../../../../models/instalation';
+import { Instalacion } from '../../../../models/instalation';
 import { NgFor } from '@angular/common';
 import { MatNativeDateModule, MatOptionModule, provideNativeDateAdapter } from '@angular/material/core';
 import {MatTimepicker, MatTimepickerModule} from '@angular/material/timepicker';

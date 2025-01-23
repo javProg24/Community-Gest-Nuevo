@@ -1,8 +1,8 @@
-import { installationResponse } from "./instalation";
+import { InstalacionResponse } from "./instalation";
 import { reporteResponse } from "./report";
-import { reserva_Herra_Response, reservation_Install_Response } from "./reservation";
+import { reserva_Herra_Response, Reserva_Instalacion_Response } from "./reservation";
 import { TimetableResponse } from "./timetable";
-import { toolResponse } from "./tool";
+import { HerramientaResponse } from "./tool";
 import { usuarioResponse } from "./user";
 
 export interface Accion<T = any> {
@@ -10,11 +10,11 @@ export interface Accion<T = any> {
     fila?:T;
 }
 const entityMap:{[key: string]:any}={
-    'install':installationResponse,
+    'install':InstalacionResponse,
     'user':usuarioResponse,
-    'tool':toolResponse,
+    'tool':HerramientaResponse,
     'reporte':reporteResponse,
-    'reserva_Install':reservation_Install_Response,
+    'reserva_Install':Reserva_Instalacion_Response,
     'reserva_Herra':reserva_Herra_Response,
     'horario':TimetableResponse,
 }

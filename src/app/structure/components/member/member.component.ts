@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { Member } from '../../../models/member';
+import { Miembros } from '../../../models/member';
 import { MerbersService } from '../../../services/member-service/merbers.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
@@ -16,7 +16,7 @@ import { DialogComponent } from '../../shared/dialog/dialog.component';
   styleUrl: './member.component.css'
 })
 export class MemberComponent implements OnInit{
-  viewProfile(profile: Member) {
+  viewProfile(profile: Miembros) {
     const dialogRef =  this.win_dialog.open(DialogComponent,{
       width: '250px',
       height:'',
@@ -33,10 +33,10 @@ export class MemberComponent implements OnInit{
     this.getProfiles();
   }
   title='Colaboradores encargados de desarrollar el Sistema Web'
-  profiles: Member []=[];
+  profiles: Miembros []=[];
   constructor(private services:MerbersService,private win_dialog:MatDialog) { }
   getProfiles(){
-    this.services.getMembers().subscribe((data:Member[]) => {
+    this.services.getMembers().subscribe((data:Miembros[]) => {
       this.profiles=data
       console.log(data)
     })

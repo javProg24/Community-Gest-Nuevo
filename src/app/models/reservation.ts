@@ -1,8 +1,8 @@
-import { Installation as Instalacion } from "./instalation";
-import { Tool } from "./tool";
+import { Instalacion as Instalacion } from "./instalation";
+import { Herramienta } from "./tool";
 import { Usuario as Usuario } from "./user";
 
-export interface Reservation_Install{
+export interface Reserva_Instalacion{
     id?: number;
     usuario_ID:number,
     instalacion_ID:number,
@@ -11,7 +11,7 @@ export interface Reservation_Install{
     instalacion?:Instalacion|null
     usuario?:Usuario|null
 }
-export class reservation_Install_Response{
+export class Reserva_Instalacion_Response{
     id?=0;
     usuario="";
     instalacion="";
@@ -30,7 +30,7 @@ export interface Reserva_Herr{
     horaInicio:string,
     horaFin:string,
     disponibilidad:string
-    herramienta?:Tool|null
+    herramienta?:Herramienta|null
     usuario?:Usuario|null
 }
 export class reserva_Herra_Response{

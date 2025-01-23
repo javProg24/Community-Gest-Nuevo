@@ -3,7 +3,7 @@ import { GeneralService } from '../general-services/general.service';
 import { forkJoin, map, Observable } from 'rxjs';
 import { Timetable } from '../../models/timetable';
 import { InstallationService } from '../installation-service/installation.service';
-import { Installation } from '../../models/instalation';
+import { Instalacion } from '../../models/instalation';
 
 @Injectable({
   providedIn: 'root'
@@ -24,7 +24,7 @@ export class HorarioService {
     return this.service.updateService<Timetable>(this.jsonUrl,id,Entidad);
   }
   getHorario_Instal():Observable<Timetable[]>{
-    return this.service.getAllRelatedData<Timetable,Installation>(this.jsonUrl,this.jsonUrlI).pipe(
+    return this.service.getAllRelatedData<Timetable,Instalacion>(this.jsonUrl,this.jsonUrlI).pipe(
       map((response)=>{
         return response.data1.map((timetable)=>{
           const instalacion=response.data2.find(
@@ -39,6 +39,6 @@ export class HorarioService {
     )
   }
   getInstallationNamesWithId(): Observable<{ id?: number; attributeValue: string }[]> {
-    return this.service.getAttribute<Installation, 'nombre'>(this.jsonUrlI, 'nombre');
+    return this.service.getAttribute<Instalacion, 'nombre'>(this.jsonUrlI, 'nombre');
   }
 }

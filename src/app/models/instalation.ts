@@ -1,4 +1,4 @@
-export interface Installation{
+export interface Instalacion{
     id?: number,
     nombre:string;
     tipo:string;
@@ -9,7 +9,7 @@ export interface Installation{
     horaFin:string,
     disponibilidad:string,
 }
-export class installationResponse{
+export class InstalacionResponse{
     id?=0;
     nombre='';
     tipo='';

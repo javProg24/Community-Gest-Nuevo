@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { TableComponent } from "../../shared/table/table.component";
 import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
-import { Tool } from '../../../models/tool';
+import { Herramienta } from '../../../models/tool';
 import { ToolService } from '../../../services/tool-service/tool.service';
 import { Accion, getEntityProperties } from '../../../models/tabla-columna';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +32,7 @@ openDialog() {
   });
 }
   formGroup!:FormGroup
-  toolList:Tool[]=[]
+  toolList:Herramienta[]=[]
   columns:string[]=[]
   title:string='Herramientas'
   private formBuilder=inject(NonNullableFormBuilder)

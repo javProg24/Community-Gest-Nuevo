@@ -5,7 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { InstallationService } from '../../../services/installation-service/installation.service';
-import { Installation } from '../../../models/instalation';
+import { Instalacion } from '../../../models/instalation';
 import { Accion, getEntityProperties } from '../../../models/tabla-columna';
 import { TableComponent } from '../../shared/table/table.component';
 import { DialogFormComponent } from '../../shared/dialog-form/dialog-form.component';
@@ -25,7 +25,7 @@ import { InstallationFormComponent } from './installation-form/installation-form
 })
 export class InstallationComponent implements OnInit {
   formGroup!: FormGroup;
-  installList: Installation[] = [];
+  installList: Instalacion[] = [];
   columns: string[] = [];
   title = 'Instalaciones';
 
