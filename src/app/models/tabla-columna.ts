@@ -3,7 +3,7 @@ import { reporteResponse } from "./report";
 import { reserva_Herra_Response, reservation_Install_Response } from "./reservation";
 import { TimetableResponse } from "./timetable";
 import { toolResponse } from "./tool";
-import { userResponse } from "./user";
+import { usuarioResponse } from "./user";
 
 export interface Accion<T = any> {
     accion:string;
@@ -11,7 +11,7 @@ export interface Accion<T = any> {
 }
 const entityMap:{[key: string]:any}={
     'install':installationResponse,
-    'user':userResponse,
+    'user':usuarioResponse,
     'tool':toolResponse,
     'reporte':reporteResponse,
     'reserva_Install':reservation_Install_Response,

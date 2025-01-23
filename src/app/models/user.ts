@@ -1,7 +1,7 @@
 import { FormControl, FormGroup } from "@angular/forms";
 import { IPersonDataForm } from "./person.data";
 
-export interface User{
+export interface Usuario{
     id?:number;
     cedula:string;
     nombre:string;
@@ -9,7 +9,7 @@ export interface User{
     correo:string;
     telefono:string;
 }
-export class userResponse{
+export class usuarioResponse{
     id?=0;
     cedula='';
     nombre='';

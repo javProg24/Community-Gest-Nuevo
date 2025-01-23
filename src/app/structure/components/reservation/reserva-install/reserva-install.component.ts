@@ -22,6 +22,8 @@ import { ReservationService } from '../../../../services/reservation-service/res
 import { MatHeaderRow, MatRow, MatTableDataSource, MatTableModule} from '@angular/material/table'
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatTabsModule } from '@angular/material/tabs';
+import { Usuario } from '../../../../models/user';
+import { Installation } from '../../../../models/instalation';
 @Component({
   selector: 'app-reserva-install',
   imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule,
@@ -34,7 +36,14 @@ import { MatTabsModule } from '@angular/material/tabs';
   styleUrl: './reserva-install.component.css'
 })
 export class ReservaInstallComponent implements OnInit{
-  dataSource=new MatTableDataSource<Reservation_Install>();
+  formGroup!:FormGroup;
+  horaInicioSeleccionada: string = '';
+  horario(event:any) {
+    const instalacionSeleccionada = event.value; // Obtiene el objeto completo seleccionado
+        this.horaInicioSeleccionada = `${instalacionSeleccionada?.horaInicio} - ${instalacionSeleccionada?.horaFin}`;
+  }
+  usuarios!:Usuario[];
+  instalaciones!:Installation[];
   items=[
     {value:'reservada',label:'Reservada'},
     {value:'finalizada',label:'Finalizada'},
@@ -44,17 +53,31 @@ export class ReservaInstallComponent implements OnInit{
   title = 'Instalaciones';
   constructor(private fb:FormBuilder,
     private instalser:ReservationService,
+    private userSer:UserService,
+    private instSer:InstallationService,
   ){}
   ngOnInit(): void {
     this.formGroup=this.fb.group({
           usuario:['',[Validators.required,]],
           instalacion:['',[Validators.required,]],
+          horario:['',[Validators.required,]],
           fecha:['',[Validators.required,]],
           estado:['',[Validators.required,]],
         })
-    // this.loadUsers()
-    // this.loadInstallations()
     this.getReserIn()
+    this.getUser()
+    this.getInstalacion()
+  }
+  getUser(){
+    this.userSer.getUsers().subscribe((data:Usuario[])=>{
+      this.usuarios=data;
+    })
+  }
+  getInstalacion(){
+    this.instSer.getInstall().subscribe((data:Installation[])=>{
+      this.instalaciones=data;
+      // console.log(this.instalaciones);
+    })
   }
     close() {
       throw new Error('Method not implemented.');
@@ -67,9 +90,20 @@ export class ReservaInstallComponent implements OnInit{
     }
   onSubmit() {
     throw new Error('Method not implemented.');
-  }  formGroup!:FormGroup;
-  onAction($event: Accion<any>) {
-    throw new Error('Method not implemented.');
-  }
+  }  
   
+  onAction(accion: Accion) {
+    if(accion.accion === 'Editar'){
+      this.editar(accion.fila);
+    }
+    else if(accion.accion === 'Eliminar'){
+      this.eliminar(accion.fila.id);
+    }
+  }
+  editar(obejto: any) {
+    console.log("editar",obejto);
+  }
+  eliminar(id: any) {
+    console.log("eliminar",id);
+  }
 }

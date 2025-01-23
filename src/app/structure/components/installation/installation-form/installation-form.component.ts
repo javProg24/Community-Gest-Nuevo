@@ -1,4 +1,4 @@
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,7 +22,7 @@ import { MatTimepicker, MatTimepickerModule } from '@angular/material/timepicker
     MatFormFieldModule,
     MatInputModule,
     MatFormField,NgIf,MatTimepicker,MatTimepickerModule,MatCheckboxModule
-    ,MatOptionModule,MatSelect,MatFormField,MatNativeDateModule,MatButtonModule
+    ,MatOptionModule,MatSelect,MatFormField,MatNativeDateModule,MatButtonModule,NgFor
   ],
   templateUrl: './installation-form.component.html',
   styleUrls: ['./installation-form.component.css'], // Corregido: styleUrls en lugar de styleUrl

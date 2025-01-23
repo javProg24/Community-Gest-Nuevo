@@ -3,7 +3,7 @@ import { FormComponent } from "../../shared/form/form.component";
 import { MatCard, MatCardModule } from '@angular/material/card';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IPersonForm } from '../../../models/person.data';
-import { IUserForm, User } from '../../../models/user';
+import { IUserForm, Usuario } from '../../../models/user';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -28,7 +28,7 @@ import { UserFormComponent } from './user-form/user-form.component';
 export class UserComponent implements OnInit{
   
   formGroup!:FormGroup
-  userList:User[]=[]
+  userList:Usuario[]=[]
   columns:string[]=[]
   title:string='Usuarios'
   private formBuilder=inject(NonNullableFormBuilder)

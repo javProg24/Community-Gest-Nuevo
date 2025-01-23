@@ -6,33 +6,32 @@
             </mat-card-title>
             <mat-card-content>
                 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-                    <!-- <mat-form-field appearance="fill" class="full-width">
-                        <mat-label>Usuario</mat-label>
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Usuarios</mat-label>
                         <mat-select formControlName="usuario">
-                            <mat-option value="" disabled="">Seleccione..</mat-option>
-                            <mat-option *ngFor="let user of users" [value]="user.id">
-                                {{user.concatenated}}
-                            </mat-option>
+                            @for(usuario of usuarios;track $index){
+                                <mat-option [value]="usuario">
+                                    {{usuario.nombre}}
+                                    {{usuario.apellido}}
+                                </mat-option>
+                            }
                         </mat-select>
-                    </mat-form-field> -->
-                    
-                    <!-- <mat-form-field appearance="fill" class="full-width">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Instalacion</mat-label>
-                        <mat-select formControlName="instalacion"
-                        (selectionChange)="loadHorarios($event.value)">
-                            <mat-option value="" disabled="">Seleccione...</mat-option>
-                            <mat-option *ngFor="let nombre of installations" [value]="nombre.id">
-                                {{nombre.attributeValue}}
+                        <mat-select formControlName="instalacion" (selectionChange)="horario($event)">
+                            <mat-option *ngFor="let instalacion of instalaciones" [value]="instalacion">
+                                {{ instalacion.nombre }}
                             </mat-option>
                         </mat-select>
-                    </mat-form-field> -->
-        
-                    <!-- <mat-form-field appearance="fill">
-                        <mat-label>Horario</mat-label>
-                        <input matInput [value]="horarioSeleccionado" readonly class="disabled-field" />
-                    </mat-form-field> -->
-        
-                    <mat-form-field>
+                    </mat-form-field>
+                    
+                    <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Hora de inicio</mat-label>
+                        <input matInput [value]="horaInicioSeleccionada" readonly/>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Fecha</mat-label>
                         <input matInput [matDatepicker]="picker" formControlName="fecha">
                         <mat-hint>MM/DD/YYYY</mat-hint>
