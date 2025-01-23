@@ -4,8 +4,9 @@
     margin-left: 5px;
     font-size: 20px;
 }
-th{
+.custom-header-cell{
     background-color: rgb(168, 243, 205);
+    font-weight: bold;
 }
 .action-buttons {
     margin-top: 21px;

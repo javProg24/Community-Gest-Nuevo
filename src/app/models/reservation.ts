@@ -5,11 +5,11 @@ import { Usuario as Usuario } from "./user";
 export interface Reserva_Instalacion{
     id?: number;
     usuario_ID:number,
+    usuario?:Usuario|null
     instalacion_ID:number,
+    instalacion?:Instalacion|null
     fecha:Date,
     disponibilidad:string
-    instalacion?:Instalacion|null
-    usuario?:Usuario|null
 }
 export class Reserva_Instalacion_Response{
     id?=0;

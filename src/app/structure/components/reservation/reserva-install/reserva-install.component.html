@@ -1,4 +1,4 @@
-<mat-tab-group>
+<mat-tab-group [(selectedIndex)]="selectedTab">
     <mat-tab label="Reservar Instalacion">
         <div class="register-card">
             <mat-card-title class="title">
@@ -7,7 +7,7 @@
             <mat-card-content>
                 <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                     <mat-form-field appearance="fill" class="full-width">
-                        <mat-label>Usuarios</mat-label>
+                        <mat-label>Usuario</mat-label>
                         <mat-select formControlName="usuario">
                             @for(usuario of usuarios;track $index){
                                 <mat-option [value]="usuario">
@@ -20,15 +20,22 @@
                     <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Instalacion</mat-label>
                         <mat-select formControlName="instalacion" (selectionChange)="horario($event)">
-                            <mat-option *ngFor="let instalacion of instalaciones" [value]="instalacion">
-                                {{ instalacion.nombre }}
-                            </mat-option>
+                            @for(instalacion of instalaciones;track $index){
+                                <mat-option [value]="instalacion">
+                                    {{instalacion.nombre}}
+                                </mat-option>
+                            }
                         </mat-select>
                     </mat-form-field>
                     
                     <mat-form-field appearance="fill" class="full-width">
+                        <mat-label>Dia</mat-label>
+                        <input matInput [value]="diaSeleccionado" readonly formControlName="dia"/>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Hora de inicio</mat-label>
-                        <input matInput [value]="horaInicioSeleccionada" readonly/>
+                        <input matInput [value]="horaInicioSeleccionada" readonly formControlName="horario">
                     </mat-form-field>
 
                     <mat-form-field appearance="fill" class="full-width">
@@ -52,7 +59,7 @@
                         <button mat-raised-button color="primary" type="submit">
                           Guardar
                         </button>
-                        <button mat-raised-button color="warn" type="reset" (click)="close()">
+                        <button mat-raised-button color="warn" type="reset">
                           Cancelar
                         </button>
                       </div>
@@ -62,7 +69,59 @@
     </mat-tab>
     <mat-tab label="Registros" >
         <div class="table-section">
-            <app-table [title]="title" [columnas]="columns" [datos]="installList" (action)="onAction($event)"></app-table>
+            <!-- <app-table [title]="title" [columnas]="columns" [datos]="reservaList" (action)="onAction($event)"></app-table> -->
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+                <ng-container matColumnDef="usuario">
+                    <th mat-header-cell *matHeaderCellDef> Usuario </th>
+                    <td mat-cell *matCellDef="let reserva"> 
+                        {{reserva.usuario.nombre}} 
+                        {{reserva.usuario.apellido}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="instalacion">
+                    <th mat-header-cell *matHeaderCellDef>Instalacion</th>
+                    <td mat-cell *matCellDef="let reserva">
+                        {{reserva.instalacion.nombre}}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="dia">
+                    <th mat-header-cell *matHeaderCellDef>Dia</th>
+                    <td mat-cell *matCellDef="let reserva">{{reserva.instalacion.dia}}</td>
+                </ng-container>
+                <ng-container matColumnDef="horaInicio">
+                    <th mat-header-cell *matHeaderCellDef>Hora Inicio</th>
+                    <td mat-cell *matCellDef="let reserva">{{reserva.instalacion.horaInicio}}</td>
+                </ng-container>
+                <ng-container matColumnDef="horaFin">
+                    <th mat-header-cell *matHeaderCellDef>Hora Fin</th>
+                    <td mat-cell *matCellDef="let reserva">{{reserva.instalacion.horaFin}}</td>
+                </ng-container>
+                <ng-container matColumnDef="fecha">
+                    <th mat-header-cell *matHeaderCellDef>Fecha</th>
+                    <td mat-cell *matCellDef="let reserva">{{reserva.fecha | date: 'MM/dd/yyyy'}}</td>
+                </ng-container>
+                <ng-container matColumnDef="estado">
+                    <th mat-header-cell *matHeaderCellDef>Estado</th>
+                    <td mat-cell *matCellDef="let reserva">{{reserva.disponibilidad}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let reserva" class="px-6 py-3 text-left action-buttons" width="auto"> 
+                        <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline pr-7"
+                        mat-icon-button color="accent" (click)="editar(reserva)">
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                        <button class="font-medium text-red-600 dark:text-blue-500 hover:underline pr-7"
+                        mat-icon-button color="warn" (click)="eliminar(reserva)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+            
+                <tr mat-header-row *matHeaderRowDef="['usuario','instalacion','dia','horaInicio','horaFin','fecha','estado','actions']"></tr>
+                <tr mat-row *matRowDef="let row; columns: ['usuario','instalacion','dia','horaInicio','horaFin','fecha','estado','actions'];"></tr>
+            </table>
         </div>
     </mat-tab>
 </mat-tab-group>

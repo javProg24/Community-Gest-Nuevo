@@ -1,13 +1,18 @@
 import { AfterViewInit, Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { NativeDateModule } from '@angular/material/core';
-import { MatIconModule } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { Accion } from '../../../models/tabla-columna';
 import { EstadoTextoPipe } from "../../../pipe/estado-texto.pipe";
 import { MatPaginator } from '@angular/material/paginator';
+import { MatCell, MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-table',
-  imports: [MatIconModule, NativeDateModule, EstadoTextoPipe,MatPaginator],
+  imports: [MatIconModule, 
+    NativeDateModule, 
+    EstadoTextoPipe,
+    MatPaginator,MatTableModule,NgFor,MatCell,],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })
@@ -19,14 +24,15 @@ export class TableComponent implements AfterViewInit{
   title='';
   columns:string[]=[]
   dataSource:any[]=[]
+
   @Input()set titulo(title:any){
     this.title=title;
   }
-  @Input()set columnas(columns:any){
+  @Input()set columnas(columns:any[]){
     this.columns=columns;
   }
-  @Input()set datos(dataSource:any){
-    this.dataSource=dataSource;
+  @Input()set datos(data:any[]){
+    this.dataSource=data;
   }
   @Output()action:EventEmitter<Accion>=new EventEmitter();
   onAction(accion:string, row?:any){

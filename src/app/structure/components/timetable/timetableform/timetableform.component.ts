@@ -14,30 +14,29 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-timetableform',
-  imports: [MatCardModule,MatFormFieldModule,MatSelectModule,
-    ReactiveFormsModule,NgFor,MatOptionModule,MatTimepickerModule,
-    MatCheckboxModule,MatInputModule,MatTimepicker,MatIconModule,
-    MatNativeDateModule,MatFormField,
-  ],
+  imports: [MatCardModule, MatFormFieldModule, MatSelectModule,
+    ReactiveFormsModule, MatOptionModule, MatTimepickerModule,
+    MatCheckboxModule, MatInputModule, MatIconModule,
+    MatNativeDateModule],
   templateUrl: './timetableform.component.html',
   styleUrl: './timetableform.component.css',
   providers:[provideNativeDateAdapter()]
 })
 export class TimetableformComponent implements OnInit{
-  close() {
-    this.dialogRef.close();
-  }
-  dias = [
-    { value: 'Lunes', label: 'Lunes' },
-    { value: 'Martes', label: 'Martes' },
-    {value:'Miercoles',label:'Miercoles'},
-    {value:'Jueves',label:'Jueves'},
-    {value:'Viernes',label:'Viernes'},
-    {value:'Sabado',label:'Sabado'},
-    {value:'Domingo',label:'Domingo'},
-  ];
-  installations: { id?: number; attributeValue: string }[] = [];
-  selectedInstallationId: number | undefined;
+  // close() {
+  //   this.dialogRef.close();
+  // }
+  // dias = [
+  //   { value: 'Lunes', label: 'Lunes' },
+  //   { value: 'Martes', label: 'Martes' },
+  //   {value:'Miercoles',label:'Miercoles'},
+  //   {value:'Jueves',label:'Jueves'},
+  //   {value:'Viernes',label:'Viernes'},
+  //   {value:'Sabado',label:'Sabado'},
+  //   {value:'Domingo',label:'Domingo'},
+  // ];
+  // installations: { id?: number; attributeValue: string }[] = [];
+  // selectedInstallationId: number | undefined;
   constructor(private services:HorarioService,
     private fb:FormBuilder,public dialogRef:MatDialogRef<TimetableformComponent>
   ) { }
@@ -49,20 +48,20 @@ export class TimetableformComponent implements OnInit{
       hora_Fin:['',[Validators.required] ],
       activo:['',[Validators.required] ]
     })
-    this.loadInstallations();
+    // this.loadInstallations();
   }
-  obSubmit() {
-    console.log(this.formGroup.value)
-  }
+  // obSubmit() {
+  //   console.log(this.formGroup.value)
+  // }
   formGroup!:FormGroup
-  loadInstallations() {
-    this.services.getInstallationNamesWithId().subscribe(
-      (data) => {
-        this.installations = data; // Asignar las instalaciones obtenidas
-      },
-      (error) => {
-        console.error('Error al cargar instalaciones', error);
-      }
-    );
-  }
+  // loadInstallations() {
+  //   this.services.getInstallationNamesWithId().subscribe(
+  //     (data) => {
+  //       this.installations = data; // Asignar las instalaciones obtenidas
+  //     },
+  //     (error) => {
+  //       console.error('Error al cargar instalaciones', error);
+  //     }
+  //   );
+  // }
 }
