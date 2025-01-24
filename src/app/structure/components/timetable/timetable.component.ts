@@ -35,17 +35,17 @@ columns: string[]=[];
 HorariotList: Timetable[]=[];
   constructor(private dialog:MatDialog,private services:HorarioService) { }
   ngOnInit(): void {
-    this.gerHorario()
+    // this.gerHorario()
   }
-  gerHorario(){
-    this.columns=getEntityProperties('horario')
-    // this.services.getHorario().subscribe((data) => {
-    //   this.HorariotList = data;
-    // })
-    this.services.getHorario_Instal().subscribe((data)=>{
-      this.HorariotList=data
-    })
-  }
+  // gerHorario(){
+  //   this.columns=getEntityProperties('horario')
+  //   // this.services.getHorario().subscribe((data) => {
+  //   //   this.HorariotList = data;
+  //   // })
+  //   this.services.getHorario_Instal().subscribe((data)=>{
+  //     this.HorariotList=data
+  //   })
+  // }
 openDialog() {
   const dialogRef=this.dialog.open(TimetableformComponent,{
       autoFocus: false,

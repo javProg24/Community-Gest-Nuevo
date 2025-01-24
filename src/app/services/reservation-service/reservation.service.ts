@@ -13,6 +13,12 @@ export class ReservationService {
   getReserva_Ins():Observable<Reserva_Instalacion[]>{
     return this.services.getService<Reserva_Instalacion>(this.jsonUrlI,)
   }
+  getReservaEntitys():Observable<Reserva_Instalacion[]>{
+    return this.services.getServiceEntity<Reserva_Instalacion>(this.jsonUrlI,"/Instalacion_Reservas")
+  }
+  getReserva_ID(id:number):Observable<Reserva_Instalacion[]>{
+    return this.services.getServiceID<Reserva_Instalacion>(this.jsonUrlI,id)
+  }
   getReserva_Her():Observable<Reserva_Herramienta[]>{
     return this.services.getServiceEntity<Reserva_Herramienta>(this.jsonURLH,"/Herramienta_Reservas")
   }

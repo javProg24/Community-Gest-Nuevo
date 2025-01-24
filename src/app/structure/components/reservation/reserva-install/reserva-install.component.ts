@@ -30,7 +30,7 @@ import { map } from 'rxjs';
     MatCheckboxModule, MatSelectModule, MatOptionModule,
     NgFor, MatNativeDateModule, MatFormField, MatTimepickerModule,
     MatButtonModule, MatTabsModule, MatTableModule, CommonModule,
-    MatIconModule, MatButtonModule, MatTableModule],
+    MatIconModule, MatButtonModule, MatTableModule, TableComponent],
   templateUrl: './reserva-install.component.html',
   styleUrl: './reserva-install.component.css'
 })
@@ -52,7 +52,7 @@ export class ReservaInstallComponent implements OnInit{
     {value:'Reservada',label:'Reservada'},
     {value:'Finalizada',label:'Finalizada'},
   ]
-  installList: any[] = [];
+  installList: Reserva_Instalacion[] = [];
   columns: string[] = [];
   title = 'Instalaciones';
   constructor(private fb:FormBuilder,
@@ -85,23 +85,14 @@ export class ReservaInstallComponent implements OnInit{
     })
   }
     getReserIn(){
-      this.columns=getEntityProperties('reserva_Install')
-      // this.instalser.getReserva_Ins().subscribe(
-      //   (data:Reserva_Instalacion[])=>{
-      //     this.installList=data.map((r:Reserva_Instalacion)=>({
-      //       id:r.id,
-      //       usuario:r.usuario?.nombre,
-      //       instalacion:r.instalacion?.nombre,
-      //       dia:r.instalacion?.dia,
-      //       horaInicio:r.instalacion?.horaInicio,
-      //       horaFin:r.instalacion?.horaFin,
-      //       fecha:r.fecha,
-      //       disponibilidad:r.disponibilidad,
-      //     }));
-      // })
-      this.instalser.getReserva_Ins().subscribe((data:Reserva_Instalacion[])=>{
+      this.instalser.getReserva_Ins().subscribe(data=>{
         this.dataSource.data=data;
+        
       })
+      // this.columns=getEntityProperties('reserva_Install')
+      // this.instalser.getReservaEntitys().subscribe(data=>{
+      //   this.installList=data;
+      // })
     }
   onSubmit() {
     throw new Error('Method not implemented.');
@@ -116,6 +107,7 @@ export class ReservaInstallComponent implements OnInit{
     }
   }
   selectedTab:number=0;
+  reservaDetalle!: Reserva_Instalacion;
   editar(objeto: Reserva_Instalacion) {
     console.log("editar", objeto);
     if(objeto&&objeto.id){
@@ -137,6 +129,26 @@ export class ReservaInstallComponent implements OnInit{
       estado:objeto.disponibilidad,
     })
   }
+    // console.log("editar", objeto);
+    // if(objeto&&objeto.id){
+    //   this.currentId=objeto.id;
+    //   this.isEdit=true;
+    //   this.selectedTab=0;
+    // }else{
+    //   console.log("No se puede editar");
+    // }
+    // let usuarioSeleccionado =this.usuarios.find((u)=>u.id==objeto.usuario_ID);
+    // let instalacionSeleccionada =this.instalaciones.find((i)=>i.id==objeto.instalacion_ID);
+    // console.log(usuarioSeleccionado,instalacionSeleccionada);
+    // this.formGroup.setValue({
+    //   usuario:usuarioSeleccionado,
+    //   instalacion:instalacionSeleccionada,
+    //   dia:objeto.instalacion?.dia,
+    //   horario:`${objeto.instalacion?.horaInicio} - ${objeto.instalacion?.horaFin}`,
+    //   fecha:objeto.fecha,
+    //   estado:objeto.disponibilidad,
+    // })
+ 
   
   eliminar(id: any) {
     console.log("eliminar",id);
