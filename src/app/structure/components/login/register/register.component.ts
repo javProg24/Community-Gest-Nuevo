@@ -39,10 +39,10 @@ export class RegisterComponent implements OnInit{
   ngOnInit(): void {
     this.formGroup=this.formBuilder.group<IPersonForm>({
       dataPerson:this.formBuilder.group({
-        name:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]}),
-        lastname:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]}),
+        nombre:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]}),
+        apellido:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]}),
         email:this.formBuilder.control('',{validators:[Validators.required,Validators.email]}),
-        phone:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]})
+        telefono:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]})
       }),
       password:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^.{1,8}$/)]})
     })

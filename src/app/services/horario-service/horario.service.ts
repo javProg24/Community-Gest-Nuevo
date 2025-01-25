@@ -23,22 +23,22 @@ export class HorarioService {
   updateHorario(id:number,Entidad:Timetable):Observable<Timetable>{
     return this.service.updateService<Timetable>(this.jsonUrl,id,Entidad);
   }
-  getHorario_Instal():Observable<Timetable[]>{
-    return this.service.getAllRelatedData<Timetable,Instalacion>(this.jsonUrl,this.jsonUrlI).pipe(
-      map((response)=>{
-        return response.data1.map((timetable)=>{
-          const instalacion=response.data2.find(
-            (inst)=>inst.id===timetable.instalacion_ID
-          )
-          return{
-            ...timetable,
-            nombreInstall:instalacion?instalacion.nombre:'Desconocida'
-          }
-        })
-      })
-    )
-  }
-  getInstallationNamesWithId(): Observable<{ id?: number; attributeValue: string }[]> {
-    return this.service.getAttribute<Instalacion, 'nombre'>(this.jsonUrlI, 'nombre');
-  }
+  // getHorario_Instal():Observable<Timetable[]>{
+  //   return this.service.getAllRelatedData<Timetable,Instalacion>(this.jsonUrl,this.jsonUrlI).pipe(
+  //     map((response)=>{
+  //       return response.data1.map((timetable)=>{
+  //         const instalacion=response.data2.find(
+  //           (inst)=>inst.id===timetable.instalacion_ID
+  //         )
+  //         return{
+  //           ...timetable,
+  //           nombreInstall:instalacion?instalacion.nombre:'Desconocida'
+  //         }
+  //       })
+  //     })
+  //   )
+  // }
+  // getInstallationNamesWithId(): Observable<{ id?: number; attributeValue: string }[]> {
+  //   return this.service.getAttribute<Instalacion, 'nombre'>(this.jsonUrlI, 'nombre');
+  // }
 }

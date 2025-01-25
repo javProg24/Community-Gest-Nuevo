@@ -18,7 +18,7 @@ export class usuarioResponse{
     telefono='';
 }
 export interface IUserForm{
-    identity_card:FormControl<string>;
+    cedula:FormControl<string>;
     dataPerson:FormGroup<IPersonDataForm>;
 
 }

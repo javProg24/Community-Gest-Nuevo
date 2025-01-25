@@ -6,7 +6,7 @@
         <form class="register-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
            <mat-form-field appearance="fill" class="full-width">
             <mat-label>Cedula</mat-label>
-            <input type="text" matInput formControlName="identity_card">
+            <input type="text" matInput formControlName="cedula">
             <mat-error *ngIf="formGroup.get('cedula')?.hasError('required')">La cedula es obligatorio></mat-error>
             <mat-error *ngIf="formGroup.get('cedula')?.hasError('pattern')">Caracter no valido. Solo se permiten numeros de 10 digitos</mat-error>
         </mat-form-field> 

@@ -9,10 +9,10 @@ import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-table',
-  imports: [MatIconModule, 
-    NativeDateModule, 
+  imports: [MatIconModule,
+    NativeDateModule,
     EstadoTextoPipe,
-    MatPaginator,MatTableModule,NgFor,MatCell,],
+    MatPaginator, MatTableModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.css'
 })

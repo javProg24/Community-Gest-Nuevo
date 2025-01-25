@@ -12,16 +12,4 @@ export class UserService {
   getUsers():Observable<Usuario[]>{
     return this.services.getService<Usuario>(this.jsonAPI)
   }
-  addUser(usuario: Usuario): Observable<Usuario> {
-    return this.services.addService<Usuario>(this.jsonAPI, usuario);
-  }
-  
-  updateUser(id: number, usuario: Usuario): Observable<void> {
-    return this.services.updateService<void>(this.jsonAPI, id, usuario);
-  }
-  
-  deleteUser(id: number): Observable<void> {
-    return this.services.deleteService<void>(this.jsonAPI, id);
-  }
-  
 }
