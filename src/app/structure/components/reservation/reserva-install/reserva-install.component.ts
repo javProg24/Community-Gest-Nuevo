@@ -162,10 +162,10 @@ export class ReservaInstallComponent implements OnInit{
             this.notification={message:'La reserva no se ha guardado',type:'error'}
           }
         })
-      setTimeout(()=>{
-        this.notification={message:'',type:'info'}
-      },2000)
     }
+    setTimeout(()=>{
+      this.notification={message:'',type:'info'}
+    },1500)
   } 
   onAction(accion: Accion) {
     if(accion.accion == 'Editar'){
@@ -193,6 +193,7 @@ export class ReservaInstallComponent implements OnInit{
   
   editar(objeto: Reserva_Instalacion) {
     let id = objeto.id;
+    console.log(id)
     this.reservaService.getReserva_ID(id).subscribe((reserva: Reserva_Instalacion) => {
       const reservaSeleccionada = reserva;
       this.obtenerReservas(reservaSeleccionada)

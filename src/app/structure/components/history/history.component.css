@@ -1,0 +1,14 @@
+.search-container {
+    margin-bottom: 20px;
+  }
+  
+  .search-fields {
+    display: flex;
+    justify-content: space-between; /* Espaciado entre los campos */
+  }
+  
+  .search-field {
+    width: 45%; /* Ajusta el tamaño de los campos */
+  }
+  
+  

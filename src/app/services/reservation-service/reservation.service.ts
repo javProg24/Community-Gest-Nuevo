@@ -8,8 +8,8 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class ReservationService {
-  private jsonUrlI='http://localhost:5234/api/ReservacionInstalacions'
-  private jsonURLH='http://localhost:5234/api/ReservacionHerramientas'
+  private jsonUrlI='http://localhost:5199/api/ReservacionInstalacions'
+  private jsonURLH='http://localhost:5199/api/ReservacionHerramientas'
   constructor(private services:GeneralService,private http:HttpClient) { }
   getReserva_Ins():Observable<Reserva_Instalacion[]>{
     return this.services.getService<Reserva_Instalacion>(this.jsonUrlI,)
@@ -17,6 +17,17 @@ export class ReservationService {
   getReservaEntitys():Observable<Reserva_Instalacion[]>{
     return this.services.getServiceEntity<Reserva_Instalacion>(this.jsonUrlI,"/Instalacion_Reservas")
   }
+  getReserva_Ins_Fi():Observable<Reserva_Instalacion[]>{
+    return this.services.getServiceEntity<Reserva_Instalacion>(this.jsonUrlI,"/Reservas_Inst_Finalizada")
+  }
+  searchReserva_Ins(nombre_Apellido?: string, fecha?: Date): Observable<Reserva_Instalacion[]> {
+    const params = {
+      nombre_Apellido: nombre_Apellido,
+      fecha: fecha ? fecha.toISOString() : null // Asegúrate de enviar la fecha en formato adecuado
+    };
+    return this.services.searchService<Reserva_Instalacion>(this.jsonUrlI, '/buscar', params);
+  }
+  
   getReserva_ID(id?:number):Observable<Reserva_Instalacion>{
     return this.services.getServiceID<Reserva_Instalacion>(this.jsonUrlI,id)
   }
