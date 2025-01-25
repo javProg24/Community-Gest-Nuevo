@@ -8,7 +8,7 @@ export interface Reserva_Instalacion{
     usuario?:Usuario|null
     instalacion_ID:number,
     instalacion?:Instalacion|null
-    fecha:Date,
+    fecha:string,
     disponibilidad:string
 }
 export class Reserva_Instalacion_Response{
@@ -18,7 +18,7 @@ export class Reserva_Instalacion_Response{
     dia=""
     horaInicio=""
     horaFin=""
-    fecha=new Date();
+    fecha="";
     disponibilidad=""
 }
 export interface Reserva_Herr{

@@ -7,7 +7,7 @@ import { Reporte } from '../../models/report';
   providedIn: 'root'
 })
 export class ReportService {
-  private jsonAPI='http://localhost:5199/api/Reportes'
+  private jsonAPI='http://localhost:5234/api/Reportes'
   getReport():Observable<Reporte[]> {
     return this.services.getService<Reporte>(this.jsonAPI)
   }

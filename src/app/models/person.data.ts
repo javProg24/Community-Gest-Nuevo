@@ -1,10 +1,10 @@
 import { FormControl, FormGroup } from "@angular/forms";
 
 export interface IPersonDataForm{
-    name:FormControl<string>
-    lastname:FormControl<string>
+    nombre:FormControl<string>
+    apellido:FormControl<string>
     email:FormControl<string>
-    phone:FormControl<string>
+    telefono:FormControl<string>
     
 }
 export interface IPersonForm{

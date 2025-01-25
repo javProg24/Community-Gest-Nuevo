@@ -35,12 +35,12 @@ export class UserComponent implements OnInit{
   constructor(private services:UserService, private dialog:MatDialog) { }
   ngOnInit(): void {
     this.formGroup=this.formBuilder.group<IUserForm>({
-      identity_card:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]}),
+      cedula:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]}),
       dataPerson: this.formBuilder.group({
-        name: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] }),
-        lastname: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] }),
+        nombre: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] }),
+        apellido: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] }),
         email: this.formBuilder.control('', { validators: [Validators.required, Validators.email] }),
-        phone: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^\d{10}$/)] })
+        telefono: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^\d{10}$/)] })
       }),
     })
     this.getUsers();

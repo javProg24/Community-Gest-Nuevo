@@ -12,17 +12,19 @@ export class GeneralService implements I_Metodos{
   getService<T>(url: string): Observable<T[]>{
     return this.http.get<T[]>(url);
   }
-  getServiceID<T>(url:string,id:number):Observable<T[]>{
+  getServiceID<T>(url:string,id?:number):Observable<T>{
     const urlEntity = `${url}/${id}`
-    return this.http.get<T[]>(urlEntity);
+    return this.http.get<T>(urlEntity);
   }
   getServiceEntity<T>(url:string,ruta:string):Observable<T[]>{
     return this.http.get<T[]>(url+ruta);
   }
   addService<T>(url: string, Entidad: any): Observable<T> {
+    console.log("Enviando a la API:", Entidad);
     return this.http.post<T>(url,Entidad);
   }
-  deleteService<T>(url: string, id: number): Observable<T> {
+  deleteService<T>(url: string, id?: number): Observable<T> {
+    console.log(id)
     const urlEntity = `${url}/${id}`
     return this.http.delete<T>(urlEntity)
   }

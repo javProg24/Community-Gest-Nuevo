@@ -1,12 +1,12 @@
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule, DatePipe, NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule, MatFormField } from '@angular/material/form-field';
+import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule, MatFormField, MatError } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -23,22 +23,36 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { Usuario } from '../../../../models/user';
 import { Instalacion } from '../../../../models/instalation';
 import { map } from 'rxjs';
+import { NotificationComponent } from "../../../shared/notification/notification.component";
+import { DialogComponent } from '../../../shared/dialog/dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-reserva-install',
-  imports: [MatCardModule, ReactiveFormsModule, MatFormFieldModule,
-    MatDatepickerModule, MatInputModule, MatPaginatorModule,
-    MatCheckboxModule, MatSelectModule, MatOptionModule,
-    NgFor, MatNativeDateModule, MatFormField, MatTimepickerModule,
-    MatButtonModule, MatTabsModule, MatTableModule, CommonModule,
-    MatIconModule, MatButtonModule, MatTableModule, TableComponent],
+  standalone:true,
+  imports: [MatCardModule,
+    ReactiveFormsModule, MatFormFieldModule,
+    MatDatepickerModule, MatInputModule,
+    MatPaginatorModule, MatCheckboxModule,
+    MatSelectModule, MatOptionModule,
+    NgFor, MatNativeDateModule,
+    MatFormField, MatTimepickerModule,
+    MatButtonModule, MatTabsModule,
+    MatTableModule, CommonModule,
+    MatIconModule, MatButtonModule,
+    MatTableModule, TableComponent,
+    NotificationComponent, NgIf,
+    MatDatepicker,MatError],
   templateUrl: './reserva-install.component.html',
-  styleUrl: './reserva-install.component.css'
+  styleUrl: './reserva-install.component.css',
+  providers:[DatePipe]
 })
 export class ReservaInstallComponent implements OnInit{
-  dataSource=new MatTableDataSource<Reserva_Instalacion>();
+  // dataSource=new MatTableDataSource<Reserva_Instalacion>();
+  //minimaFecha:Date = new Date(1940,0,1);
+  maximaFecha:Date = new Date();
   isEdit:boolean=false;
   currentId!:number;
-  formGroup!:FormGroup;
+  form!:FormGroup;
   horaInicioSeleccionada: string = '';
   diaSeleccionado: string = '';
   horario(event:any) {
@@ -46,28 +60,31 @@ export class ReservaInstallComponent implements OnInit{
         this.horaInicioSeleccionada = `${instalacionSeleccionada?.horaInicio} - ${instalacionSeleccionada?.horaFin}`;
         this.diaSeleccionado = instalacionSeleccionada?.dia;
   }
-  usuarios!:Usuario[];
-  instalaciones!:Instalacion[];
+  notification: { message: string; type: 'info' | 'success' | 'error' | 'warning'  } = {
+    message: '',
+    type: 'info'
+  };
   items=[
     {value:'Reservada',label:'Reservada'},
     {value:'Finalizada',label:'Finalizada'},
   ]
-  installList: Reserva_Instalacion[] = [];
   columns: string[] = [];
   title = 'Instalaciones';
   constructor(private fb:FormBuilder,
-    private instalser:ReservationService,
+    private reservaService:ReservationService,
     private userSer:UserService,
     private instSer:InstallationService,
+    private datepipe:DatePipe,
+    private dialog:MatDialog
   ){}
   ngOnInit(): void {
-    this.formGroup=this.fb.group({
-          usuario:['',[Validators.required,]],
-          instalacion:['',[Validators.required,]],
-          dia:['',[Validators.required,]],
-          horario:['',[Validators.required,]],
-          fecha:['',[Validators.required,]],
-          estado:['',[Validators.required,]],
+    this.form=this.fb.group({
+          usuario:["",[Validators.required,]],
+          instalacion:["",[Validators.required,]],
+          dia:[""],
+          horario:[""],
+          fecha:["",[Validators.required,]],
+          estado:["",[Validators.required,]],
         })
     this.getReserIn()
     this.getUser()
@@ -84,73 +101,143 @@ export class ReservaInstallComponent implements OnInit{
       // console.log(this.instalaciones);
     })
   }
-    getReserIn(){
-      this.instalser.getReserva_Ins().subscribe(data=>{
-        this.dataSource.data=data;
-        
-      })
-      // this.columns=getEntityProperties('reserva_Install')
-      // this.instalser.getReservaEntitys().subscribe(data=>{
-      //   this.installList=data;
-      // })
-    }
-  onSubmit() {
-    throw new Error('Method not implemented.');
-  }  
+  formatDate(date: string): string {
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
   
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+  
+    return [year, month, day].join('-');
+  }
+  clearForm():void{
+    this.form.reset({
+        usuario:'',
+        instalacion:'',
+        dia:'',
+        horario:'',
+        fecha:'',
+        estado:'',
+    });
+    this.currentId=0;
+    this.isEdit=false;
+}
+  onSubmit() {
+    if(this.form.invalid){
+      console.log("formulario invalido")
+      return;
+    }
+    
+    const newReserva:Reserva_Instalacion = {
+      usuario_ID: this.form.value.usuario?.id || 0,
+      instalacion_ID: this.form.value.instalacion?.id || 0,
+      fecha: this.formatDate(this.form.value.fecha),
+      disponibilidad: this.form.value.estado || 'Reservada'
+    };
+    if(this.isEdit){
+      newReserva.id=this.currentId
+      console.log(newReserva)
+      this.reservaService.updateReserva_Inst(newReserva).subscribe({
+        next:(update)=>{
+          this.notification={message:'La reserva se ha actualizado',type:'success'}
+          this.getReserIn()
+          this.clearForm()
+        },
+        error:(error)=>{
+          this.notification={message:'La reserva no se ha podido actualizar',type:'error'}
+        }
+      })
+    }
+    else{
+      console.log(newReserva)
+        this.reservaService.addReserva_Inst(newReserva).subscribe({
+          next: (add) => {
+            this.notification={message:'La reserva se ha guardado',type:'success'}
+            this.getReserIn()
+            this.clearForm()
+          },
+          error: (error) => {
+            this.notification={message:'La reserva no se ha guardado',type:'error'}
+          }
+        })
+      setTimeout(()=>{
+        this.notification={message:'',type:'info'}
+      },2000)
+    }
+  } 
   onAction(accion: Accion) {
     if(accion.accion == 'Editar'){
       this.editar(accion.fila);
     }
     else if(accion.accion == 'Eliminar'){
-      this.eliminar(accion.fila.id);
+      this.eliminar(accion.fila);
+     console.log(accion.fila)
     }
   }
   selectedTab:number=0;
-  reservaDetalle!: Reserva_Instalacion;
-  editar(objeto: Reserva_Instalacion) {
-    console.log("editar", objeto);
-    if(objeto&&objeto.id){
-      this.currentId=objeto.id;
-      this.isEdit=true;
-      this.selectedTab=0;
-    }else{
-      console.log("No se puede editar");
-    }
-    let usuarioSeleccionado =this.usuarios.find((u)=>u.id==objeto.usuario_ID);
-    let instalacionSeleccionada =this.instalaciones.find((i)=>i.id==objeto.instalacion_ID);
-    console.log(usuarioSeleccionado,instalacionSeleccionada);
-    this.formGroup.setValue({
-      usuario:usuarioSeleccionado,
-      instalacion:instalacionSeleccionada,
-      dia:objeto.instalacion?.dia,
-      horario:`${objeto.instalacion?.horaInicio} - ${objeto.instalacion?.horaFin}`,
-      fecha:objeto.fecha,
-      estado:objeto.disponibilidad,
+  usuarios!:Usuario[];
+  reservaDetalle!: Reserva_Instalacion[];
+  instalaciones!:Instalacion[];
+  installList: Reserva_Instalacion[] = [];
+  getReserIn(){
+    // this.instalser.getReserva_Ins().subscribe(data=>{
+    //   this.dataSource.data=data;
+    // })
+    this.columns=getEntityProperties('reserva_Install')
+    this.reservaService.getReservaEntitys().subscribe(data=>{
+      this.installList=data;
     })
   }
-    // console.log("editar", objeto);
-    // if(objeto&&objeto.id){
-    //   this.currentId=objeto.id;
-    //   this.isEdit=true;
-    //   this.selectedTab=0;
-    // }else{
-    //   console.log("No se puede editar");
-    // }
-    // let usuarioSeleccionado =this.usuarios.find((u)=>u.id==objeto.usuario_ID);
-    // let instalacionSeleccionada =this.instalaciones.find((i)=>i.id==objeto.instalacion_ID);
-    // console.log(usuarioSeleccionado,instalacionSeleccionada);
-    // this.formGroup.setValue({
-    //   usuario:usuarioSeleccionado,
-    //   instalacion:instalacionSeleccionada,
-    //   dia:objeto.instalacion?.dia,
-    //   horario:`${objeto.instalacion?.horaInicio} - ${objeto.instalacion?.horaFin}`,
-    //   fecha:objeto.fecha,
-    //   estado:objeto.disponibilidad,
-    // })
- 
   
-  eliminar(id: any) {
-    console.log("eliminar",id);
+  editar(objeto: Reserva_Instalacion) {
+    let id = objeto.id;
+    this.reservaService.getReserva_ID(id).subscribe((reserva: Reserva_Instalacion) => {
+      const reservaSeleccionada = reserva;
+      this.obtenerReservas(reservaSeleccionada)
+    })
+  }
+  obtenerReservas(reserva:Reserva_Instalacion){
+    this.isEdit=true
+    this.selectedTab=0
+    if(reserva&&reserva.id){
+      this.currentId=reserva.id
+      console.log(reserva)
+    }
+    let usuarioSeleccinado = this.usuarios.find((u)=>u.id==reserva.usuario_ID)
+    let instalacionSelec = this.instalaciones.find((i)=>i.id==reserva.instalacion_ID)
+    this.form.setValue({
+      usuario:usuarioSeleccinado,
+      instalacion:instalacionSelec,
+      dia:reserva.instalacion?.dia,
+      horario:reserva.instalacion?.horaInicio+' - '+reserva.instalacion?.horaFin,
+      fecha:reserva.fecha,
+      estado:reserva.disponibilidad
+    })
+  }
+  eliminar(objeto: Reserva_Instalacion) {
+    console.log("eliminar",objeto.id);
+    const dialogRef=this.dialog.open(DialogComponent,{
+      data:{
+        titulo:'Eliminar Registro',
+        message:'¿Está seguro de que desea eliminar esta reserva?'
+      }
+    })
+    let id = objeto.id
+    console.log(id)
+    dialogRef.afterClosed().subscribe(
+      result=>{
+        if(result){
+          this.reservaService.deleteReserva_Inst(id).subscribe(()=>{
+            this.notification={message:'La reserva se ha eliminada',type:'warning'}
+            setTimeout(()=>{
+              this.notification={message:'',type:'info'}
+            },1000)
+            this.getReserIn()
+          })
+        }
+      }
+    )
   }
 }
