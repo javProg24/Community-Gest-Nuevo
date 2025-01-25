@@ -40,63 +40,78 @@ export class UserComponent implements OnInit {
   constructor(private services: UserService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.formGroup=this.formBuilder.group<IUserForm>({
-      identity_card:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]}),
+    this.formGroup = this.formBuilder.group({
+      identity_card: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
+      }),
       dataPerson: this.formBuilder.group({
-        name: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] }),
-        lastname: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] }),
-        email: this.formBuilder.control('', { validators: [Validators.required, Validators.email] }),
-        phone: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^\d{10}$/)] })
+        name: this.formBuilder.control('', {
+          validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
+        }),
+        lastname: this.formBuilder.control('', {
+          validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
+        }),
+        email: this.formBuilder.control('', {
+          validators: [Validators.required, Validators.email],
+        }),
+        phone: this.formBuilder.control('', {
+          validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
+        }),
       }),
     });
 
     this.getUsers();
   }
 
+  // Obtener usuarios desde el backend
   getUsers() {
-    this.columns = getEntityProperties('user');
+    this.columns = getEntityProperties('user'); // Configura las columnas para la tabla
     this.services.getUsers().subscribe((data) => {
       this.userList = data;
     });
   }
 
+  // Manejar acciones de la tabla (Editar, Eliminar, Agregar)
   onAction(action: Accion<Usuario>) {
     if (action.accion === 'Editar') {
       if (action.fila) {
-        this.updateUser(action.fila);
+        this.updateUser(action.fila); // Actualizar usuario
       }
     } else if (action.accion === 'Eliminar') {
       if (action.fila && action.fila.id) {
-        this.deleteUser(action.fila.id);
+        this.deleteUser(action.fila.id); // Eliminar usuario
       }
     } else if (action.accion === 'Agregar') {
       if (action.fila) {
-        this.addUser(action.fila);
+        this.addUser(action.fila); // Agregar usuario
       }
     }
-  
   }
 
+  // Agregar usuario
   addUser(usuario: Usuario) {
     this.services.addUser(usuario).subscribe(() => {
       this.getUsers(); // Recarga la lista de usuarios
     });
   }
 
+  // Actualizar usuario
   updateUser(usuario: Usuario) {
     if (usuario.id) {
       this.services.updateUser(usuario.id, usuario).subscribe(() => {
-        this.getUsers(); // Actualiza la lista
+        this.getUsers(); // Actualiza la lista de usuarios
       });
     }
   }
 
+  // Eliminar usuario
   deleteUser(id: number) {
     this.services.deleteUser(id).subscribe(() => {
       this.getUsers(); // Refresca los datos después de eliminar
     });
   }
 
+  // Abrir diálogo para el formulario de usuario
   openDialog() {
     const dialogRef = this.dialog.open(DialogFormComponent, {
       autoFocus: false,

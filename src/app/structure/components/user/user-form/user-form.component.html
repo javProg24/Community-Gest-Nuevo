@@ -1,24 +1,51 @@
 <div class="register-card">
     <mat-card-title class="title">
-        <strong>Datos del usuario</strong>
+      <strong>{{ isEditMode ? 'Editar Usuario' : 'Nuevo Usuario' }}</strong>
     </mat-card-title>
     <mat-card-content>
-        <form class="register-form" [formGroup]="formGroup" (ngSubmit)="onSubmit()">
-           <mat-form-field appearance="fill" class="full-width">
-            <mat-label>Cedula</mat-label>
-            <input type="text" matInput formControlName="cedula">
-            <mat-error *ngIf="formGroup.get('cedula')?.hasError('required')">La cedula es obligatorio></mat-error>
-            <mat-error *ngIf="formGroup.get('cedula')?.hasError('pattern')">Caracter no valido. Solo se permiten numeros de 10 digitos</mat-error>
-        </mat-form-field> 
-           <app-form controlKey="dataPerson"></app-form>
-           <div class="form-buttons">
-            <button mat-raised-button color="primary" type="submit">
-                Guardar
-            </button>
-            <button mat-raised-button color="warn" type="reset">
-                Cancelar
-            </button>
-           </div>
-        </form>
+      <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Cédula</mat-label>
+          <input type="text" matInput formControlName="cedula" />
+          <mat-error *ngIf="formGroup.get('cedula')?.hasError('required')">La cédula es obligatoria</mat-error>
+          <mat-error *ngIf="formGroup.get('cedula')?.hasError('pattern')">Cédula inválida</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Nombre</mat-label>
+          <input type="text" matInput formControlName="nombre" />
+          <mat-error *ngIf="formGroup.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+          <mat-error *ngIf="formGroup.get('nombre')?.hasError('pattern')">Nombre inválido</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Apellido</mat-label>
+          <input type="text" matInput formControlName="apellido" />
+          <mat-error *ngIf="formGroup.get('apellido')?.hasError('required')">El apellido es obligatorio</mat-error>
+          <mat-error *ngIf="formGroup.get('apellido')?.hasError('pattern')">Apellido inválido</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Correo</mat-label>
+          <input type="email" matInput formControlName="correo" />
+          <mat-error *ngIf="formGroup.get('correo')?.hasError('required')">El correo es obligatorio</mat-error>
+          <mat-error *ngIf="formGroup.get('correo')?.hasError('email')">Correo inválido</mat-error>
+        </mat-form-field>
+  
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Teléfono</mat-label>
+          <input type="text" matInput formControlName="telefono" />
+          <mat-error *ngIf="formGroup.get('telefono')?.hasError('required')">El teléfono es obligatorio</mat-error>
+          <mat-error *ngIf="formGroup.get('telefono')?.hasError('pattern')">Teléfono inválido</mat-error>
+        </mat-form-field>
+  
+        <div class="form-buttons">
+          <button mat-raised-button color="primary" type="submit">
+            {{ isEditMode ? 'Actualizar' : 'Guardar' }}
+          </button>
+          <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancelar</button>
+        </div>
+      </form>
     </mat-card-content>
-</div>
+  </div>
+  

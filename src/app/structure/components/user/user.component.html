@@ -1,33 +1,12 @@
 <div class="buttons">
-    <h1><strong>Usuarios</strong></h1>
+    <h1><strong>{{ title }}</strong></h1>
     <button mat-flat-button color="accent" (click)="openDialog()">
-        <mat-icon>add</mat-icon>
-        Nuevo
+      <mat-icon>add</mat-icon>
+      Nuevo
     </button>
-</div>
-<!-- <mat-card class="register-card">
-    <mat-card-title class="title">
-        <strong>Datos Personales</strong>
-    </mat-card-title>
-    <mat-card-content>
-        <form class="register-form" [formGroup]="formGroup">
-            <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Cedula</mat-label>
-                <input matInput formControlName="identity_card" type="text">
-            </mat-form-field>
-            <app-form controlKey="dataPerson"></app-form>
-            <div class="form-buttons">
-                <button mat-raised-button color="primary" type="submit">
-                    Guardar
-                </button>
-                <button mat-raised-button color="warn" type="reset">
-                    Cancelar
-                </button>
-            </div>
-        </form>
-    </mat-card-content>
-</mat-card> -->
-<div class="table-section">
+  </div>
+  
+  <div class="table-section">
     <app-table 
       [titulo]="title" 
       [columnas]="columns" 
@@ -35,5 +14,4 @@
       (action)="onAction($event)">
     </app-table>
   </div>
-  
   

@@ -5,10 +5,12 @@ import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormComponent } from "../../../shared/form/form.component";
 import { UserService } from '../../../../services/user-service/user.service';
-import { MatDialog } from '@angular/material/dialog';
-import { IUserForm, Usuario } from '../../../../models/user';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { NgIf } from '@angular/common';
+import { Usuario } from '../../../../models/user';
+import { Accion, getEntityProperties } from '../../../../models/tabla-columna';
+import { DialogFormComponent } from '../../../shared/dialog-form/dialog-form.component';
 
 @Component({
   selector: 'app-user-form',
@@ -18,44 +20,71 @@ import { NgIf } from '@angular/common';
   styleUrl: './user-form.component.css'
 })
 export class UserFormComponent implements OnInit {
-  private formBuilder = inject(NonNullableFormBuilder);
   formGroup!: FormGroup;
+  isEditMode: boolean = false; // Para identificar si es edición o creación
+  currentUser?: Usuario; // Usuario actual (si es edición)
 
-  constructor(private services: UserService, private dialog: MatDialog) {}
+  private formBuilder = inject(NonNullableFormBuilder);
+
+  constructor(
+    private services: UserService,
+    private dialogRef: MatDialogRef<UserFormComponent> // Referencia para cerrar el diálogo
+  ) {}
 
   ngOnInit(): void {
-    this.formGroup=this.formBuilder.group<IUserForm>({
-      identity_card:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]}),
-      dataPerson:this.formBuilder.group({
-        name:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]}),
-        lastname:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]}),
-        email:this.formBuilder.control('',{validators:[Validators.required,Validators.email]}),
-        phone:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]})
-      })
-    })
+    this.formGroup = this.formBuilder.group({
+      id: this.formBuilder.control<number | null>(null), // Campo opcional para manejar edición
+      cedula: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
+      }),
+      nombre: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
+      }),
+      apellido: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
+      }),
+      correo: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.email],
+      }),
+      telefono: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
+      }),
+    });
+
+    // Si hay un usuario actual (para editar), llenamos el formulario
+    if (this.currentUser) {
+      this.isEditMode = true;
+      this.formGroup.patchValue(this.currentUser);
+    }
   }
 
+  // Manejar el envío del formulario
   onSubmit() {
     const usuario: Usuario = this.formGroup.value;
 
-    if (usuario.id) {
-      // Si el ID existe, se actualiza el usuario
+    if (this.isEditMode && usuario.id) {
+      // Actualizar usuario
       this.services.updateUser(usuario.id, usuario).subscribe({
         next: () => {
           console.log('Usuario actualizado correctamente');
-          this.dialog.closeAll(); // Cierra el diálogo después de la acción
+          this.dialogRef.close(true); // Cierra el formulario y notifica éxito
         },
-        error: (err) => console.error('Error al actualizar el usuario', err),
+        error: (err) => console.error('Error al actualizar usuario', err),
       });
     } else {
-      // Si no hay ID, se crea un nuevo usuario
+      // Crear nuevo usuario
       this.services.addUser(usuario).subscribe({
         next: () => {
           console.log('Usuario creado correctamente');
-          this.dialog.closeAll(); // Cierra el diálogo después de la acción
+          this.dialogRef.close(true); // Cierra el formulario y notifica éxito
         },
-        error: (err) => console.error('Error al crear el usuario', err),
+        error: (err) => console.error('Error al crear usuario', err),
       });
     }
+  }
+
+  // Cancelar y cerrar el formulario
+  onCancel() {
+    this.dialogRef.close(false); // Cierra el formulario sin realizar cambios
   }
 }
