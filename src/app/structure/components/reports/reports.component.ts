@@ -8,6 +8,7 @@ import { Accion, getEntityProperties } from '../../../models/tabla-columna';
 import { DialogFormComponent } from '../../shared/dialog-form/dialog-form.component';
 import { ReportFormComponent } from './report-form/report-form.component';
 import { Reporte } from '../../../models/report';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-reports',
@@ -16,19 +17,6 @@ import { Reporte } from '../../../models/report';
   styleUrl: './reports.component.css'
 })
 export class ReportsComponent implements OnInit{
-openDialog() {
-  const dialogRef=this.dialog.open(DialogFormComponent,{
-    autoFocus: false,
-    disableClose: true,
-    data:{component:ReportFormComponent}
-  })
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(result);
-    if (result) {
-      console.log("Cerrar");
-    }
-  });
-}
   reportList:Reporte[]=[]
   columns:string[]=[]
   title='Reportes'
@@ -36,12 +24,24 @@ openDialog() {
   ngOnInit(): void {
     this.getReport()
   }
-  getReport(){
-    this.columns=getEntityProperties('reporte')
-    this.services.getReport().subscribe((data)=>{
-      this.reportList=data
-    })
-  }
+getReport(){
+  this.columns=getEntityProperties('reporte')
+  this.services.getReport().subscribe((data)=>{
+    this.reportList=data
+   })
+}
+
+openDialog() {
+  const dialogRef=this.dialog.open(DialogFormComponent,{
+    autoFocus: false,
+    disableClose: true,
+    data:{component:ReportFormComponent}
+  })
+  dialogRef.afterClosed().subscribe(() => {
+    this.getReport(); // Actualizar la tabla después de cerrar el diálogo
+  });
+}
+  
   onAction(accion:Accion){
     if(accion.accion=='Editar'){
       this.editar(accion.fila);
@@ -49,11 +49,57 @@ openDialog() {
       this.eliminar(accion.fila);
     }
   }
-  eliminar(nombre: any) {
-    console.log('eliminar', nombre);
+
+  addReporte(reporte: Reporte){
+    this.services.addReporte(reporte).subscribe(() => {
+      this.getReport(); // Recarga la lista de usuarios
+    });
+  }
+  updateUser(reporte: Reporte) {
+    if (reporte.id) {
+      this.services.updateReports(reporte.id, reporte).subscribe(() => {
+        this.getReport(); // Actualiza la lista
+      });
+    }
+  }
+  
+  eliminar(reporte: Reporte) {
+    const dialogRef = this.dialog.open(DialogComponent,{
+      data:{
+        titulo: "Esta seguro de eliminar el reporte?",
+      },
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      /*if (result){
+        this.services.deleteReports(reporte.id,reporte).subscribe(()=>{
+          alert("Reporte eliminado exitosamente")
+          this.getReport();
+        });
+      }*/
+     if (reporte.id !== undefined) {
+  this.services.deleteReports(reporte.id, reporte).subscribe(() => {
+    alert("Reporte eliminado exitosamente");
+    this.getReport();
+  });
+} else {
+  console.error("El reporte no tiene un ID definido.");
+}
+    })
   }
 
-  editar(objeto: any) {
-    console.log('editar', objeto);
+  editar(reporte: Reporte) {
+    
+    const dialogRef = this.dialog.open(ReportFormComponent, {
+      autoFocus: false,
+      disableClose: true,
+      data: reporte, 
+      width: '2000px', 
+      height: '50vh', 
+    }); 
+
+    dialogRef.afterClosed().subscribe(() => {
+      this.getReport(); // Actualiza la tabla después de cerrar el diálogo
+    });
   }
+  
 }
