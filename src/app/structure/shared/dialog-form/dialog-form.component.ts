@@ -1,5 +1,5 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, Inject, OnInit, Type } from '@angular/core';
+import { Component, Inject, Injector, OnInit, Type } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -24,10 +24,19 @@ export interface I_FormComponent {
   templateUrl: './dialog-form.component.html',
   styleUrls: ['./dialog-form.component.css'] // Corregido: styleUrls en lugar de styleUrl
 })
-export class DialogFormComponent {
-  constructor(public dialogRef:MatDialogRef<DialogFormComponent>,
-    @Inject(MAT_DIALOG_DATA)public data:{component:ComponentType<any> }
+export class DialogFormComponent implements OnInit{
+  customInjector!: Injector;
+  constructor(
+    public dialogRef:MatDialogRef<DialogFormComponent>,
+    private injector: Injector,
+    @Inject(MAT_DIALOG_DATA)public data:{component: any; formData?: any;}
   ){}
+  ngOnInit(): void {
+    this.customInjector = Injector.create({
+      providers: [{ provide: 'formData', useValue: this.data.formData }],
+      parent: this.injector,
+    });
+  }
   
   closeDialog(){
     this.dialogRef.close();

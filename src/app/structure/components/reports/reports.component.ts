@@ -35,13 +35,15 @@ openDialog() {
   const dialogRef=this.dialog.open(DialogFormComponent,{
     autoFocus: false,
     disableClose: true,
-    data:{component:ReportFormComponent}
+    data:{
+      component:ReportFormComponent,
+      formData:null
+    }
   })
   dialogRef.afterClosed().subscribe(() => {
     this.getReport(); // Actualizar la tabla después de cerrar el diálogo
   });
 }
-  
   onAction(accion:Accion){
     if(accion.accion=='Editar'){
       this.editar(accion.fila);
@@ -49,20 +51,6 @@ openDialog() {
       this.eliminar(accion.fila);
     }
   }
-
-  addReporte(reporte: Reporte){
-    this.services.addReporte(reporte).subscribe(() => {
-      this.getReport(); // Recarga la lista de usuarios
-    });
-  }
-  updateUser(reporte: Reporte) {
-    if (reporte.id) {
-      this.services.updateReports(reporte.id, reporte).subscribe(() => {
-        this.getReport(); // Actualiza la lista
-      });
-    }
-  }
-  
   eliminar(reporte: Reporte) {
     const dialogRef = this.dialog.open(DialogComponent,{
       data:{
@@ -86,16 +74,17 @@ openDialog() {
 }
     })
   }
-
   editar(reporte: Reporte) {
     
-    const dialogRef = this.dialog.open(ReportFormComponent, {
+    const dialogRef = this.dialog.open(DialogFormComponent, {
       autoFocus: false,
       disableClose: true,
-      data: reporte, 
-      width: '2000px', 
-      height: '50vh', 
+      data: {
+        component: ReportFormComponent,
+        formData:reporte
+      }, 
     }); 
+    
 
     dialogRef.afterClosed().subscribe(() => {
       this.getReport(); // Actualiza la tabla después de cerrar el diálogo

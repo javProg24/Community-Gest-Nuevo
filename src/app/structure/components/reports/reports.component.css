@@ -16,3 +16,12 @@ h1{
     padding-bottom: 20px;
     font-size: 3rem;
 }
+.custom-dialog-container {
+    padding: 20px; /* Agrega un poco de espacio alrededor del contenido */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  max-height: 90vh; /* Limita la altura del diálogo */
+  overflow: auto; /* Permite que el contenido dentro del diálogo sea desplazable si excede la altura */
+}

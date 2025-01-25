@@ -37,7 +37,7 @@ export class ReportFormComponent implements OnInit{
     private fb:FormBuilder,
     public dialogRef:MatDialogRef<ReportFormComponent>, 
     private services:ReportService,
-    @Inject(MAT_DIALOG_DATA) public data: Reporte | null){}
+    @Inject('formData')public formData:Reporte|null){}
   ngOnInit(): void {
     this.formGroup = this.fb.group({
       titulo:['',[Validators.required]],
@@ -46,15 +46,16 @@ export class ReportFormComponent implements OnInit{
       estado:['',[Validators.required]]
     })
     
-  if (this.data) {
-    if (this.data.id) {
+  if (this.formData) {
+    console.log(this.formData)
+    if (this.formData.id) {
       this.editMode = true;
-      this.currentId = this.data.id;
+      this.currentId = this.formData.id;
       this.formGroup.patchValue({
-        titulo: this.data.titulo,
-        descripcion: this.data.descripcion,
-        recursoAfectado: this.data.recursoAfectado,
-        estado: this.data.estado,
+        titulo: this.formData.titulo,
+        descripcion: this.formData.descripcion,
+        recursoAfectado: this.formData.recursoAfectado,
+        estado: this.formData.estado,
       });
     } else {
       this.editMode = false;
