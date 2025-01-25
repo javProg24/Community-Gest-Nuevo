@@ -28,5 +28,12 @@
     </mat-card-content>
 </mat-card> -->
 <div class="table-section">
-    <app-table [titulo]="title" [columnas]="columns" [datos]="userList" (action)="onAction($event)"></app-table>
-</div>
+    <app-table 
+      [titulo]="title" 
+      [columnas]="columns" 
+      [datos]="userList" 
+      (action)="onAction($event)">
+    </app-table>
+  </div>
+  
+  

@@ -13,65 +13,109 @@ import { TableComponent } from "../../shared/table/table.component";
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogFormComponent } from '../../shared/dialog-form/dialog-form.component';
-import { ToolFormComponent } from '../tool/tool-form/tool-form.component';
 import { UserFormComponent } from './user-form/user-form.component';
 
 @Component({
   selector: 'app-user',
-  imports: [MatIconModule,
+  imports: [
+    MatIconModule,
     MatCardModule,
     ReactiveFormsModule,
-    MatFormFieldModule, MatInputModule, MatButtonModule, TableComponent],
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    TableComponent
+  ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
-export class UserComponent implements OnInit{
-  
-  formGroup!:FormGroup
-  userList:Usuario[]=[]
-  columns:string[]=[]
-  title:string='Usuarios'
-  private formBuilder=inject(NonNullableFormBuilder)
-  constructor(private services:UserService, private dialog:MatDialog) { }
+export class UserComponent implements OnInit {
+  formGroup!: FormGroup;
+  userList: Usuario[] = [];
+  columns: string[] = [];
+  title: string = 'Usuarios';
+
+  private formBuilder = inject(NonNullableFormBuilder);
+
+  constructor(private services: UserService, private dialog: MatDialog) {}
+
   ngOnInit(): void {
-    this.formGroup=this.formBuilder.group<IUserForm>({
-      identity_card:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]}),
-      dataPerson: this.formBuilder.group({
-        name: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] }),
-        lastname: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] }),
-        email: this.formBuilder.control('', { validators: [Validators.required, Validators.email] }),
-        phone: this.formBuilder.control('', { validators: [Validators.required, Validators.pattern(/^\d{10}$/)] })
+    this.formGroup = this.formBuilder.group<IUserForm>({
+      identity_card: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
       }),
-    })
+      dataPerson: this.formBuilder.group({
+        name: this.formBuilder.control('', {
+          validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
+        }),
+        lastname: this.formBuilder.control('', {
+          validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
+        }),
+        email: this.formBuilder.control('', {
+          validators: [Validators.required, Validators.email],
+        }),
+        phone: this.formBuilder.control('', {
+          validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
+        }),
+      }),
+    });
+
     this.getUsers();
   }
-  getUsers(){
-    this.columns=getEntityProperties('user')
-    this.services.getUsers().subscribe((data)=>{
-      this.userList=data
-    })
+
+  getUsers() {
+    this.columns = getEntityProperties('user');
+    this.services.getUsers().subscribe((data) => {
+      this.userList = data;
+    });
   }
-  onAction(accion:Accion){
-    if(accion.accion=='Editar'){
-      this.editar(accion.fila)
-    }else if(accion.accion=='Eliminar'){
-      this.eliminar(accion.fila)
+
+  onAction(action: Accion<Usuario>) {
+    if (action.accion === 'Editar') {
+      if (action.fila) {
+        this.updateUser(action.fila);
+      }
+    } else if (action.accion === 'Eliminar') {
+      if (action.fila && action.fila.id) {
+        this.deleteUser(action.fila.id);
+      }
+    } else if (action.accion === 'Agregar') {
+      if (action.fila) {
+        this.addUser(action.fila);
+      }
+    }
+  
+  }
+
+  addUser(usuario: Usuario) {
+    this.services.addUser(usuario).subscribe(() => {
+      this.getUsers(); // Recarga la lista de usuarios
+    });
+  }
+
+  updateUser(usuario: Usuario) {
+    if (usuario.id) {
+      this.services.updateUser(usuario.id, usuario).subscribe(() => {
+        this.getUsers(); // Actualiza la lista
+      });
     }
   }
-  eliminar(nombre:any){
-    console.log("eliminar",nombre)
+
+  deleteUser(id: number) {
+    this.services.deleteUser(id).subscribe(() => {
+      this.getUsers(); // Refresca los datos después de eliminar
+    });
   }
-  editar(objeto:any){
-    console.log("editar",objeto)
-  }
+
   openDialog() {
-    const dialogRef=this.dialog.open(DialogFormComponent,{
+    const dialogRef = this.dialog.open(DialogFormComponent, {
       autoFocus: false,
       disableClose: true,
-      data:{component:UserFormComponent},
-      width:'500px'
-    })
-    dialogRef.afterClosed().subscribe(result => {
+      data: { component: UserFormComponent },
+      width: '500px',
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result) {
         console.log("Cerrar");
