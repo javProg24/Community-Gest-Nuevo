@@ -70,12 +70,12 @@ export class ReportFormComponent implements OnInit{
     this.submitted = false;
   }
   onSubmit(){
-      this.submitted = true;
+      /*this.submitted = true;
 
       if (this.formGroup.invalid) {
         console.error('Formulario inválido:', this.formGroup.errors);
         return;
-      }
+      }*/
     
       const reporte: Reporte = {
         ...this.formGroup.value, 
