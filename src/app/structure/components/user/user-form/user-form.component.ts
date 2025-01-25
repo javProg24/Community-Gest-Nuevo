@@ -15,7 +15,7 @@ import { DialogFormComponent } from '../../../shared/dialog-form/dialog-form.com
 @Component({
   selector: 'app-user-form',
   imports: [MatFormFieldModule, MatCardModule, ReactiveFormsModule,
-    MatLabel, MatInputModule, FormComponent,MatButtonModule,NgIf],
+    MatLabel, MatInputModule, MatButtonModule, NgIf],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
