@@ -47,23 +47,54 @@ import { MatDialog } from '@angular/material/dialog';
   providers:[DatePipe]
 })
 export class ReservaInstallComponent implements OnInit{
-
-  search_N_A_I(input: HTMLInputElement) {
+  search_Inst(input: HTMLInputElement) {
     const searchQuery = input.value.trim();
-  
-    // Verificar si se ingresó algo
     if (searchQuery) {
-      // Separar nombre, apellido o instalación (puedes personalizar esta lógica según tu necesidad)
-      const [nombre, apellido, instalacion] = searchQuery.split(' ');
-  
-      // Llamar al servicio de búsqueda pasando los parámetros correspondientes
-      this.reservaService.searchReserva_Ins(nombre, apellido, instalacion).subscribe(
+      this.reservaService.searchReserva_Ins(
+        { instalacion: searchQuery }
+      ).subscribe(
         (datos: Reserva_Instalacion[]) => {
           this.installList = datos; // Actualizar la lista con los datos recibidos
         }
       );
     }
+    else{
+      this.getReserIn()
+    }
   }
+  search_Apellido(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    if (searchQuery) {
+      this.reservaService.searchReserva_Ins(
+        { apellido: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Instalacion[]) => {
+          this.installList = datos; // Actualizar la lista con los datos recibidos
+        }
+      );
+    }
+    else{
+      this.getReserIn()
+    }
+  }
+  search_Nombre(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    
+    // Verificar si se ingresó algo
+    if (searchQuery) {
+      this.reservaService.searchReserva_Ins(
+        { nombre: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Instalacion[]) => {
+          this.installList = datos; // Actualizar la lista con los datos recibidos
+        }
+      );
+    }
+    else{
+      this.getReserIn()
+    }
+  }
+  
   
   // dataSource=new MatTableDataSource<Reserva_Instalacion>();
   //minimaFecha:Date = new Date(1940,0,1);

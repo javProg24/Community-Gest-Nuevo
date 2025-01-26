@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GeneralService } from '../general-services/general.service';
 import { Observable } from 'rxjs';
 import { Reserva_Herr as Reserva_Herramienta, Reserva_Instalacion } from '../../models/reservation';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams,} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class ReservationService {
   private APIurl_Re_Ins='http://localhost:5199/api/ReservacionInstalacions'
   private APIurl_Re_Her='http://localhost:5199/api/ReservacionHerramientas'
   private jsonAPI='http://localhost:5199/api/Instalacions'
-  constructor(private services:GeneralService,) { }
+  constructor(private services:GeneralService,private http:HttpClient) { }
   desactiveInstalacion(id:number):Observable<void>{
     return this.services.desactiveService<void>(this.jsonAPI,id)
   }
@@ -24,25 +24,12 @@ export class ReservationService {
   getReserva_Ins_Fi():Observable<Reserva_Instalacion[]>{
     return this.services.getServiceEntity<Reserva_Instalacion>(this.APIurl_Re_Ins,"/Reservas_Inst_Finalizada")
   }
-  searchReserva_Ins(nombre?: string, apellido?: string, instalacion?: string): Observable<Reserva_Instalacion[]> {
-    let params = new HttpParams ();
-  
-    // Verificar y agregar los parámetros opcionales
-    if (nombre) {
-      params = params.set("nombre",nombre) // Corresponde al parámetro 'nombre'
-    }
-    if (apellido) {
-      params = params.set("apellido",apellido) // Corresponde al parámetro 'apellido'
-    }
-    if (instalacion) {
-      params = params.set("instalacion",instalacion) // Corresponde al parámetro 'instalacion'
-    }
-  
-    console.log('Parámetros enviados:', params);
-  
-    // Llamar al servicio genérico
-    return this.services.searchService<Reserva_Instalacion>(this.APIurl_Re_Ins, 'search', params);
+  searchReserva_Ins(dato?: { [key: string]: string }): Observable<Reserva_Instalacion[]> {
+    // Eliminar claves con valores 'undefined' o 'null'
+      
+      return this.services.searchService<Reserva_Instalacion>(`${this.APIurl_Re_Ins}/search`,dato)
   }
+  
   
   
   getReserva_ID_Inst(id?:number):Observable<Reserva_Instalacion>{

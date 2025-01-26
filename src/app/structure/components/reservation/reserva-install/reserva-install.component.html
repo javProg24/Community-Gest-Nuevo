@@ -76,13 +76,32 @@
             <div class="search-container">
                 <div class="search-fields" [formGroup]="form">
                   <mat-form-field class="search-field">
-                    <mat-label>Buscar por nombre y apellido o Instalacion</mat-label>
+                    <mat-label>Buscar por nombre del usuario</mat-label>
                     <input 
                       matInput 
                       type="search" 
                       formControlName="Nombre_Apellido_Instalacion" 
-                      #searchInput 
-                      (keyup)="search_N_A_I(searchInput)">
+                      
+                      #InputNombre 
+                      (keyup)="search_Nombre(InputNombre)">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Buscar por el apellido del usuario</mat-label>
+                    <input 
+                      matInput 
+                      type="search" 
+                      formControlName="Nombre_Apellido_Instalacion" 
+                      #InputApellido 
+                      (keyup)="search_Apellido(InputApellido)">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Buscar por la instalacion</mat-label>
+                    <input 
+                      matInput 
+                      type="search" 
+                      formControlName="Nombre_Apellido_Instalacion" 
+                      #InputInst
+                      (keyup)="search_Inst(InputInst)">
                   </mat-form-field>
                 </div>
               </div>

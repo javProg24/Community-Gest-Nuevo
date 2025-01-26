@@ -24,10 +24,10 @@ export class HistoryComponent implements OnInit{
 form!: FormGroup;
 // Método para buscar por Nombre y Apellidos
 searchByName(nombre_Apellido: string) {
-  this.reservaService.searchReserva_Ins(nombre_Apellido).subscribe(data => {
-    // Manejar los resultados de la búsqueda
-    console.log('Resultados de búsqueda por nombre:', nombre_Apellido);
-  });
+  // this.reservaService.searchReserva_Ins(nombre_Apellido).subscribe(data => {
+  //   // Manejar los resultados de la búsqueda
+  //   console.log('Resultados de búsqueda por nombre:', nombre_Apellido);
+  // });
 }
 
 
