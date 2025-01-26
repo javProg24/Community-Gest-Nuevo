@@ -30,7 +30,7 @@ import { map } from 'rxjs';
     MatCheckboxModule, MatSelectModule, MatOptionModule,
     NgFor, MatNativeDateModule, MatFormField, MatTimepickerModule,
     MatButtonModule, MatTabsModule, MatTableModule, CommonModule,
-    MatIconModule, MatButtonModule, MatTableModule, TableComponent],
+    MatIconModule, MatButtonModule, MatTableModule],
   templateUrl: './reserva-install.component.html',
   styleUrl: './reserva-install.component.css'
 })

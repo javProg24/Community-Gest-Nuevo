@@ -5,16 +5,18 @@
     <mat-card-content>
         <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
             <mat-form-field appearance="fill" class="full-width">
-                <mat-label>Herramienta</mat-label>
-                <input matInput type="text" formControlName="herramienta">
-                <mat-error *ngIf="formGroup.get('herramienta')?.hasError('required')">El nombre es obligatorio</mat-error>
-                <mat-error *ngIf="formGroup.get('herramienta')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+                <mat-label>Nombre</mat-label>
+                <input matInput type="text" formControlName="nombre">
+                <mat-error *ngIf="formGroup.get('nombre')?.hasError('required')">El nombre es obligatorio</mat-error>
+                <mat-error *ngIf="formGroup.get('nombre')?.hasError('minlength')">El valor mínimo permitido es de tres caracteres</mat-error>
+                <mat-error *ngIf="formGroup.get('nombre')?.hasError('pattern')">Solo puede contener letras y espacios</mat-error>
             </mat-form-field>
 
             <mat-form-field>
                 <mat-label>Ubicacion</mat-label>
                 <input type="text" matInput formControlName="ubicacion">
                 <mat-error *ngIf="formGroup.get('ubicacion')?.hasError('required')">El nombre es obligatorio</mat-error>
+                <mat-error *ngIf="formGroup.get('ubicacion')?.hasError('minlength')">El valor mínimo permitido es de tres caracteres</mat-error>
                 <mat-error *ngIf="formGroup.get('ubicacion')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
             </mat-form-field>
 
@@ -22,44 +24,47 @@
                 <mat-label>Descripcion</mat-label>
                 <input matInput type="text" formControlName="descripcion">
                 <mat-error *ngIf="formGroup.get('descripcion')?.hasError('required')">La descripcion es obligatorio</mat-error>
-                <mat-error *ngIf="formGroup.get('descripcion')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+                <mat-error *ngIf="formGroup.get('descripcion')?.hasError('minlength')">El valor mínimo permitido es de tres caracteres</mat-error>
+                <mat-error *ngIf="formGroup.get('descripcion')?.hasError('maxlength')">La descripción no puede superar los 100 caracteres</mat-error>
+                <mat-error *ngIf="formGroup.get('descripcion')?.hasError('pattern')">Solo puede contener letras y espacios</mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="full-width">
                 <mat-label>Cantidad</mat-label>
                 <input type="number" matInput formControlName="cantidad">
                 <mat-error *ngIf="formGroup.get('cantidad')?.hasError('required')">
-                    La capacidad es obligatoria
-                  </mat-error>
-                  <mat-error *ngIf="formGroup.get('cantidad')?.hasError('min')">
-                    El valor mínimo permitido es {{ formGroup.get('capacidad')?.errors?.['min']?.min }}
-                  </mat-error>
-                  <mat-error *ngIf="formGroup.get('cantidad')?.hasError('max')">
-                    El valor máximo permitido es {{ formGroup.get('capacidad')?.errors?.['max']?.max }}
-                  </mat-error>
-                  <mat-error *ngIf="formGroup.get('cantidad')?.hasError('pattern')">
-                    Solo se permiten números positivos
-                  </mat-error>
+                    La cantidad es obligatoria.
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('cantidad')?.hasError('min')">
+                    El valor mínimo permitido es 1
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('cantidad')?.hasError('max')">
+                    El valor máximo permitido es 100
+                </mat-error>
+                <mat-error *ngIf="formGroup.get('cantidad')?.hasError('pattern')">
+                    Solo se permiten números
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field appearance="fill" class="full-width">
                 <mat-label>Estado</mat-label>
-                <mat-select formControlName="estado">
+                <mat-select formControlName="disponibilidad">
                     <mat-option *ngFor="let opcion of estados" [value]="opcion.value">
                         {{opcion.viewValue}}
                     </mat-option>   
                 </mat-select>
-                <mat-error *ngIf="formGroup.get('estado')?.hasError('required')">
+                <mat-error *ngIf="formGroup.get('disponibilidad')?.hasError('required')">
                     El estado es obligatorio
                 </mat-error>
             </mat-form-field>
+            
             <div class="form-buttons">
                 <button mat-raised-button color="primary" type="submit">
                     Guardar
-                  </button>
-                  <button mat-raised-button color="warn" type="reset" (click)="close()">
+                </button>
+                <button mat-raised-button color="warn" type="reset" (click)="close()">
                     Cancelar
-                  </button>
+                </button>
             </div>
         </form>
     </mat-card-content>
