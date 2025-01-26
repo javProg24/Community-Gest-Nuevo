@@ -11,10 +11,11 @@ import { Reporte } from '../../../models/report';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { NotificationComponent } from "../../shared/notification/notification.component";
 
 @Component({
   selector: 'app-reports',
-  imports: [TableComponent, MatIconModule, MatButtonModule, MatDialogModule, MatIconModule, MatFormField, MatLabel, MatFormFieldModule, MatInputModule], //puse MatFormField y MatLabel
+  imports: [TableComponent, MatIconModule, MatButtonModule, MatDialogModule, MatIconModule, MatFormField, MatLabel, MatFormFieldModule, MatInputModule, NotificationComponent], //puse MatFormField y MatLabel
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.css'
 })
