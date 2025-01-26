@@ -93,14 +93,15 @@ export class ToolComponent implements OnInit{
         
     })
   }
-
+  //ToolFormComponent
   editar(herramienta: Herramienta){
-    const dialogRef = this.dialog.open(ToolFormComponent, {
+    const dialogRef = this.dialog.open(DialogFormComponent, {
       autoFocus: false,
       disableClose: true,
-      data: herramienta, 
-      width: '2000px', 
-      height: '50vh', 
+      data: {
+              component: ToolFormComponent,
+              formData:herramienta,
+      },
       }); 
     
     dialogRef.afterClosed().subscribe(() => {

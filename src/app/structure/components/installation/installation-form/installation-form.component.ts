@@ -75,16 +75,19 @@ export class InstallationFormComponent implements OnInit {
       if (this.data.id) {
         this.editMode = true;
         this.currentId = this.data.id;
+        const parsedHoraInicio = this.parseToTime(this.data.horaInicio);
+        const parsedHoraFin = this.parseToTime(this.data.horaFin);
         this.formGroup.patchValue({
           nombre: this.data.nombre,
           tipo: this.data.tipo,
           capacidad: this.data.capacidad,
           descripcion: this.data.descripcion,
           dia: this.data.dia,
-          horaInicio: this.data.horaInicio,
-          horaFin: this.data.horaFin,
+          horaInicio: parsedHoraInicio, // Enviar objeto Date
+          horaFin: parsedHoraFin,       // Enviar objeto Date
           disponibilidad: this.data.disponibilidad
         });
+        
       } else {
         this.editMode = false;
       }
@@ -92,7 +95,12 @@ export class InstallationFormComponent implements OnInit {
       this.editMode = false;
     }
   }
-
+  private parseToTime(time: string): Date {
+    const [hours, minutes] = time.split(':').map(Number); // Divide 'hh:mm' en partes
+    const date = new Date();
+    date.setHours(hours, minutes, 0, 0); // Ajusta la hora y los minutos
+    return date;
+  }
   onSubmit() {
   this.submitted = true;
       console.log(this.formGroup.value);
@@ -107,7 +115,7 @@ export class InstallationFormComponent implements OnInit {
     //const diaValue = this.formGroup.value.dia;
     const horaInicioValue = this.formGroup.value.horaInicio;
     const horaFinalValue = this.formGroup.value.horaFin;
-
+      
     const dateInicio: Date=horaInicioValue;
     const hoursInicio = dateInicio.getHours();
     const minutesInicio = dateInicio.getMinutes();
