@@ -9,7 +9,7 @@ import { HttpClient, HttpParams,} from '@angular/common/http';
 })
 export class ReservationService {
   private API_Re_Ins='http://localhost:5199/api/ReservacionInstalacions'
-  private APIurl_Re_Her='http://localhost:5199/api/ReservacionHerramientas'
+  private API_Re_Her='http://localhost:5199/api/ReservacionHerramientas'
   private API_Ins='http://localhost:5199/api/Instalacions'
   private API_Herr='http://localhost:5199/api/Herramientas'
   constructor(private services:GeneralService,private http:HttpClient) { }
@@ -47,22 +47,22 @@ export class ReservationService {
   //   )
   // }
   searchReserva_Her(dato?: { [key: string]: string }): Observable<Reserva_Herr[]> {
-    return this.services.searchService<Reserva_Herr>(`${this.APIurl_Re_Her}/search`,dato)
+    return this.services.searchService<Reserva_Herr>(`${this.API_Re_Her}/search`,dato)
   }
   searchReserva_Ins_Fi(dato?: { [key: string]: string }): Observable<Reserva_Instalacion[]>{
     return this.services.searchService<Reserva_Instalacion>(`${this.API_Re_Ins}/search_Finalizada`,dato)
   }
   searchReserva_Herr_Fi(dato?: { [key: string]: string }): Observable<Reserva_Herr[]>{
-    return this.services.searchService<Reserva_Herr>(`${this.APIurl_Re_Her}/search_Finalizada`,dato)
+    return this.services.searchService<Reserva_Herr>(`${this.API_Re_Her}/search_Finalizada`,dato)
   }
   getReserva_ID_Inst(id?:number):Observable<Reserva_Instalacion>{
     return this.services.getServiceID<Reserva_Instalacion>(this.API_Re_Ins,id)
   }
   getReserva_ID_Her(id?:number):Observable<Reserva_Herramienta>{
-    return this.services.getServiceID<Reserva_Herramienta>(this.APIurl_Re_Her,id)
+    return this.services.getServiceID<Reserva_Herramienta>(this.API_Re_Her,id)
   }
   getReserva_Her():Observable<Reserva_Herramienta[]>{
-    return this.services.getServiceEntitys<Reserva_Herramienta>(this.APIurl_Re_Her,"/Herramienta_Reservas")
+    return this.services.getServiceEntitys<Reserva_Herramienta>(this.API_Re_Her,"/Herramienta_Reservas")
   }
   addReserva_Inst(reserva:Reserva_Instalacion):Observable<Reserva_Instalacion>{
     console.log("Enviando a la API:", reserva);
@@ -78,13 +78,13 @@ export class ReservationService {
   }
   addReserva_Her(reserva:Reserva_Herramienta):Observable<Reserva_Herramienta>{
     console.log(reserva)
-    return this.services.addService<Reserva_Herramienta>(this.APIurl_Re_Her,reserva);
+    return this.services.addService<Reserva_Herramienta>(this.API_Re_Her,reserva);
   }
   updateReserva_Her(reserva:Reserva_Herramienta):Observable<Reserva_Herramienta>{
     let id=reserva.id??0
-    return this.services.updateService<Reserva_Herramienta>(this.APIurl_Re_Her,id,reserva);
+    return this.services.updateService<Reserva_Herramienta>(this.API_Re_Her,id,reserva);
   }
   deleteReserva_Her(id?:number):Observable<Reserva_Herramienta>{
-    return this.services.deleteService<Reserva_Herramienta>(this.APIurl_Re_Her,id);
+    return this.services.deleteService<Reserva_Herramienta>(this.API_Re_Her,id);
   }
 }
