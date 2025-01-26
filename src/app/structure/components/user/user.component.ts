@@ -15,6 +15,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DialogFormComponent } from '../../shared/dialog-form/dialog-form.component'
 import { FormsModule } from '@angular/forms'; // Importa FormsModule;
 import { UserFormComponent } from './user-form/user-form.component';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { NotificationComponent } from "../../shared/notification/notification.component";
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user',
@@ -27,8 +30,9 @@ import { UserFormComponent } from './user-form/user-form.component';
     MatInputModule,
     MatButtonModule,
     TableComponent,
-    FormsModule, // Agregado para manejar [(ngModel)],
-  ],
+    FormsModule,
+    NotificationComponent,NgIf
+],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
 })
@@ -127,13 +131,36 @@ export class UserComponent implements OnInit {
       this.getUsers();
     });
   }
+  notification: { message: string; type: 'info' | 'success' | 'error' | 'warning'  } = {
+    message: '',
+    type: 'info'
+  };  
 
   // Eliminar usuario
   deleteUser(id: number) {
-    this.services.desactiveUsuario(id).subscribe(() => {
-      console.log(id);
-      this.getUsers(); // Refresca los datos después de eliminar
-    });
+    const dialogRef = this.dialog.open(DialogComponent,{
+      data:{
+        titulo: "Esta seguro de eliminar el usuario?",
+      },
+    })
+    dialogRef.afterClosed().subscribe(
+      resutl=>{
+        if(id!==undefined){
+          this.services.desactiveUsuario(id).subscribe(()=>{
+            this.notification={message:'El usuario ha sido elimado',type:'warning'}
+            this.getUsers();
+          })
+          setTimeout(()=>{
+            this.notification={message:'',type:'info'}
+          },2500)
+        }
+      }
+    )
+    // this.services.desactiveUsuario(id).subscribe(() => {
+    //   this.notification={message:'El reporte ha sido elimado',type:'warning'}
+    //   console.log(id);
+    //   this.getUsers(); // Refresca los datos después de eliminar
+    // });
   }
 
   // Abrir diálogo para el formulario de usuario

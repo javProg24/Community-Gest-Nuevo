@@ -12,10 +12,12 @@ import { DialogComponent } from '../../shared/dialog/dialog.component';
 import { MatFormField, MatFormFieldControl, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NotificationComponent } from "../../shared/notification/notification.component";
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-reports',
-  imports: [TableComponent, MatIconModule, MatButtonModule, MatDialogModule, MatIconModule, MatFormField, MatLabel, MatFormFieldModule, MatInputModule, NotificationComponent], //puse MatFormField y MatLabel
+  imports: [TableComponent, MatIconModule, MatButtonModule, MatDialogModule, MatIconModule, MatFormField, MatLabel, MatFormFieldModule, 
+    MatInputModule, NotificationComponent,NgIf], //puse MatFormField y MatLabel
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.css'
 })
@@ -24,7 +26,8 @@ export class ReportsComponent implements OnInit{
   notification: { message: string; type: 'info' | 'success' | 'error' | 'warning'  } = {
     message: '',
     type: 'info'
-  };  reportList:Reporte[]=[]
+  };  
+  reportList:Reporte[]=[]
   columns:string[]=[]
   title='Reportes'
   constructor(private dialog:MatDialog,private services:ReportService) { }

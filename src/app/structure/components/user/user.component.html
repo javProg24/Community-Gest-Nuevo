@@ -1,11 +1,5 @@
-<div class="search-bar">
-  <mat-form-field appearance="fill" class="full-width">
-    <mat-label>Buscar Usuario</mat-label>
-    <input matInput placeholder="Escribe el nombre, cédula o apellido" 
-    #input
-    (keyup)="search_Inst(input)"/>
-  </mat-form-field>
-</div>
+<app-notification *ngIf="notification.message" [message]="notification.message" [type]="notification.type"></app-notification>
+
 
 <div class="buttons">
     <h1><strong>{{ title }}</strong></h1>
@@ -14,7 +8,14 @@
       Nuevo
     </button>
   </div>
-
+  <div class="search-bar">
+    <mat-form-field appearance="fill" class="full-width">
+      <mat-label>Buscar Usuario</mat-label>
+      <input matInput placeholder="Escribe el nombre, cédula o apellido" 
+      #input
+      (keyup)="search_Inst(input)"/>
+    </mat-form-field>
+  </div>
   <div class="table-section">
     <app-table 
       [titulo]="title" 
