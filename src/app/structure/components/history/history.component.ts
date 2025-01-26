@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatTabsModule } from '@angular/material/tabs';
 import { ReservationService } from '../../../services/reservation-service/reservation.service';
 import { getEntityProperties } from '../../../models/tabla-columna';
-import { Reserva_Instalacion } from '../../../models/reservation';
+import { Reserva_Herr, Reserva_Instalacion } from '../../../models/reservation';
 import { TableComponent } from "../../shared/table/table.component";
 import { MatFormField, MatFormFieldControl, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatDatepicker, MatDatepickerInput, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
@@ -14,38 +14,25 @@ import { MatInputModule } from '@angular/material/input';
   selector: 'app-history',
   imports: [MatTabsModule,
     TableComponent, MatLabel,
-    ReactiveFormsModule, MatFormFieldModule, MatDatepicker,
-    MatDatepickerInput,MatInputModule,
-    MatDatepickerModule, MatNativeDateModule,],
+    ReactiveFormsModule, MatFormFieldModule,
+    MatInputModule,
+    MatDatepickerModule, MatNativeDateModule],
   templateUrl: './history.component.html',
   styleUrl: './history.component.css',
 })
 export class HistoryComponent implements OnInit{
-form!: FormGroup;
-// Método para buscar por Nombre y Apellidos
-searchByName(nombre_Apellido: string) {
-  // this.reservaService.searchReserva_Ins(nombre_Apellido).subscribe(data => {
-  //   // Manejar los resultados de la búsqueda
-  //   console.log('Resultados de búsqueda por nombre:', nombre_Apellido);
-  // });
-}
-
-
-// Método para buscar por Fecha
-// searchByDate(fecha: Date) {
-//   this.reservaService.searchReserva_Ins(undefined).subscribe(data => {
-//     // Manejar los resultados de la búsqueda
-//     console.log('Resultados de búsqueda por fecha:', data);
-//   });
-// }
+  form!: FormGroup;
 
   columns: string[] = [];
   title = 'Instalaciones';
   installList: Reserva_Instalacion[] = [];
-  constructor(private reservaService:ReservationService,){
+  herrList:Reserva_Herr[]=[];
+  constructor(private reservaService:ReservationService,private fb:FormBuilder,){
   }
   ngOnInit(): void {
-    
+    this.form=this.fb.group({
+      Nombre_Apellido_Instalacion:[""],
+    })
     this.getReserIn()
   }
   getReserIn(){
@@ -53,5 +40,58 @@ searchByName(nombre_Apellido: string) {
         this.reservaService.getReserva_Ins_Fi().subscribe(data=>{
           this.installList=data;
     })
+  }
+  getReserHerr(){
+    this.columns=getEntityProperties('reserva_Herra')
+    this.reservaService.getReserva_Herr_Fi().subscribe(data=>{
+      this.herrList=data
+    })
+  }
+  search_Inst(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    if (searchQuery) {
+      this.reservaService.searchReserva_Ins_Fi(
+        { instalacion: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Instalacion[]) => {
+          this.installList = datos; // Actualizar la lista con los datos recibidos
+        }
+      );
+    }
+    else{
+      this.getReserIn()
+    }
+  }
+  search_Apellido(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    if (searchQuery) {
+      this.reservaService.searchReserva_Ins_Fi(
+        { apellido: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Instalacion[]) => {
+          this.installList = datos; // Actualizar la lista con los datos recibidos
+        }
+      );
+    }
+    else{
+      this.getReserIn()
+    }
+  }
+  search_Nombre(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    
+    // Verificar si se ingresó algo
+    if (searchQuery) {
+      this.reservaService.searchReserva_Ins_Fi(
+        { nombre: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Instalacion[]) => {
+          this.installList = datos; // Actualizar la lista con los datos recibidos
+        }
+      );
+    }
+    else{
+      this.getReserIn()
+    }
   }
 }

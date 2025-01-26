@@ -42,3 +42,15 @@ button{
     text-align: center;
     align-items: center;
 }
+.search-container {
+    margin-bottom: 20px; /* Separación inferior */
+  }
+  
+  .search-fields {
+    display: flex;
+    justify-content: space-between; /* Espaciado entre los campos */
+  }
+  
+  .search-field {
+    width: 20%; /* Ajusta el tamaño de los campos */
+  }

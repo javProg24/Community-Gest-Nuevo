@@ -123,7 +123,6 @@ export class ReservaInstallComponent implements OnInit{
     private reservaService:ReservationService,
     private userSer:UserService,
     private instSer:InstallationService,
-    private datepipe:DatePipe,
     private dialog:MatDialog
   ){}
   ngOnInit(): void {

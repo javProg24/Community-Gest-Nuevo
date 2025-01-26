@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { GeneralService } from '../general-services/general.service';
 import { Observable } from 'rxjs';
-import { Reserva_Herr as Reserva_Herramienta, Reserva_Instalacion } from '../../models/reservation';
+import { Reserva_Herr, Reserva_Herr as Reserva_Herramienta, Reserva_Instalacion } from '../../models/reservation';
 import { HttpClient, HttpParams,} from '@angular/common/http';
 
 @Injectable({
@@ -10,10 +10,14 @@ import { HttpClient, HttpParams,} from '@angular/common/http';
 export class ReservationService {
   private APIurl_Re_Ins='http://localhost:5199/api/ReservacionInstalacions'
   private APIurl_Re_Her='http://localhost:5199/api/ReservacionHerramientas'
-  private jsonAPI='http://localhost:5199/api/Instalacions'
+  private jsonAPI_Ins='http://localhost:5199/api/Instalacions'
+  private jsonAPI_Herr='http://localhost:5199/api/Herramientas'
   constructor(private services:GeneralService,private http:HttpClient) { }
   desactiveInstalacion(id:number):Observable<void>{
-    return this.services.desactiveService<void>(this.jsonAPI,id)
+    return this.services.desactiveService<void>(this.jsonAPI_Ins,id)
+  }
+  desactiveHerramienta(id:number):Observable<void>{
+    return this.services.desactiveService<void>(this.jsonAPI_Herr,id)
   }
   getReserva_Ins():Observable<Reserva_Instalacion[]>{
     return this.services.getService<Reserva_Instalacion>(this.APIurl_Re_Ins,)
@@ -24,14 +28,21 @@ export class ReservationService {
   getReserva_Ins_Fi():Observable<Reserva_Instalacion[]>{
     return this.services.getServiceEntity<Reserva_Instalacion>(this.APIurl_Re_Ins,"/Reservas_Inst_Finalizada")
   }
+  getReserva_Herr_Fi():Observable<Reserva_Herr[]>{
+    return this.services.getServiceEntity<Reserva_Herr>(this.APIurl_Re_Ins,"/Reservas_Herr_Finalizada")
+  }
   searchReserva_Ins(dato?: { [key: string]: string }): Observable<Reserva_Instalacion[]> {
-    // Eliminar claves con valores 'undefined' o 'null'
-      
       return this.services.searchService<Reserva_Instalacion>(`${this.APIurl_Re_Ins}/search`,dato)
   }
-  
-  
-  
+  searchReserva_Her(dato?: { [key: string]: string }): Observable<Reserva_Herr[]> {
+    return this.services.searchService<Reserva_Herr>(`${this.APIurl_Re_Ins}/search`,dato)
+  }
+  searchReserva_Ins_Fi(dato?: { [key: string]: string }): Observable<Reserva_Instalacion[]>{
+    return this.services.searchService<Reserva_Instalacion>(`${this.APIurl_Re_Ins}/search_Finalizada`,dato)
+  }
+  searchReserva_Herr_Fi(dato?: { [key: string]: string }): Observable<Reserva_Herr[]>{
+    return this.services.searchService<Reserva_Herr>(`${this.APIurl_Re_Ins}/search_Finalizada`,dato)
+  }
   getReserva_ID_Inst(id?:number):Observable<Reserva_Instalacion>{
     return this.services.getServiceID<Reserva_Instalacion>(this.APIurl_Re_Ins,id)
   }
@@ -54,6 +65,7 @@ export class ReservationService {
     return this.services.deleteService<Reserva_Instalacion>(this.APIurl_Re_Ins,id);
   }
   addReserva_Her(reserva:Reserva_Herramienta):Observable<Reserva_Herramienta>{
+    console.log(reserva)
     return this.services.addService<Reserva_Herramienta>(this.APIurl_Re_Her,reserva);
   }
   updateReserva_Her(reserva:Reserva_Herramienta):Observable<Reserva_Herramienta>{
