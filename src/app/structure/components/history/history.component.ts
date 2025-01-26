@@ -24,7 +24,7 @@ export class HistoryComponent implements OnInit{
 form!: FormGroup;
 // Método para buscar por Nombre y Apellidos
 searchByName(nombre_Apellido: string) {
-  this.reservaService.searchReserva_Ins(nombre_Apellido, undefined).subscribe(data => {
+  this.reservaService.searchReserva_Ins(nombre_Apellido).subscribe(data => {
     // Manejar los resultados de la búsqueda
     console.log('Resultados de búsqueda por nombre:', nombre_Apellido);
   });
@@ -32,12 +32,12 @@ searchByName(nombre_Apellido: string) {
 
 
 // Método para buscar por Fecha
-searchByDate(fecha: Date) {
-  this.reservaService.searchReserva_Ins(undefined, fecha).subscribe(data => {
-    // Manejar los resultados de la búsqueda
-    console.log('Resultados de búsqueda por fecha:', data);
-  });
-}
+// searchByDate(fecha: Date) {
+//   this.reservaService.searchReserva_Ins(undefined).subscribe(data => {
+//     // Manejar los resultados de la búsqueda
+//     console.log('Resultados de búsqueda por fecha:', data);
+//   });
+// }
 
   columns: string[] = [];
   title = 'Instalaciones';

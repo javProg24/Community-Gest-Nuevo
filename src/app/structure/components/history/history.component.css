@@ -1,14 +1,15 @@
 .search-container {
-    margin-bottom: 20px;
-  }
-  
-  .search-fields {
-    display: flex;
-    justify-content: space-between; /* Espaciado entre los campos */
-  }
-  
-  .search-field {
-    width: 45%; /* Ajusta el tamaño de los campos */
-  }
-  
-  
+  margin-bottom: 20px; /* Separación inferior */
+}
+
+.search-fields {
+  display: flex;
+  gap: 1000px; /* Espaciado entre los campos */
+  justify-content: flex-start; /* Alineación inicial */
+  align-items: center; /* Centrar verticalmente los elementos */
+}
+
+.search-field {
+  width: 40%; /* Ajusta el tamaño de los campos */
+  min-width: 200px; /* Asegura un tamaño mínimo para pantallas pequeñas */
+}

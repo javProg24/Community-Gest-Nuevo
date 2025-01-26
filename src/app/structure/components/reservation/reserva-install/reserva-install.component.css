@@ -80,3 +80,11 @@ button{
     background-color: #003f7f; /* Color más oscuro al presionar */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Sombra más tenue */
 }
+.search-fields {
+    display: flex;
+    justify-content: space-between; /* Espaciado entre los campos */
+  }
+  
+  .search-field {
+    width: 45%; /* Ajusta el tamaño de los campos */
+  }

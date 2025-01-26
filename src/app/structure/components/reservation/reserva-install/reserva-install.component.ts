@@ -8,7 +8,7 @@ import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule, MatFormField, MatError } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
+import { MatInput, MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { UserService } from '../../../../services/user-service/user.service';
@@ -41,12 +41,46 @@ import { MatDialog } from '@angular/material/dialog';
     MatIconModule, MatButtonModule,
     MatTableModule, TableComponent,
     NotificationComponent, NgIf,
-    MatDatepicker,MatError],
+    MatDatepicker,MatError,MatInputModule,],
   templateUrl: './reserva-install.component.html',
   styleUrl: './reserva-install.component.css',
   providers:[DatePipe]
 })
 export class ReservaInstallComponent implements OnInit{
+  
+  search(nombre_Apellido?:string,fecha?:Date){
+    if(nombre_Apellido||fecha){
+      
+      this.reservaService.searchReserva_Ins(nombre_Apellido)
+      .subscribe((datos:Reserva_Instalacion[])=>{
+        this.installList=datos
+      })
+    }
+    else{
+      this.getReserIn()
+      this.notification={message:'La reserva no se encuentra o el usuario',type:'error'}
+      setTimeout(()=>{
+        this.notification={message:'',type:'info'}
+      },1500)
+    }
+  }
+  // searchFecha(date: Date) {
+  //   let formattedDate: Date | undefined;
+  //   if (date) {
+  //     // Formatear la fecha a 'yyyy-MM-dd'
+  //     const year = date.getFullYear();
+  //     const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  //     const day = date.getDate().toString().padStart(2, '0');
+  //     // Crear un nuevo objeto Date con solo año, mes y día
+  //     formattedDate = new Date(`${year}-${month}-${day}`);
+  //   }
+  //   // Pasar la fecha formateada a search
+  //   this.search(undefined, formattedDate); 
+  // }
+  search_Nombre(input: HTMLInputElement) {
+    const searchTem = input.value.trim()
+    this.search(searchTem)
+  }
   // dataSource=new MatTableDataSource<Reserva_Instalacion>();
   //minimaFecha:Date = new Date(1940,0,1);
   maximaFecha:Date = new Date();
@@ -85,7 +119,9 @@ export class ReservaInstallComponent implements OnInit{
           horario:[""],
           fecha:["",[Validators.required,]],
           estado:["",[Validators.required,]],
-        })
+          Nombre_Apellido:[""],
+          fecha_Select:[null]
+    })
     this.getReserIn()
     this.getUser()
     this.getInstalacion()

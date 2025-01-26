@@ -8,19 +8,22 @@
                     <input matInput type="search" #searchInput (keyup)="searchByName(searchInput.value)">
                   </mat-form-field>
                   
-                  <mat-form-field class="search-field">
+                  <!-- <mat-form-field class="search-field">
                     <mat-label>Buscar por Fecha</mat-label>
-                    <input matInput [matDatepicker]="picker" #searchDate (dateChange)="searchByDate($event.value)">
+                    <input 
+                    matInput [matDatepicker]="picker" 
+                    #searchDate (dateChange)="searchByDate($event.value)">
                     <mat-hint>MM/DD/YYYY</mat-hint>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
+                  </mat-form-field> -->
                                 
             </div>
         </div>
         <app-table [titulo]="title" [columnas]="columns" [datos]="installList"></app-table>
     </mat-tab>
     <mat-tab label="Registro de las Reservas de Instalaciones Finalizadas">
+        
     </mat-tab>
 </mat-tab-group>
 
