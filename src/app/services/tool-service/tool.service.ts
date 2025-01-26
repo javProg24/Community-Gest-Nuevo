@@ -13,4 +13,7 @@ export class ToolService {
   getTools():Observable<Herramienta[]>{
     return this.services.getService<Herramienta>(this.jsonAPI)
   }
+  getHerramientasDispo():Observable<Herramienta[]>{
+    return this.services.getServiceEntity<Herramienta>(this.jsonAPI,"Cantidad")
+  }
 }

@@ -189,7 +189,7 @@ export class ReservaHerraComponent implements OnInit{
   }
   herramientas!:Herramienta[];
   getHerramientas(){
-    this.serviceHe.getTools().subscribe((data:Herramienta[])=>{
+    this.serviceHe.getHerramientasDispo().subscribe((data:Herramienta[])=>{
           this.herramientas=data;
           
           // console.log(this.instalaciones);
@@ -274,10 +274,10 @@ formatToString(hour: any): string {
           console.log(newReserva)
           
           this.clearForm()
-          this.reserva.desactiveHerramienta(newReserva.herramienta_ID).subscribe(()=>{
+          
             this.notification={message:'La reserva se ha guardado',type:'success'}
             this.getReseHer()
-        })
+        
         },
         error: (error) => {
           this.notification={message:'La reserva no se ha guardado',type:'error'}
