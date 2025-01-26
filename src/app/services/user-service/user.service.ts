@@ -10,7 +10,7 @@ export class UserService {
   searchUser(input:string):Observable<Usuario[]> {
     // return  this.services.searchService<Usuario>(`${this.APIWeb}/search`,dato)
     const ruta = '';
-      return this.services.getServiceEntity<Usuario>(this.APIWeb, ruta).pipe(
+      return this.services.getServiceEntitys<Usuario>(this.APIWeb, ruta).pipe(
         map((reportes) =>
           reportes.filter((reporte) =>
             (input ? 

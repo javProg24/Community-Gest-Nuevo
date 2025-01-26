@@ -14,7 +14,7 @@ export class ReportService {
  //Buscar Reportes
  getReportesSearch(searchTerm: string): Observable<Reporte[]> {
   const ruta = '';
-  return this.services.getServiceEntity<Reporte>(this.ApiwebURL, ruta).pipe(
+  return this.services.getServiceEntitys<Reporte>(this.ApiwebURL, ruta).pipe(
     map((reportes) =>
       reportes.filter((reporte) =>
         (searchTerm ? 

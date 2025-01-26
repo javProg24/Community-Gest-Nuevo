@@ -16,7 +16,7 @@ export class InstallationService {
   
   getInstallsSearch(searchTerm: string): Observable<Instalacion[]> {
     const ruta = '';
-    return this.services.getServiceEntity<Instalacion>(this.APIWeb, ruta).pipe(
+    return this.services.getServiceEntitys<Instalacion>(this.APIWeb, ruta).pipe(
       map((Instalaciones) =>
         Instalaciones.filter((Instalacion) =>
           (searchTerm ? 

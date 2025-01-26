@@ -80,13 +80,12 @@ export class ReservaInstallComponent implements OnInit{
   search_Nombre(input: HTMLInputElement) {
     const searchQuery = input.value.trim();
     
-    // Verificar si se ingresó algo
     if (searchQuery) {
       this.reservaService.searchReserva_Ins(
         { nombre: searchQuery }
       ).subscribe(
         (datos: Reserva_Instalacion[]) => {
-          this.installList = datos; // Actualizar la lista con los datos recibidos
+          this.installList = datos; 
         }
       );
     }
@@ -242,7 +241,8 @@ export class ReservaInstallComponent implements OnInit{
     //   this.dataSource.data=data;
     // })
     this.columns=getEntityProperties('reserva_Install')
-    this.reservaService.getReservaEntitys().subscribe(data=>{
+    this.reservaService.getReservaEntitys().subscribe((data)=>{
+      console.log(data)
       this.installList=data;
     })
   }

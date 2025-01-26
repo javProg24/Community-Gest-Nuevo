@@ -12,7 +12,7 @@ export class ToolService {
 
   constructor(private services:GeneralService) { }
   getHerramientasDispo():Observable<Herramienta[]>{
-    return this.services.getServiceEntity<Herramienta>(this.apiURL,"Cantidad")
+    return this.services.getServiceEntitys<Herramienta>(this.apiURL,"Cantidad")
     //return this.services.getService<Herramienta>(this.apiURL)
   }
   getTools():Observable<Herramienta[]>{
@@ -21,7 +21,7 @@ export class ToolService {
 
   getToolsSearch(searchTerm: string): Observable<Herramienta[]> {
     const ruta = '';
-    return this.services.getServiceEntity<Herramienta>(this.apiURL, ruta).pipe(
+    return this.services.getServiceEntitys<Herramienta>(this.apiURL, ruta).pipe(
       map((Herramientas) =>
         Herramientas.filter((Herramienta) =>
           (searchTerm ? 
