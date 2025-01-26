@@ -19,26 +19,17 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './reports.component.css'
 })
 export class ReportsComponent implements OnInit{
-  reportList:Reporte[]=[]
+
+  notification: { message: string; type: 'info' | 'success' | 'error' | 'warning'  } = {
+    message: '',
+    type: 'info'
+  };  reportList:Reporte[]=[]
   columns:string[]=[]
   title='Reportes'
   constructor(private dialog:MatDialog,private services:ReportService) { }
   ngOnInit(): void {
     this.getReport()
   }
-<<<<<<< HEAD
-  
-  notification = { message: '', type: '' };
-  onNotificationReceived(notification: { message: string, type: string }) {
-    this.notification = notification; // Asigna el nuevo valor de notificación
-  }
-    getReport(){
-      this.columns=getEntityProperties('reporte')
-      this.services.getReport().subscribe((data)=>{
-        this.reportList=data
-      })
-    }
-=======
 getReport(){
   this.columns=getEntityProperties('reporte')
   this.services.getReport().subscribe((data)=>{
@@ -46,7 +37,6 @@ getReport(){
     this.reportList=data
    })
 }
->>>>>>> ReportesNuevo
 
 search(searchInput: HTMLInputElement): void {
   const searchTerm = searchInput.value.trim(); 
