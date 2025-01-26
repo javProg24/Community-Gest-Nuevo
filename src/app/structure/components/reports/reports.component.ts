@@ -9,13 +9,12 @@ import { DialogFormComponent } from '../../shared/dialog-form/dialog-form.compon
 import { ReportFormComponent } from './report-form/report-form.component';
 import { Reporte } from '../../../models/report';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
-import { NotificationComponent } from "../../shared/notification/notification.component";
-import { NgIf } from '@angular/common';
+import { MatFormField, MatFormFieldControl, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-reports',
-  imports: [TableComponent, MatIconModule, MatButtonModule,
-    MatDialogModule, MatIconModule, NotificationComponent, NgIf],
+  imports: [TableComponent, MatIconModule, MatButtonModule, MatDialogModule, MatIconModule, MatFormField, MatLabel, MatFormFieldModule, MatInputModule], //puse MatFormField y MatLabel
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.css'
 })
@@ -27,6 +26,7 @@ export class ReportsComponent implements OnInit{
   ngOnInit(): void {
     this.getReport()
   }
+<<<<<<< HEAD
   
   notification = { message: '', type: '' };
   onNotificationReceived(notification: { message: string, type: string }) {
@@ -38,6 +38,27 @@ export class ReportsComponent implements OnInit{
         this.reportList=data
       })
     }
+=======
+getReport(){
+  this.columns=getEntityProperties('reporte')
+  this.services.getReport().subscribe((data)=>{
+    console.log('Datos recibidos:', data); 
+    this.reportList=data
+   })
+}
+>>>>>>> ReportesNuevo
+
+search(searchInput: HTMLInputElement): void {
+  const searchTerm = searchInput.value.trim(); 
+
+  if (searchTerm) {
+    this.services.getReportesSearch(searchTerm).subscribe((datos: Reporte[]) => {
+      this.reportList = datos; 
+    });
+  } else {
+    this.getReport();
+  }
+}
 
 openDialog() {
   const dialogRef=this.dialog.open(DialogFormComponent,{
@@ -50,7 +71,7 @@ openDialog() {
   })
   
   dialogRef.afterClosed().subscribe(() => {
-    this.getReport(); // Actualizar la tabla después de cerrar el diálogo
+    this.getReport(); 
   });
 }
   onAction(accion:Accion){
@@ -67,12 +88,6 @@ openDialog() {
       },
     });
     dialogRef.afterClosed().subscribe(result => {
-      /*if (result){
-        this.services.deleteReports(reporte.id,reporte).subscribe(()=>{
-          alert("Reporte eliminado exitosamente")
-          this.getReport();
-        });
-      }*/
      if (reporte.id !== undefined) {
       this.services.deleteReports(reporte.id, reporte).subscribe(() => {
       // alert("Reporte eliminado exitosamente");
@@ -97,7 +112,7 @@ openDialog() {
       }, 
     }); 
     dialogRef.afterClosed().subscribe(() => {
-      this.getReport(); // Actualiza la tabla después de cerrar el diálogo
+      this.getReport(); 
     });
   }
 }

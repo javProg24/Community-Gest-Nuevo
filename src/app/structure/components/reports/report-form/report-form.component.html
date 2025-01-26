@@ -9,16 +9,19 @@
                 <input type="text" formControlName="titulo" matInput>
                 <mat-error *ngIf="formGroup.get('titulo')?.hasError('required')">El nombre es obligatorio</mat-error>
                 <mat-error *ngIf="formGroup.get('titulo')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
+                <mat-error *ngIf="formGroup.get('titulo')?.hasError('minlength')">El título es muy corto.</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="full-width">
                 <mat-label>Descripción</mat-label>
                 <input type="text" formControlName="descripcion" matInput>
                 <mat-error *ngIf="formGroup.get('descripcion')?.hasError('required')">La descripcion es obligatoria</mat-error>
+                <mat-error *ngIf="formGroup.get('titulo')?.hasError('minlength')">La descricion es muy corta.</mat-error>
             </mat-form-field>
             <mat-form-field appearance="fill" class="full-width">
                 <mat-label>Recurso Afectado</mat-label>
                 <input type="text" matInput formControlName="recursoAfectado">
                 <mat-error *ngIf="formGroup.get('recursoAfectado')?.hasError('required')">La descripcion es obligatoria</mat-error>
+                <mat-error *ngIf="formGroup.get('recursoAfectado')?.hasError('pattern')">Carácter no válido. Solo se permiten letras</mat-error>
             </mat-form-field>
             <div class="formElement">
                 <mat-label>Estado</mat-label>
