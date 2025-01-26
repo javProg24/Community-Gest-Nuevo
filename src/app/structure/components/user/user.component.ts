@@ -66,6 +66,9 @@ export class UserComponent implements OnInit {
         telefono: this.formBuilder.control('', {
           validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
         }),
+        activo:this.formBuilder.control('', {
+          validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
+        }),
       }),
     });
 

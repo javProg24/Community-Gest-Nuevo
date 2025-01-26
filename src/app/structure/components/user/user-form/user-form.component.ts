@@ -52,7 +52,7 @@ export class UserFormComponent implements OnInit {
       telefono: this.formBuilder.control('', {
         validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
       }),
-      estado:this.formBuilder.control('', {
+      active:this.formBuilder.control('', {
         validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
       }),
     });
@@ -105,10 +105,11 @@ export class UserFormComponent implements OnInit {
       });
     } else {
       // Crear nuevo usuario
-      usuario.activo='Y'
+      // usuario.active='Y';
       this.services.addUser(usuario).subscribe({
         next: () => {
           console.log('Usuario creado correctamente');
+          console.log(usuario)
           this.dialogRef.close(true); // Cierra el formulario y notifica éxito
         },
         error: (err) => console.error('Error al crear usuario', err),

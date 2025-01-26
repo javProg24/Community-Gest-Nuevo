@@ -41,10 +41,10 @@
         
         <div appearance="fill" class="full-width">
           <mat-label>Estado</mat-label>
-          <mat-radio-group aria-label="Seleccione la opción" formControlName="estado">
+          <mat-radio-group aria-label="Seleccione la opción" formControlName="active">
             <mat-radio-button *ngFor="let estado of estados" [value]="estado.value">{{estado.label}}</mat-radio-button>
           </mat-radio-group>
-          <mat-error *ngIf="submitted && formGroup.get('estado')?.hasError('required')">
+          <mat-error *ngIf="submitted && formGroup.get('active')?.hasError('required')">
             Seleccionar un estado es obligatorio
           </mat-error>
         </div>

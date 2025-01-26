@@ -27,6 +27,7 @@ export class UserService {
     return this.services.getService<Usuario>(this.APIWeb)
   }
   addUser(usuario: Usuario): Observable<Usuario> {
+    usuario.active='Y'
     return this.services.addService<Usuario>(this.APIWeb, usuario);
   }
   
