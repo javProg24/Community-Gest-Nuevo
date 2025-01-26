@@ -1,7 +1,9 @@
 <div class="search-bar">
-  <mat-form-field appearance="outline" class="full-width">
+  <mat-form-field appearance="fill" class="full-width">
     <mat-label>Buscar Usuario</mat-label>
-    <input matInput placeholder="Escribe el nombre, cédula o apellido" [(ngModel)]="searchText" (input)="filterUsers()" />
+    <input matInput placeholder="Escribe el nombre, cédula o apellido" 
+    #input
+    (keyup)="search_Inst(input)"/>
   </mat-form-field>
 </div>
 

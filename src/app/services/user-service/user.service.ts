@@ -7,6 +7,20 @@ import { Usuario } from '../../models/user';
   providedIn: 'root'
 })
 export class UserService {
+  searchUser(input:string):Observable<Usuario[]> {
+    // return  this.services.searchService<Usuario>(`${this.APIWeb}/search`,dato)
+    const ruta = '';
+      return this.services.getServiceEntity<Usuario>(this.APIWeb, ruta).pipe(
+        map((reportes) =>
+          reportes.filter((reporte) =>
+            (input ? 
+              reporte.cedula?.toLowerCase().includes(input.toLowerCase()) || 
+              reporte.nombre?.toLowerCase().includes(input.toLowerCase()) 
+            : true)
+          )
+        )
+      );
+  }
   private APIWeb='http://localhost:5199/api/Usuarios'
   constructor(private services:GeneralService) { }
   getUsers():Observable<Usuario[]>{

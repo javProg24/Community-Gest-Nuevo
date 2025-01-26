@@ -27,7 +27,7 @@ import { UserFormComponent } from './user-form/user-form.component';
     MatInputModule,
     MatButtonModule,
     TableComponent,
-    FormsModule, // Agregado para manejar [(ngModel)]
+    FormsModule, // Agregado para manejar [(ngModel)],
   ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.css'
@@ -73,7 +73,7 @@ export class UserComponent implements OnInit {
     this.columns = getEntityProperties('user'); // Configura las columnas para la tabla
     this.services.getUsers().subscribe((data) => {
       this.userList = data;
-      this.filteredUserList = [...this.userList]; // Inicializa la lista filtrada
+       // Inicializa la lista filtrada
     });
   }
 
@@ -88,7 +88,21 @@ export class UserComponent implements OnInit {
       user.telefono.includes(search)
     );
   }
-
+  search_Inst(input: HTMLInputElement) {
+      const searchQuery = input.value.trim();
+      if (searchQuery) {
+        this.services.searchUser(
+          searchQuery
+        ).subscribe(
+          (datos: Usuario[]) => {
+            this.userList = datos; // Actualizar la lista con los datos recibidos
+          }
+        );
+      }
+      else{
+        this.getUsers()
+      }
+    }
   // Manejar acciones de la tabla (Editar, Eliminar)
   onAction(action: Accion) {
     if (action.accion == 'Editar') {
