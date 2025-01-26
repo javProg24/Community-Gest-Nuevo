@@ -1,3 +1,10 @@
+<div class="search-bar">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Buscar Usuario</mat-label>
+    <input matInput placeholder="Escribe el nombre, cédula o apellido" [(ngModel)]="searchText" (input)="filterUsers()" />
+  </mat-form-field>
+</div>
+
 <div class="buttons">
     <h1><strong>{{ title }}</strong></h1>
     <button mat-flat-button color="accent" (click)="openDialog()">
@@ -5,7 +12,7 @@
       Nuevo
     </button>
   </div>
-  
+
   <div class="table-section">
     <app-table 
       [titulo]="title" 
