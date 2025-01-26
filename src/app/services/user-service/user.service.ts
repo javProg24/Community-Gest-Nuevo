@@ -7,24 +7,24 @@ import { Usuario } from '../../models/user';
   providedIn: 'root'
 })
 export class UserService {
-  private jsonAPI='http://localhost:5199/api/Usuarios'
+  private APIWeb='http://localhost:5199/api/Usuarios'
   constructor(private services:GeneralService) { }
   getUsers():Observable<Usuario[]>{
-    return this.services.getService<Usuario>(this.jsonAPI)
+    return this.services.getService<Usuario>(this.APIWeb)
   }
   addUser(usuario: Usuario): Observable<Usuario> {
-    return this.services.addService<Usuario>(this.jsonAPI, usuario);
+    return this.services.addService<Usuario>(this.APIWeb, usuario);
   }
   
   updateUser(id: number, usuario: Usuario): Observable<void> {
-    return this.services.updateService<void>(this.jsonAPI, id, usuario);
+    return this.services.updateService<void>(this.APIWeb, id, usuario);
   }
   
   deleteUser(id: number): Observable<void> {
-    return this.services.deleteService<void>(this.jsonAPI, id);
+    return this.services.deleteService<void>(this.APIWeb, id);
   }
   desactiveUsuario(id:number):Observable<void>{
     console.log(id)
-    return this.services.desactiveService<void>(this.jsonAPI,id)
+    return this.services.desactiveService<void>(this.APIWeb,id)
   }
 }
