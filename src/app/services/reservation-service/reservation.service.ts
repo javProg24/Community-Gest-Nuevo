@@ -28,8 +28,11 @@ export class ReservationService {
     return this.services.searchService<Reserva_Instalacion>(this.jsonUrlI, '/buscar', params);
   }
   
-  getReserva_ID(id?:number):Observable<Reserva_Instalacion>{
+  getReserva_ID_Inst(id?:number):Observable<Reserva_Instalacion>{
     return this.services.getServiceID<Reserva_Instalacion>(this.jsonUrlI,id)
+  }
+  getReserva_ID_Her(id?:number):Observable<Reserva_Herramienta>{
+    return this.services.getServiceID<Reserva_Herramienta>(this.jsonURLH,id)
   }
   getReserva_Her():Observable<Reserva_Herramienta[]>{
     return this.services.getServiceEntity<Reserva_Herramienta>(this.jsonURLH,"/Herramienta_Reservas")
@@ -49,7 +52,8 @@ export class ReservationService {
   addReserva_Her(reserva:Reserva_Herramienta):Observable<Reserva_Herramienta>{
     return this.services.addService<Reserva_Herramienta>(this.jsonURLH,reserva);
   }
-  updateReserva_Her(id:number,reserva:Reserva_Herramienta):Observable<Reserva_Herramienta>{
+  updateReserva_Her(reserva:Reserva_Herramienta):Observable<Reserva_Herramienta>{
+    let id=reserva.id??0
     return this.services.updateService<Reserva_Herramienta>(this.jsonURLH,id,reserva);
   }
   deleteReserva_Her(id?:number):Observable<Reserva_Herramienta>{

@@ -41,20 +41,20 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.formGroup = this.formBuilder.group({
-      identity_card: this.formBuilder.control('', {
+      cedula: this.formBuilder.control('', {
         validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
       }),
       dataPerson: this.formBuilder.group({
-        name: this.formBuilder.control('', {
+        nombre: this.formBuilder.control('', {
           validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
         }),
-        lastname: this.formBuilder.control('', {
+        apellido: this.formBuilder.control('', {
           validators: [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)],
         }),
-        email: this.formBuilder.control('', {
+        correo: this.formBuilder.control('', {
           validators: [Validators.required, Validators.email],
         }),
-        phone: this.formBuilder.control('', {
+        telefono: this.formBuilder.control('', {
           validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
         }),
       }),
@@ -72,36 +72,31 @@ export class UserComponent implements OnInit {
   }
 
   // Manejar acciones de la tabla (Editar, Eliminar, Agregar)
-  onAction(action: Accion<Usuario>) {
-    if (action.accion === 'Editar') {
-      if (action.fila) {
-        this.updateUser(action.fila); // Actualizar usuario
-      }
-    } else if (action.accion === 'Eliminar') {
-      if (action.fila && action.fila.id) {
-        this.deleteUser(action.fila.id); // Eliminar usuario
-      }
-    } else if (action.accion === 'Agregar') {
-      if (action.fila) {
-        this.addUser(action.fila); // Agregar usuario
-      }
+  onAction(action: Accion) {
+    if (action.accion == 'Editar') {
+      this.updateUser(action.fila); // Actualizar usuario
+    } else if (action.accion == 'Eliminar') {
+      this.deleteUser(action.fila); // Eliminar usuario
     }
-  }
-
-  // Agregar usuario
-  addUser(usuario: Usuario) {
-    this.services.addUser(usuario).subscribe(() => {
-      this.getUsers(); // Recarga la lista de usuarios
-    });
   }
 
   // Actualizar usuario
   updateUser(usuario: Usuario) {
-    if (usuario.id) {
-      this.services.updateUser(usuario.id, usuario).subscribe(() => {
-        this.getUsers(); // Actualiza la lista de usuarios
-      });
-    }
+    // if (usuario.id) {
+    //   this.services.updateUser(usuario.id, usuario).subscribe(() => {
+    //     this.getUsers(); // Actualiza la lista de usuarios
+    //   });
+    // }
+    const dialogRef=this.dialog.open(DialogFormComponent,{
+      autoFocus:false,
+      disableClose:true,
+      data:{
+         component:UserFormComponent,formData:usuario
+      }
+    })
+    dialogRef.afterClosed().subscribe(()=>{
+      this.getUsers()
+    })
   }
 
   // Eliminar usuario
@@ -116,14 +111,14 @@ export class UserComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogFormComponent, {
       autoFocus: false,
       disableClose: true,
-      data: { component: UserFormComponent },
+      data: { component: UserFormComponent,formData:null },
       width: '500px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       console.log(result);
       if (result) {
-        console.log("Cerrar");
+        this.getUsers()
       }
     });
   }

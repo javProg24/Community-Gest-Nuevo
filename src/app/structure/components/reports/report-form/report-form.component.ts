@@ -25,6 +25,10 @@ import { getEntityProperties } from '../../../../models/tabla-columna';
   styleUrl: './report-form.component.css'
 })
 export class ReportFormComponent implements OnInit{
+  notification: { message: string; type: 'info' | 'success' | 'error' | 'warning'  } = {
+    message: '',
+    type: 'info'
+  };
   @Output() reportUpdated = new EventEmitter<void>();
   formGroup!:FormGroup
   editMode: boolean=false;
@@ -37,6 +41,7 @@ export class ReportFormComponent implements OnInit{
     private fb:FormBuilder,
     public dialogRef:MatDialogRef<ReportFormComponent>, 
     private services:ReportService,
+    @Inject('notificationEmitted') private notificationEmitter: EventEmitter<{ message: string, type: string }>,
     @Inject('formData')public formData:Reporte|null){}
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -47,7 +52,7 @@ export class ReportFormComponent implements OnInit{
     })
     
   if (this.formData) {
-    console.log(this.formData)
+    // console.log(this.formData)
     if (this.formData.id) {
       this.editMode = true;
       this.currentId = this.formData.id;
@@ -90,10 +95,12 @@ export class ReportFormComponent implements OnInit{
         }
     
         this.services.updateReports(this.currentId, reporte).subscribe({
-          next: () => {
-            alert('El reporte fue editado exitosamente');
+          next: (update) => {
+            // alert('El reporte fue editado exitosamente');
             this.reportUpdated.emit();
             this.dialogRef.close();
+            // this.notificationEmitted.emit({ message: 'El reporte ha sido actualizado', type: 'success' });
+            this.notificationEmitter.emit({ message: 'Reporte actualizado correctamente', type: 'success' });
           },
           error: (err) => {
             console.error('Error al actualizar el reporte:', err);
@@ -103,14 +110,20 @@ export class ReportFormComponent implements OnInit{
         // Crear nuevo reporte
         this.services.addReporte(reporte).subscribe({
           next: () => {
-            alert('El reporte fue agregado exitosamente');
+            // alert('El reporte fue agregado exitosamente');
             this.reportUpdated.emit();
             this.dialogRef.close();
+            this.notificationEmitter.emit({ message: 'Reporte creado correctamente', type: 'success' });
           },
           error: (err) => {
             console.error('Error al crear el reporte:', err);
           },
         });
       }
+      setTimeout(()=>{
+        this.notification={message:'',type:'info'}
+      },1500)
   }
+  // @Output() notificationEmitted = new EventEmitter<{ message: string, type: string }>();
+
 }

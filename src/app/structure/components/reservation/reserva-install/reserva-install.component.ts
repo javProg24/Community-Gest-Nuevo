@@ -151,6 +151,9 @@ export class ReservaInstallComponent implements OnInit{
       })
     }
     else{
+      delete newReserva.usuario
+      delete newReserva.instalacion
+      
       console.log(newReserva)
         this.reservaService.addReserva_Inst(newReserva).subscribe({
           next: (add) => {
@@ -194,7 +197,7 @@ export class ReservaInstallComponent implements OnInit{
   editar(objeto: Reserva_Instalacion) {
     let id = objeto.id;
     console.log(id)
-    this.reservaService.getReserva_ID(id).subscribe((reserva: Reserva_Instalacion) => {
+    this.reservaService.getReserva_ID_Inst(id).subscribe((reserva: Reserva_Instalacion) => {
       const reservaSeleccionada = reserva;
       this.obtenerReservas(reservaSeleccionada)
     })

@@ -1,5 +1,5 @@
 import { NgComponentOutlet } from '@angular/common';
-import { Component, Inject, Injector, OnInit, Type } from '@angular/core';
+import { Component, EventEmitter, Inject, Injector, OnInit, Output, Type } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -25,6 +25,7 @@ export interface I_FormComponent {
   styleUrls: ['./dialog-form.component.css'] // Corregido: styleUrls en lugar de styleUrl
 })
 export class DialogFormComponent implements OnInit{
+  @Output() notificationEmitted = new EventEmitter<{ message: string, type: string }>();
   customInjector!: Injector;
   constructor(
     public dialogRef:MatDialogRef<DialogFormComponent>,
@@ -33,12 +34,22 @@ export class DialogFormComponent implements OnInit{
   ){}
   ngOnInit(): void {
     this.customInjector = Injector.create({
-      providers: [{ provide: 'formData', useValue: this.data.formData }],
+      providers: [
+        { provide: 'formData', useValue: this.data.formData }
+        ,{provide:'notificationEmitted',useValue:this.notificationEmitted}
+      ],
       parent: this.injector,
     });
   }
-  
+  emitNotification(message: string, type: string) {
+    this.notificationEmitted.emit({ message, type });
+    setTimeout(() => {
+      this.notificationEmitted.emit({ message: '', type: 'info' });
+    }, 1500); // 1500 ms = 1.5 segundos
+  }
   closeDialog(){
     this.dialogRef.close();
+    // this.notificationEmitted.emit({ message: '', type: 'info' });
+    this.notificationEmitted.emit({ message: '', type: 'info' });
   }
 }

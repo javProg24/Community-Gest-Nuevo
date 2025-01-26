@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit{
       dataPerson:this.formBuilder.group({
         nombre:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]}),
         apellido:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^[a-zA-Z\s]+$/)]}),
-        email:this.formBuilder.control('',{validators:[Validators.required,Validators.email]}),
+        correo:this.formBuilder.control('',{validators:[Validators.required,Validators.email]}),
         telefono:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^\d{10}$/)]})
       }),
       password:this.formBuilder.control('',{validators:[Validators.required,Validators.pattern(/^.{1,8}$/)]})
