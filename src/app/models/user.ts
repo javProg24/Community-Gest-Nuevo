@@ -8,6 +8,7 @@ export interface Usuario{
     apellido:string;
     correo:string;
     telefono:string;
+    activo:string
 }
 export class usuarioResponse{
     id?=0;

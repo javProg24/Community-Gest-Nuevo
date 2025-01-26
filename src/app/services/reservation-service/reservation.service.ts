@@ -10,7 +10,11 @@ import { HttpClient } from '@angular/common/http';
 export class ReservationService {
   private APIurl_Re_Ins='http://localhost:5199/api/ReservacionInstalacions'
   private APIurl_Re_Her='http://localhost:5199/api/ReservacionHerramientas'
-  constructor(private services:GeneralService,private http:HttpClient) { }
+  private jsonAPI='http://localhost:5199/api/Instalacions'
+  constructor(private services:GeneralService,) { }
+  desactiveInstalacion(id:number):Observable<void>{
+    return this.services.desactiveService<void>(this.jsonAPI,id)
+  }
   getReserva_Ins():Observable<Reserva_Instalacion[]>{
     return this.services.getService<Reserva_Instalacion>(this.APIurl_Re_Ins,)
   }

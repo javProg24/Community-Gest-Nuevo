@@ -76,7 +76,8 @@ export class UserComponent implements OnInit {
     if (action.accion == 'Editar') {
       this.updateUser(action.fila); // Actualizar usuario
     } else if (action.accion == 'Eliminar') {
-      this.deleteUser(action.fila); // Eliminar usuario
+      this.deleteUser(action.fila.id); // Eliminar usuario
+      console.log(action.fila.id)
     }
   }
 
@@ -101,7 +102,8 @@ export class UserComponent implements OnInit {
 
   // Eliminar usuario
   deleteUser(id: number) {
-    this.services.deleteUser(id).subscribe(() => {
+    this.services.desactiveUsuario(id).subscribe(() => {
+      console.log(id)
       this.getUsers(); // Refresca los datos después de eliminar
     });
   }

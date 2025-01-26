@@ -42,4 +42,9 @@ export class GeneralService implements I_Metodos{
     const urlEntity = `${url}/${id}`
     return this.http.put<T>(urlEntity,Entidad)
   }
+  desactiveService<T>(url: string, id: number): Observable<T> {
+    console.log(id); // Verificar que el id es el correcto
+    const urlEntity = `${url}/desactive/${id}`; // Pasar el id en la URL
+    return this.http.put<T>(urlEntity, {}); // Enviar un body vacío, ya que no se requiere contenido adicional
+  }
 }

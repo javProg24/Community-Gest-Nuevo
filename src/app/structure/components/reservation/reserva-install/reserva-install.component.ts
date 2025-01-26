@@ -165,7 +165,6 @@ export class ReservaInstallComponent implements OnInit{
       console.log("formulario invalido")
       return;
     }
-    
     const newReserva:Reserva_Instalacion = {
       usuario_ID: this.form.value.usuario?.id || 0,
       instalacion_ID: this.form.value.instalacion?.id || 0,
@@ -189,13 +188,17 @@ export class ReservaInstallComponent implements OnInit{
     else{
       delete newReserva.usuario
       delete newReserva.instalacion
-      
-      console.log(newReserva)
+      // console.log(newReserva)
         this.reservaService.addReserva_Inst(newReserva).subscribe({
           next: (add) => {
-            this.notification={message:'La reserva se ha guardado',type:'success'}
+            console.log(newReserva)
+            // this.notification={message:'La reserva se ha guardado',type:'success'}
             this.getReserIn()
             this.clearForm()
+            this.reservaService.desactiveInstalacion(newReserva.instalacion_ID).subscribe(()=>{
+              this.notification={message:'La reserva se ha guardado',type:'success'}
+              this.getInstalacion()
+            })
           },
           error: (error) => {
             this.notification={message:'La reserva no se ha guardado',type:'error'}
@@ -206,6 +209,7 @@ export class ReservaInstallComponent implements OnInit{
       this.notification={message:'',type:'info'}
     },1500)
   } 
+  
   onAction(accion: Accion) {
     if(accion.accion == 'Editar'){
       this.editar(accion.fila);

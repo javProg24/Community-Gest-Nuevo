@@ -10,9 +10,9 @@ import { Instalacion } from '../../models/instalation';
 })
 export class HorarioService {
     private jsonUrl='http://localhost:3000/horarios'
-    private jsonUrlI: string;
+    // private jsonUrlI: string;
   constructor(private service:GeneralService, private install: InstallationService) { 
-    this.jsonUrlI = this.install.jsonAPI;
+    
   }
   addHorario(Entidad:Timetable):Observable<Timetable>{
     return this.service.addService<Timetable>(this.jsonUrl,Entidad);

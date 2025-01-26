@@ -23,5 +23,8 @@ export class UserService {
   deleteUser(id: number): Observable<void> {
     return this.services.deleteService<void>(this.jsonAPI, id);
   }
-  
+  desactiveUsuario(id:number):Observable<void>{
+    console.log(id)
+    return this.services.desactiveService<void>(this.jsonAPI,id)
+  }
 }

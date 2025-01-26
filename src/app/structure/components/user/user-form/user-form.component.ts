@@ -3,23 +3,25 @@ import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } fr
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormComponent } from "../../../shared/form/form.component";
 import { UserService } from '../../../../services/user-service/user.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { NgIf } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { Usuario } from '../../../../models/user';
-import { Accion, getEntityProperties } from '../../../../models/tabla-columna';
-import { DialogFormComponent } from '../../../shared/dialog-form/dialog-form.component';
+import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
 
 @Component({
   selector: 'app-user-form',
   imports: [MatFormFieldModule, MatCardModule, ReactiveFormsModule,
-    MatLabel, MatInputModule, MatButtonModule, NgIf],
+    MatLabel, MatInputModule, MatButtonModule, NgIf,NgFor,MatRadioButton,MatRadioGroup],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
 export class UserFormComponent implements OnInit {
+  estados=[
+    {label:'Activo',value:'Y'},
+    {label:'Inactivo',value:'N'}
+  ]
   formGroup!: FormGroup;
   isEditMode: boolean = false; // Para identificar si es edición o creación
   currentID?: number; // Usuario actual (si es edición)
@@ -48,6 +50,9 @@ export class UserFormComponent implements OnInit {
         validators: [Validators.required, Validators.email],
       }),
       telefono: this.formBuilder.control('', {
+        validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
+      }),
+      estado:this.formBuilder.control('', {
         validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
       }),
     });
@@ -100,6 +105,7 @@ export class UserFormComponent implements OnInit {
       });
     } else {
       // Crear nuevo usuario
+      usuario.activo='Y'
       this.services.addUser(usuario).subscribe({
         next: () => {
           console.log('Usuario creado correctamente');
