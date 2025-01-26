@@ -40,9 +40,9 @@ export class ReportFormComponent implements OnInit{
     @Inject('formData')public formData:Reporte|null){}
   ngOnInit(): void {
     this.formGroup = this.fb.group({
-      titulo:['',[Validators.required]],
-      descripcion:['',[Validators.required]],
-      recursoAfectado:['',[Validators.required]],
+      titulo:['',[Validators.required, Validators.minLength(4),Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$')]],
+      descripcion:['',[Validators.required, Validators.minLength(4)]],
+      recursoAfectado:['',[Validators.required, Validators.pattern('^[a-zA-ZáéíóúÁÉÍÓÚñÑ]+( [a-zA-ZáéíóúÁÉÍÓÚñÑ]+)*$')]],
       estado:['',[Validators.required]]
     })
     
@@ -83,7 +83,7 @@ export class ReportFormComponent implements OnInit{
       };
     
       if (this.editMode) {
-        // Actualizar reporte existente
+
         if (!this.currentId) {
           console.error('ID faltante para la actualización');
           return;
@@ -100,7 +100,7 @@ export class ReportFormComponent implements OnInit{
           },
         });
       } else {
-        // Crear nuevo reporte
+
         this.services.addReporte(reporte).subscribe({
           next: () => {
             alert('El reporte fue agregado exitosamente');
