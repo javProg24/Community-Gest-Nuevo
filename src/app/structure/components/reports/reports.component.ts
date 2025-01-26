@@ -9,10 +9,12 @@ import { DialogFormComponent } from '../../shared/dialog-form/dialog-form.compon
 import { ReportFormComponent } from './report-form/report-form.component';
 import { Reporte } from '../../../models/report';
 import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { MatFormField, MatFormFieldControl, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-reports',
-  imports: [TableComponent,MatIconModule,MatButtonModule,MatDialogModule,MatIconModule],
+  imports: [TableComponent, MatIconModule, MatButtonModule, MatDialogModule, MatIconModule, MatFormField, MatLabel, MatFormFieldModule, MatInputModule], //puse MatFormField y MatLabel
   templateUrl: './reports.component.html',
   styleUrl: './reports.component.css'
 })
@@ -27,9 +29,36 @@ export class ReportsComponent implements OnInit{
 getReport(){
   this.columns=getEntityProperties('reporte')
   this.services.getReport().subscribe((data)=>{
+    console.log('Datos recibidos:', data); // Verifica si llegan los datos
     this.reportList=data
    })
 }
+
+search(searchInput: HTMLInputElement): void {
+  const searchTerm = searchInput.value.trim();  // Obtener el término de búsqueda
+
+  if (searchTerm) {
+    // Si hay un término de búsqueda, se filtra por título y recursoAfectado
+    this.services.getReportesSearch(searchTerm).subscribe((datos: Reporte[]) => {
+      this.reportList = datos;  // Actualiza la lista de reportes filtrados
+    });
+  } else {
+    // Si el campo de búsqueda está vacío, recarga todos los reportes
+    this.getReport();
+  }
+}
+/*
+search(searchInput: HTMLInputElement): void {
+  const searchValue = searchInput.value.trim(); // Elimina espacios innecesarios
+  if (searchValue) {
+    this.services.getReportesSearch({ titulo: searchValue }).subscribe((datos: Reporte[]) => {
+      this.reportList = datos; // Actualiza la lista con los datos filtrados
+    });
+  } else {
+    this.getReport(); // Si no hay valor en el input, carga todos los reportes
+  }
+}
+*/
 
 openDialog() {
   const dialogRef=this.dialog.open(DialogFormComponent,{

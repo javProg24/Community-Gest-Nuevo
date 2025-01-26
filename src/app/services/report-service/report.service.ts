@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { GeneralService } from '../general-services/general.service';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Reporte } from '../../models/report';
 
 @Injectable({
@@ -22,7 +22,38 @@ export class ReportService {
       )
     );
   }*/
-
+ //Buscar Reportes
+ //No he realizado camios en ninguna otra clase a excepcion de esta por si se daña algo.
+ 
+ getReportesSearch(searchTerm: string): Observable<Reporte[]> {
+  const ruta = '';
+  return this.services.getServiceEntity<Reporte>(this.ApiwebURL, ruta).pipe(
+    map((reportes) =>
+      reportes.filter((reporte) =>
+        // Filtra por título si searchTerm está presente
+        (searchTerm ? 
+          reporte.titulo?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+          reporte.recursoAfectado?.toLowerCase().includes(searchTerm.toLowerCase()) 
+        : true)
+      )
+    )
+  );
+}
+  
+/*
+ getReportesSearch(filtros: { titulo?: string; recursoafectado?: string }): Observable<Reporte[]> {
+  const ruta = '';
+  return this.services.getServiceEntity<Reporte>(this.ApiwebURL, ruta).pipe(
+    map((reportes) =>
+      reportes.filter((reporte) =>
+        (filtros.titulo ? reporte.titulo?.toLowerCase().includes(filtros.titulo.toLowerCase()) : true) &&
+        (filtros.recursoafectado ? reporte.recursoAfectado?.toLowerCase().includes(filtros.recursoafectado.toLowerCase()): true)
+      )
+    )
+  );
+}
+  */
+  
   //Crear Reportes
   addReporte(reporte:Reporte):Observable<Reporte>{
     return this.services.addService<Reporte>(this.ApiwebURL, reporte);
