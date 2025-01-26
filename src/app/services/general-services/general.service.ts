@@ -16,16 +16,22 @@ export class GeneralService implements I_Metodos{
     const urlEntity = `${url}/${id}`
     return this.http.get<T>(urlEntity);
   }
-  searchService<T>(url:string,endpoints:string,datos:{[key:string]:any}):Observable<T[]>{
-    let params = new HttpParams()
-    for(const key in datos){
-      if(datos[key]!==undefined&&datos[key]!=null){
-        params=params.set(key,datos[key])
+  searchService<T>(url: string, endpoints: string, datos: { [key: string]: any }): Observable<T[]> {
+    let params = new HttpParams();
+  
+    // Iterar sobre los datos y agregar solo parámetros válidos
+    Object.keys(datos).forEach((key) => {
+      const value = datos[key];
+      if (value !== undefined && value !== null && value !== '') {
+        params = params.set(key, value);
       }
-    }
-    return this.http.get<T[]>(`${url}/${endpoints}`,{params})
-    
+    });
+  
+    // Construir la URL completa y realizar la solicitud GET
+    const fullUrl = `${url}/${endpoints}`;
+    return this.http.get<T[]>(fullUrl, { params });
   }
+  
   getServiceEntity<T>(url:string,ruta:string):Observable<T[]>{
     return this.http.get<T[]>(url+ruta);
   }

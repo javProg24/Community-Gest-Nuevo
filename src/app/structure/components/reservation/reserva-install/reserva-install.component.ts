@@ -47,40 +47,24 @@ import { MatDialog } from '@angular/material/dialog';
   providers:[DatePipe]
 })
 export class ReservaInstallComponent implements OnInit{
+
+  search_N_A_I(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
   
-  search(nombre_Apellido?:string,fecha?:Date){
-    if(nombre_Apellido||fecha){
-      
-      this.reservaService.searchReserva_Ins(nombre_Apellido)
-      .subscribe((datos:Reserva_Instalacion[])=>{
-        this.installList=datos
-      })
-    }
-    else{
-      this.getReserIn()
-      this.notification={message:'La reserva no se encuentra o el usuario',type:'error'}
-      setTimeout(()=>{
-        this.notification={message:'',type:'info'}
-      },1500)
+    // Verificar si se ingresó algo
+    if (searchQuery) {
+      // Separar nombre, apellido o instalación (puedes personalizar esta lógica según tu necesidad)
+      const [nombre, apellido, instalacion] = searchQuery.split(' ');
+  
+      // Llamar al servicio de búsqueda pasando los parámetros correspondientes
+      this.reservaService.searchReserva_Ins(nombre, apellido, instalacion).subscribe(
+        (datos: Reserva_Instalacion[]) => {
+          this.installList = datos; // Actualizar la lista con los datos recibidos
+        }
+      );
     }
   }
-  // searchFecha(date: Date) {
-  //   let formattedDate: Date | undefined;
-  //   if (date) {
-  //     // Formatear la fecha a 'yyyy-MM-dd'
-  //     const year = date.getFullYear();
-  //     const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  //     const day = date.getDate().toString().padStart(2, '0');
-  //     // Crear un nuevo objeto Date con solo año, mes y día
-  //     formattedDate = new Date(`${year}-${month}-${day}`);
-  //   }
-  //   // Pasar la fecha formateada a search
-  //   this.search(undefined, formattedDate); 
-  // }
-  search_Nombre(input: HTMLInputElement) {
-    const searchTem = input.value.trim()
-    this.search(searchTem)
-  }
+  
   // dataSource=new MatTableDataSource<Reserva_Instalacion>();
   //minimaFecha:Date = new Date(1940,0,1);
   maximaFecha:Date = new Date();
@@ -119,8 +103,7 @@ export class ReservaInstallComponent implements OnInit{
           horario:[""],
           fecha:["",[Validators.required,]],
           estado:["",[Validators.required,]],
-          Nombre_Apellido:[""],
-          fecha_Select:[null]
+          Nombre_Apellido_Instalacion:[""],
     })
     this.getReserIn()
     this.getUser()

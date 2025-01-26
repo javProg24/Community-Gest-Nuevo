@@ -76,26 +76,14 @@
             <div class="search-container">
                 <div class="search-fields" [formGroup]="form">
                   <mat-form-field class="search-field">
-                    <mat-label>Buscar por nombre y apellido</mat-label>
+                    <mat-label>Buscar por nombre y apellido o Instalacion</mat-label>
                     <input 
                       matInput 
                       type="search" 
-                      formControlName="Nombre_Apellido" 
+                      formControlName="Nombre_Apellido_Instalacion" 
                       #searchInput 
-                      (keyup)="search_Nombre(searchInput)">
+                      (keyup)="search_N_A_I(searchInput)">
                   </mat-form-field>
-                  
-                  <!-- <mat-form-field class="search-field">
-                    <mat-label>Buscar por fecha</mat-label>
-                    <input 
-                      matInput 
-                      [matDatepicker]="picker1" 
-                      formControlName="fecha_Select" 
-                      (dateChange)="searchFecha($event.value)">
-                    <mat-hint>MM/DD/YYYY</mat-hint>
-                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
-                    <mat-datepicker #picker1></mat-datepicker>
-                  </mat-form-field> -->
                 </div>
               </div>
               

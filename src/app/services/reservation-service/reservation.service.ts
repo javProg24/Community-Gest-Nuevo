@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { GeneralService } from '../general-services/general.service';
 import { Observable } from 'rxjs';
 import { Reserva_Herr as Reserva_Herramienta, Reserva_Instalacion } from '../../models/reservation';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -24,25 +24,26 @@ export class ReservationService {
   getReserva_Ins_Fi():Observable<Reserva_Instalacion[]>{
     return this.services.getServiceEntity<Reserva_Instalacion>(this.APIurl_Re_Ins,"/Reservas_Inst_Finalizada")
   }
-  searchReserva_Ins(nombre_Apellido?: string): Observable<Reserva_Instalacion[]> {
-    // const params = {
-    //   nombre_Apellido: nombre_Apellido!,
-    //   fecha: fecha ? fecha.toISOString() : '' // Asegúrate de enviar la fecha en formato adecuado
-    
-    // };
-    const params: { [key: string]: any } = {};
-    if (nombre_Apellido) {
-      params["nombre_Apellido"] = nombre_Apellido;
+  searchReserva_Ins(nombre?: string, apellido?: string, instalacion?: string): Observable<Reserva_Instalacion[]> {
+    let params = new HttpParams ();
+  
+    // Verificar y agregar los parámetros opcionales
+    if (nombre) {
+      params = params.set("nombre",nombre) // Corresponde al parámetro 'nombre'
     }
-    
-    // Formatear la fecha solo si existe
-    // if (fecha) {
-    //   const formattedDate = fecha.toISOString().split('T')[0]; // Obtener solo la parte de la fecha 'YYYY-MM-DD'
-    //   params["fecha"] = formattedDate; // Enviar solo la fecha en formato adecuado
-    // }
-    console.log(params)
+    if (apellido) {
+      params = params.set("apellido",apellido) // Corresponde al parámetro 'apellido'
+    }
+    if (instalacion) {
+      params = params.set("instalacion",instalacion) // Corresponde al parámetro 'instalacion'
+    }
+  
+    console.log('Parámetros enviados:', params);
+  
+    // Llamar al servicio genérico
     return this.services.searchService<Reserva_Instalacion>(this.APIurl_Re_Ins, 'search', params);
   }
+  
   
   getReserva_ID_Inst(id?:number):Observable<Reserva_Instalacion>{
     return this.services.getServiceID<Reserva_Instalacion>(this.APIurl_Re_Ins,id)
