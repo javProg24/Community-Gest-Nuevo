@@ -8,6 +8,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideAnimationsAsync(),provideHttpClient(),
-    importProvidersFrom(MatDialogModule), provideAnimationsAsync()
+    importProvidersFrom(MatDialogModule), provideAnimationsAsync(), provideAnimationsAsync()
   ]
 };
