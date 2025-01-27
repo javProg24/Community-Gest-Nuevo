@@ -17,6 +17,7 @@ export class usuarioResponse{
     apellido='';
     correo='';
     telefono='';
+    active='';
 }
 export interface IUserForm{
     cedula:FormControl<string>;

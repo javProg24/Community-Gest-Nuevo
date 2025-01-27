@@ -204,8 +204,8 @@ export class ReservaInstallComponent implements OnInit{
       })
     }
     else{
-      delete newReserva.usuario
-      delete newReserva.instalacion
+      // delete newReserva.usuario
+      // delete newReserva.instalacion
       // console.log(newReserva)
         this.reservaService.addReserva_Inst(newReserva).subscribe({
           next: (add) => {
@@ -213,10 +213,8 @@ export class ReservaInstallComponent implements OnInit{
             // this.notification={message:'La reserva se ha guardado',type:'success'}
             this.getReserIn()
             this.clearForm()
-            this.reservaService.desactiveInstalacion(newReserva.instalacion_ID).subscribe(()=>{
-              this.notification={message:'La reserva se ha guardado',type:'success'}
-              this.getInstalacion()
-            })
+            this.notification={message:'La reserva se ha guardado',type:'success'}
+            this.getInstalacion()
           },
           error: (error) => {
             this.notification={message:'La reserva no se ha guardado',type:'error'}
@@ -225,11 +223,12 @@ export class ReservaInstallComponent implements OnInit{
     }
     setTimeout(()=>{
       this.notification={message:'',type:'info'}
-    },100)
+    },1000)
   } 
   
   onAction(accion: Accion) {
     if(accion.accion == 'Editar'){
+      console.log(accion.fila)
       this.editar(accion.fila);
     }
     else if(accion.accion == 'Eliminar'){
@@ -254,11 +253,18 @@ export class ReservaInstallComponent implements OnInit{
   }
   
   editar(objeto: Reserva_Instalacion) {
+    console.log(objeto)
+    // let id = objeto.id;
+    // console.log(id)
+    // this.reservaService.getReserva_ID_Inst(id).subscribe((reserva: Reserva_Instalacion) => {
+    //   const reservaSeleccionada = reserva;
+    //   this.obtenerReservas(reservaSeleccionada)
+    // })
     let id = objeto.id;
-    console.log(id)
     this.reservaService.getReserva_ID_Inst(id).subscribe((reserva: Reserva_Instalacion) => {
       const reservaSeleccionada = reserva;
       this.obtenerReservas(reservaSeleccionada)
+      console.log(reservaSeleccionada)
     })
   }
   obtenerReservas(reserva:Reserva_Instalacion){
@@ -270,8 +276,10 @@ export class ReservaInstallComponent implements OnInit{
       console.log(reserva)
     }
     let usuarioSeleccinado = this.usuarios.find((u)=>u.id==reserva.usuario_ID)
-    let instalacionSelec = this.instalaciones.find((i)=>i.id==reserva.instalacion_ID)
-    this.form.setValue({
+    console.log('Usuario encontrado:', usuarioSeleccinado);
+    let instalacionSelec = this.instalaciones.find((i) => i.id == reserva.instalacion_ID);
+    console.log('Instalacion encontrado:', instalacionSelec);
+    this.form.patchValue({
       usuario:usuarioSeleccinado,
       instalacion:instalacionSelec,
       dia:reserva.instalacion?.dia,

@@ -110,6 +110,7 @@ export class ReservaHerraComponent implements OnInit{
   }
   editar(objeto:Reserva_Herr){
     let id=objeto.id
+    console.log(objeto)
     this.reserva.getReserva_ID_Her(id).subscribe((reserva:Reserva_Herr)=>{
       const reservaSeleccionada = reserva
       this.obtenerReservas(reservaSeleccionada)
@@ -126,9 +127,11 @@ export class ReservaHerraComponent implements OnInit{
     this.formGroup.setValue({
       usuario:usuarioSeleccinado,
       herramienta:herramientaSeleccionada,
+      fecha:reserva.fecha,
       dia:reserva.dia,
       hora_Inicio:reserva.horaInicio,
-      hora_Fin:reserva.horaFin
+      hora_Fin:reserva.horaFin,
+      estado:reserva.disponibilidad
     })
   }
   close() {
@@ -166,7 +169,7 @@ export class ReservaHerraComponent implements OnInit{
       estado:['',[Validators.required,]],
       hora_Inicio:['',[Validators.required,]],
       hora_Fin:['',[Validators.required,]],
-      Nombre_Apellido_Instalacion:[''],
+      
     })
     this.getHerramientas()
     this.getUser()

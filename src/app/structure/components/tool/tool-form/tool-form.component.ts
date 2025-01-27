@@ -38,7 +38,9 @@ export class ToolFormComponent implements OnInit{
     { value: 'pendiente', viewValue: 'Pendiente' }
   ];
 
-  constructor(private fb:FormBuilder,public dialogRef:MatDialogRef<ToolFormComponent>,private services:ToolService,@Inject(MAT_DIALOG_DATA) public data: Herramienta | null){}
+  constructor(private fb:FormBuilder,public dialogRef:MatDialogRef<ToolFormComponent>,
+    private services:ToolService,
+    @Inject('formData') public formData: Herramienta | null){}
 
   ngOnInit(): void {
     this.formGroup=this.fb.group({
@@ -49,16 +51,16 @@ export class ToolFormComponent implements OnInit{
       disponibilidad:['',[Validators.required]]
     })
 
-    if (this.data) {
-      if (this.data.id) {
+    if (this.formData) {
+      if (this.formData.id) {
         this.editMode = true;
-        this.currentId = this.data.id;
+        this.currentId = this.formData.id;
         this.formGroup.patchValue({
-          nombre: this.data.nombre,
-          ubicacion: this.data.ubicacion,
-          descripcion: this.data.descripcion,
-          cantidad: this.data.cantidad,
-          disponibilidad: this.data.disponibilidad,
+          nombre: this.formData.nombre,
+          ubicacion: this.formData.ubicacion,
+          descripcion: this.formData.descripcion,
+          cantidad: this.formData.cantidad,
+          disponibilidad: this.formData.disponibilidad,
         });
       } else {
         this.editMode = false;

@@ -39,7 +39,7 @@
           <mat-error *ngIf="formGroup.get('telefono')?.hasError('pattern')">Teléfono inválido</mat-error>
         </mat-form-field>
         
-        <div appearance="fill" class="full-width">
+        <!-- <div appearance="fill" class="full-width">
           <mat-label>Estado</mat-label>
           <mat-radio-group aria-label="Seleccione la opción" formControlName="active">
             <mat-radio-button *ngFor="let estado of estados" [value]="estado.value">{{estado.label}}</mat-radio-button>
@@ -47,7 +47,18 @@
           <mat-error *ngIf="submitted && formGroup.get('active')?.hasError('required')">
             Seleccionar un estado es obligatorio
           </mat-error>
-        </div>
+        </div> -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Estado</mat-label>
+          <mat-select formControlName="active">
+              <mat-option *ngFor="let opcion of estados" [value]="opcion.value">
+                  {{opcion.label}}
+              </mat-option>   
+          </mat-select>
+          <mat-error *ngIf="formGroup.get('active')?.hasError('required')">
+              El estado es obligatorio
+          </mat-error>
+      </mat-form-field>
   
         <div class="form-buttons">
           <button mat-raised-button color="primary" type="submit">

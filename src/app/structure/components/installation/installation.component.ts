@@ -93,19 +93,17 @@ export class InstallationComponent implements OnInit {
 
   editar(instalacion: Instalacion) {
     const dialogRef = this.dialog.open(DialogFormComponent, {
-      autoFocus: false,
-      disableClose: true,
-      data: {
-        component: InstallationFormComponent,
-        formData:instalacion,
-      },
-      height:'500px' 
-    }); 
+          autoFocus: false,
+          disableClose: true,
+          data: {
+            component: InstallationFormComponent,
+            formData:instalacion,
+          }, 
+        }); 
         
     dialogRef.afterClosed().subscribe(() => {
       this.getInstall();
     });
-    console.log(instalacion)
   }
 
   openDialog(): void {
@@ -119,6 +117,6 @@ export class InstallationComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
       this.getInstall();
     });
-    
+    this.getInstall();
   }
 }

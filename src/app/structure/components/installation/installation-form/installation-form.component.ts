@@ -37,7 +37,11 @@ export class InstallationFormComponent implements OnInit {
     this.dialogRef.close();
     this.submitted = false;
   }
-
+  estados=[
+    {label:'Disponible',value:'Disponible'},
+    {label:'Mantenimiento',value:'Mantenimiento'},
+    {label:'Ocupado',value:'Ocupado'}
+  ]
   formGroup!: FormGroup;
   editMode: boolean = false
   currentId?: number
@@ -50,7 +54,7 @@ export class InstallationFormComponent implements OnInit {
   constructor(private fb: FormBuilder,
     public dialogRef:MatDialogRef<InstallationFormComponent>,
     private services:InstallationService,
-    @Inject(MAT_DIALOG_DATA) public data: Instalacion | null) {}
+    @Inject('formData') public formData: Instalacion | null) {}
   dias = [
     { value: 'Lunes', label: 'Lunes' },
     { value: 'Martes', label: 'Martes' },
@@ -71,21 +75,22 @@ export class InstallationFormComponent implements OnInit {
       horaFin:['',[Validators.required] ],
       disponibilidad:['',[Validators.required] ]
     });
-    if (this.data) {
-      if (this.data.id) {
+    if (this.formData) {
+      if (this.formData.id) {
+        console.log(this.formData)
         this.editMode = true;
-        this.currentId = this.data.id;
-        const parsedHoraInicio = this.parseToTime(this.data.horaInicio);
-        const parsedHoraFin = this.parseToTime(this.data.horaFin);
+        this.currentId = this.formData.id;
+        const parsedHoraInicio = this.parseToTime(this.formData.horaInicio);
+        const parsedHoraFin = this.parseToTime(this.formData.horaFin);
         this.formGroup.patchValue({
-          nombre: this.data.nombre,
-          tipo: this.data.tipo,
-          capacidad: this.data.capacidad,
-          descripcion: this.data.descripcion,
-          dia: this.data.dia,
+          nombre: this.formData.nombre,
+          tipo: this.formData.tipo,
+          capacidad: this.formData.capacidad,
+          descripcion: this.formData.descripcion,
+          dia: this.formData.dia,
           horaInicio: parsedHoraInicio, // Enviar objeto Date
           horaFin: parsedHoraFin,       // Enviar objeto Date
-          disponibilidad: this.data.disponibilidad
+          disponibilidad: this.formData.disponibilidad
         });
         
       } else {
