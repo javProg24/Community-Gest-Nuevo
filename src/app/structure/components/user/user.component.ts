@@ -21,7 +21,7 @@ import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-user',
-  standalone: true, // Componente independiente
+  standalone: true, 
   imports: [
     MatIconModule,
     MatCardModule,
@@ -38,11 +38,11 @@ import { NgIf } from '@angular/common';
 })
 export class UserComponent implements OnInit {
   formGroup!: FormGroup;
-  userList: Usuario[] = []; // Lista completa de usuarios
+  userList: Usuario[] = []; 
   filteredUserList: Usuario[] = []; // Lista filtrada para mostrar en la tabla
   columns: string[] = [];
   title: string = 'Usuarios';
-  searchText: string = ''; // Campo de búsqueda
+  searchText: string = '';
 
   private formBuilder = inject(NonNullableFormBuilder);
 
@@ -75,16 +75,14 @@ export class UserComponent implements OnInit {
     this.getUsers();
   }
 
-  // Obtener usuarios desde el backend
   getUsers() {
-    this.columns = getEntityProperties('user'); // Configura las columnas para la tabla
+    this.columns = getEntityProperties('user'); 
     this.services.getUsers().subscribe((data) => {
       this.userList = data;
        // Inicializa la lista filtrada
     });
   }
 
-  // Filtrar usuarios según el texto ingresado
   filterUsers() {
     const search = this.searchText.toLowerCase();
     this.filteredUserList = this.userList.filter((user) =>
@@ -110,7 +108,6 @@ export class UserComponent implements OnInit {
         this.getUsers()
       }
     }
-  // Manejar acciones de la tabla (Editar, Eliminar)
   onAction(action: Accion) {
     if (action.accion == 'Editar') {
       this.updateUser(action.fila); // Actualizar usuario
@@ -120,7 +117,6 @@ export class UserComponent implements OnInit {
     }
   }
 
-  // Actualizar usuario
   updateUser(usuario: Usuario) {
     const dialogRef = this.dialog.open(DialogFormComponent, {
       autoFocus: false,
@@ -139,7 +135,6 @@ export class UserComponent implements OnInit {
     type: 'info'
   };  
 
-  // Eliminar usuario
   deleteUser(id: number) {
     const dialogRef = this.dialog.open(DialogComponent,{
       data:{
@@ -166,7 +161,6 @@ export class UserComponent implements OnInit {
     // });
   }
 
-  // Abrir diálogo para el formulario de usuario
   openDialog() {
     const dialogRef = this.dialog.open(DialogFormComponent, {
       autoFocus: false,
