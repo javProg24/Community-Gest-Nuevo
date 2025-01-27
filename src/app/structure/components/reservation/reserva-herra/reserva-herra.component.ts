@@ -7,7 +7,7 @@ import {MatNativeDateModule, MatOptionModule, provideNativeDateAdapter} from '@a
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSelectModule } from '@angular/material/select';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { ReservationService } from '../../../../services/reservation-service/reservation.service';
 import { UserService } from '../../../../services/user-service/user.service';
 import { ToolService } from '../../../../services/tool-service/tool.service';
@@ -29,25 +29,72 @@ import { MatDialog } from '@angular/material/dialog';
     MatDatepickerModule, MatInputModule,
     MatCheckboxModule, MatSelectModule, MatOptionModule,
     NgFor, MatNativeDateModule, MatFormField, MatTimepickerModule, MatButtonModule, TableComponent,
-    MatTabsModule, NotificationComponent,NgFor],
+    MatTabsModule, NotificationComponent,NgFor,NgIf],
   templateUrl: './reserva-herra.component.html',
   styleUrl: './reserva-herra.component.css',
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReservaHerraComponent implements OnInit{
+  search_Inst(input: HTMLInputElement) {
+      const searchQuery = input.value.trim();
+      if (searchQuery) {
+        this.reserva.searchReserva_Her(
+          { instalacion: searchQuery }
+        ).subscribe(
+          (datos: Reserva_Herr[]) => {
+            this.HerrllList = datos; // Actualizar la lista con los datos recibidos
+          }
+        );
+      }
+      else{
+        this.getReseHer()
+      }
+    }
+    search_Apellido(input: HTMLInputElement) {
+      const searchQuery = input.value.trim();
+      if (searchQuery) {
+        this.reserva.searchReserva_Her(
+          { apellido: searchQuery }
+        ).subscribe(
+          (datos: Reserva_Herr[]) => {
+            this.HerrllList = datos; // Actualizar la lista con los datos recibidos
+          }
+        );
+      }
+      else{
+        this.getReseHer()
+      }
+    }
+    search_Nombre(input: HTMLInputElement) {
+      const searchQuery = input.value.trim();
+      
+      // Verificar si se ingresó algo
+      if (searchQuery) {
+        this.reserva.searchReserva_Her(
+          { nombre: searchQuery }
+        ).subscribe(
+          (datos: Reserva_Herr[]) => {
+            this.HerrllList = datos; // Actualizar la lista con los datos recibidos
+          }
+        );
+      }
+      else{
+        this.getReseHer()
+      }
+    }
   dias=[
     {label:'Lunes',value:'Lunes'},
     {label:'Martes',value:'Martes'},
     {label:'Miercoles',value:'Miercoles'},
     {label:'Jueves',value:'Jueves'},
     {label:'Viernes',value:'Viernes'},
-    {label:'Sabado',value:'Sabado'},
+    {label:' Sabado',value:'Sabado'},
     {label:'Domingo',value:'Domingo'}
   ]
   selectedTab:number=0;
   usuarios!:Usuario[];
-  title:string = 'Reservas de Herramientas'
+  title:string = 'Reservas'
   HerrllList:Reserva_Herr[]=[]
   columns: string[] = [];
   isEdit:boolean=false;
@@ -63,6 +110,7 @@ export class ReservaHerraComponent implements OnInit{
   }
   editar(objeto:Reserva_Herr){
     let id=objeto.id
+    console.log(objeto)
     this.reserva.getReserva_ID_Her(id).subscribe((reserva:Reserva_Herr)=>{
       const reservaSeleccionada = reserva
       this.obtenerReservas(reservaSeleccionada)
@@ -79,9 +127,11 @@ export class ReservaHerraComponent implements OnInit{
     this.formGroup.setValue({
       usuario:usuarioSeleccinado,
       herramienta:herramientaSeleccionada,
+      fecha:reserva.fecha,
       dia:reserva.dia,
       hora_Inicio:reserva.horaInicio,
-      hora_Fin:reserva.horaFin
+      hora_Fin:reserva.horaFin,
+      estado:reserva.disponibilidad
     })
   }
   close() {
@@ -110,17 +160,26 @@ export class ReservaHerraComponent implements OnInit{
     private dialog:MatDialog
   ){}
   ngOnInit(): void {
+    
     this.formGroup=this.fb.group({
       usuario:['',[Validators.required,]],
       herramienta:['',[Validators.required,]],
       fecha:['',[Validators.required,]],
+      dia:['',[Validators.required,]],
       estado:['',[Validators.required,]],
       hora_Inicio:['',[Validators.required,]],
-      hora_Fin:['',[Validators.required,]]
+      hora_Fin:['',[Validators.required,]],
+      
     })
     this.getHerramientas()
     this.getUser()
     this.getReseHer()
+    this.formGroup.get('fecha')?.valueChanges.subscribe((fechaSeleccionada: Date) => {
+      if (fechaSeleccionada) {
+        const diaSemana = this.obtenerDiaSemana(fechaSeleccionada);
+        this.formGroup.patchValue({ dia: diaSemana });
+      }
+    });
   }
   getUser(){
     this.userSer.getUsers().subscribe((data:Usuario[])=>{
@@ -140,10 +199,17 @@ export class ReservaHerraComponent implements OnInit{
   }
   herramientas!:Herramienta[];
   getHerramientas(){
-    this.serviceHe.getTools().subscribe((data:Herramienta[])=>{
+    this.serviceHe.getHerramientasDispo().subscribe((data:Herramienta[])=>{
           this.herramientas=data;
+          
           // console.log(this.instalaciones);
     })
+  }
+  obtenerDiaSemana(fecha: Date): string {
+    const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const diaIndex = new Date(fecha).getDay();
+    const dia = diasSemana[diaIndex];
+    return dia.charAt(0).toUpperCase() + dia.slice(1); 
   }
   items=[
     {value:'Reservada',label:'Reservada'},
@@ -165,25 +231,52 @@ export class ReservaHerraComponent implements OnInit{
     this.currentId=0;
     this.isEdit=false;
 }
+formatToString(hour: any): string {
+  // Si hour es un string, lo dividimos y lo convertimos a número
+  if (typeof hour === 'string') {
+    const [hours, minutes] = hour.split(':').map(item => Number(item)); // Convertir los valores a números
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+  }
+
+  // Si hour no es una cadena, lo tratamos como un número o Date
+  if (!hour) return '00:00';  // Si no hay valor, devuelve '00:00' por defecto
+  
+  // Si hour es un número, lo convertimos a un objeto Date
+  const date = new Date(hour);
+
+  // Asegurarnos de que hours y minutes sean números
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+
+  // Asegurarse de que las horas y minutos estén en formato de dos dígitos
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
+}
+
+
+
   onSubmit() {
+    console.log(this.formGroup.value)
     if(this.formGroup.invalid){
       console.log("formulario invalido")
       return
     }
-    const newReserva:Reserva_Herr={
+    const newReserva: Reserva_Herr = {
       usuario_ID: this.formGroup.value.usuario?.id || 0,
-      herramienta_ID: this.formGroup.value.instalacion?.id || 0,
-      dia:this.formGroup.value.dia,
-      horaInicio:this.formGroup.value.hora_Inicio,
-      horaFin:this.formGroup.value.hora_Fin,
+      herramienta_ID: this.formGroup.value.herramienta?.id || 0,  // Asegúrate de que este valor sea el id de la herramienta
+      dia: this.formGroup.value.dia,
+      horaInicio: this.formatToString(this.formGroup.value.hora_Inicio),
+      horaFin: this.formatToString(this.formGroup.value.hora_Fin),
       fecha: this.formatDate(this.formGroup.value.fecha),
       disponibilidad: this.formGroup.value.estado || 'Reservada'
-    }
+    };
+    
+    console.log(this.formGroup.value.herramienta);
     if(this.isEdit){
       newReserva.id=this.currentId;
       this.reserva.updateReserva_Her(newReserva).subscribe({
         next:(update)=>{
           this.notification={message:'La reserva se ha actualizado',type:'success'}
+          console.log(newReserva)
           this.getReseHer()
           this.clearForm()
         },
@@ -193,17 +286,25 @@ export class ReservaHerraComponent implements OnInit{
       })
     }
     else{
+      console.log(this.formGroup.value)
       this.reserva.addReserva_Her(newReserva).subscribe({
         next: (add) => {
-          this.notification={message:'La reserva se ha guardado',type:'success'}
-          this.getReseHer()
+          console.log(newReserva)
+          
           this.clearForm()
+          
+            this.notification={message:'La reserva se ha guardado',type:'success'}
+            this.getReseHer()
+        
         },
         error: (error) => {
           this.notification={message:'La reserva no se ha guardado',type:'error'}
         }
       })
     }
+    setTimeout(()=>{
+      this.notification={message:'',type:'info'}
+    },1000)
   }
   formGroup!:FormGroup;
   eliminar(objeto:Reserva_Herr){

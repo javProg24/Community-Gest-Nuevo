@@ -13,3 +13,17 @@ h1{
     padding-bottom: 20px;
     font-size: 3rem;
 }
+
+.search-container {
+    display: flex;
+    align-items: center;
+    margin: 0; 
+    padding-left: 60px;
+    padding-top: 30px; 
+}
+
+.search-container mat-form-field {
+    flex: 1; 
+    max-width: 400px; 
+    width: 100%; 
+}

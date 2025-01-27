@@ -8,7 +8,7 @@ export interface Usuario{
     apellido:string;
     correo:string;
     telefono:string;
-    activo:string
+    active:string
 }
 export class usuarioResponse{
     id?=0;
@@ -17,6 +17,7 @@ export class usuarioResponse{
     apellido='';
     correo='';
     telefono='';
+    active='';
 }
 export interface IUserForm{
     cedula:FormControl<string>;

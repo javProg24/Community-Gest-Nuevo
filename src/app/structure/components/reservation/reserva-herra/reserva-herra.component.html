@@ -12,7 +12,7 @@
                         <mat-label>Usuario</mat-label>
                         <mat-select formControlName="usuario">
                             <mat-option value="" disabled="">Seleccione..</mat-option>
-                            <mat-option *ngFor="let user of usuarios" [value]="usuarios">
+                            <mat-option *ngFor="let user of usuarios;" [value]="user">
                                 {{user.nombre}}
                                 {{user.apellido}}
                             </mat-option>
@@ -22,12 +22,13 @@
                     <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Herramienta</mat-label>
                         <mat-select formControlName="herramienta">
-                        <mat-option value="" disabled="">Seleccione..</mat-option>
-                        <mat-option *ngFor="let herr of herramientas" [value]="herramientas">
+                          <mat-option value="" disabled>Seleccione..</mat-option>
+                          <mat-option *ngFor="let herr of herramientas" [value]="herr">
                             {{herr.nombre}}
-                        </mat-option>
-                    </mat-select>
-                    </mat-form-field>      
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                           
         
                     <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Fecha</mat-label>
@@ -83,6 +84,40 @@
         </div>
     </mat-tab>
     <mat-tab label="Registros" >
+        <div class="search-container">
+            <div class="search-container">
+                <div class="search-fields" [formGroup]="formGroup">
+                  <mat-form-field class="search-field">
+                    <mat-label>Buscar por nombre del usuario</mat-label>
+                    <input 
+                      matInput 
+                      type="search" 
+                      
+                      
+                      #InputNombre 
+                      (keyup)="search_Nombre(InputNombre)">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Buscar por el apellido del usuario</mat-label>
+                    <input 
+                      matInput 
+                      type="search" 
+                      
+                      #InputApellido 
+                      (keyup)="search_Apellido(InputApellido)">
+                  </mat-form-field>
+                  <mat-form-field>
+                    <mat-label>Buscar por la instalacion</mat-label>
+                    <input 
+                      matInput 
+                      type="search" 
+                      
+                      #InputInst
+                      (keyup)="search_Inst(InputInst)">
+                  </mat-form-field>
+                </div>
+            </div> 
+        </div>
         <div class="table-section">
             <app-table [title]="title" [columnas]="columns" [datos]="HerrllList" (action)="onAction($event)"></app-table>
         </div>

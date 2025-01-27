@@ -5,6 +5,16 @@
         Nuevo
     </button>
 </div>
+
+<div class="search-container">
+    <mat-form-field>
+        <mat-label>Buscar: nombre, ubicacion, descripcion, cantidad o disponibilidad</mat-label>
+        <input matInput type="search" appOnlyAllowedCharacters placeholder="..." #searchInput
+        (keyup)="buscar(searchInput)"/>
+    </mat-form-field>
+    <button mat-raised-button (click)="buscar(searchInput)">Buscar</button>
+</div>
+
 <div class="table-section">
     <app-table [titulo]="title" [columnas]="columns" [datos]="toolList" (action)="onAction($event)"></app-table>
 </div>

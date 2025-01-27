@@ -10,6 +10,9 @@ import { Accion, getEntityProperties } from '../../../models/tabla-columna';
 import { TableComponent } from '../../shared/table/table.component';
 import { DialogFormComponent } from '../../shared/dialog-form/dialog-form.component';
 import { InstallationFormComponent } from './installation-form/installation-form.component';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-installation',
@@ -18,13 +21,14 @@ import { InstallationFormComponent } from './installation-form/installation-form
     TableComponent,
     MatIconModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   templateUrl: './installation.component.html',
   styleUrls: ['./installation.component.css'] // Corregido: styleUrls en lugar de styleUrl
 })
 export class InstallationComponent implements OnInit {
-  formGroup!: FormGroup;
   installList: Instalacion[] = [];
   columns: string[] = [];
   title = 'Instalaciones';
@@ -45,6 +49,17 @@ export class InstallationComponent implements OnInit {
     });
   }
 
+  search(searchInput: HTMLInputElement): void {
+    const searchTerm = searchInput.value.trim();
+    if (searchTerm) {
+      this.services.getInstallsSearch(searchTerm).subscribe((datos: Instalacion[]) => {
+        this.installList = datos;
+      });
+    } else {
+      this.getInstall();
+    }
+  }
+
   onAction(accion: Accion) {
     if (accion.accion == 'Editar') {
       this.editar(accion.fila);
@@ -53,12 +68,42 @@ export class InstallationComponent implements OnInit {
     }
   }
 
-  eliminar(nombre: any) {
-    console.log('eliminar', nombre);
+  eliminar(instalacion: Instalacion) {
+  const dialogRef = this.dialog.open(DialogComponent,{
+        data:{
+          titulo: "Esta seguro de eliminar esta instalacion?",
+        },
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        if(result === true){
+          if(instalacion.id !== undefined) {
+            this.services.deleteInstall(instalacion.id, instalacion).subscribe(() => {
+              alert("Instalacion eliminada exitosamente");
+              this.getInstall();
+            });
+          } else {
+              console.error("El instalacion no tiene un ID definido.");
+            }
+        } else{
+          console.log("Eliminación cancelada");
+        }
+          
+      })
   }
 
-  editar(objeto: any) {
-    console.log('editar', objeto);
+  editar(instalacion: Instalacion) {
+    const dialogRef = this.dialog.open(DialogFormComponent, {
+          autoFocus: false,
+          disableClose: true,
+          data: {
+            component: InstallationFormComponent,
+            formData:instalacion,
+          }, 
+        }); 
+        
+    dialogRef.afterClosed().subscribe(() => {
+      this.getInstall();
+    });
   }
 
   openDialog(): void {
@@ -69,11 +114,9 @@ export class InstallationComponent implements OnInit {
       height:'500px'
     });
   
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
-      if (result) {
-        console.log("Cerrar");
-      }
+    dialogRef.afterClosed().subscribe(() => {
+      this.getInstall();
     });
+    this.getInstall();
   }
 }

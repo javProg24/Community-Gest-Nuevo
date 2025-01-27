@@ -9,11 +9,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { NgFor, NgIf } from '@angular/common';
 import { Usuario } from '../../../../models/user';
 import { MatRadioButton, MatRadioGroup } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
 
 @Component({
   selector: 'app-user-form',
   imports: [MatFormFieldModule, MatCardModule, ReactiveFormsModule,
-    MatLabel, MatInputModule, MatButtonModule, NgIf,NgFor,MatRadioButton,MatRadioGroup],
+    MatLabel, MatInputModule, MatButtonModule, NgIf,NgFor,
+    MatRadioButton,MatRadioGroup,MatSelectModule],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
@@ -52,7 +54,7 @@ export class UserFormComponent implements OnInit {
       telefono: this.formBuilder.control('', {
         validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
       }),
-      estado:this.formBuilder.control('', {
+      active:this.formBuilder.control('', {
         validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
       }),
     });
@@ -66,13 +68,15 @@ export class UserFormComponent implements OnInit {
       if(this.formData.id){
         this.isEditMode=true
         this.currentID = this.formData.id
-        this.formGroup.patchValue({
+        this.formGroup.setValue({
           cedula:this.formData.cedula,
           nombre:this.formData.nombre,
           apellido:this.formData.apellido,
           correo:this.formData.correo,
-          telefono:this.formData.telefono
+          telefono:this.formData.telefono,
+          active:this.formData.active,
         })
+        console.log(this.formData)
       }
       else{
         this.isEditMode=false
@@ -105,10 +109,11 @@ export class UserFormComponent implements OnInit {
       });
     } else {
       // Crear nuevo usuario
-      usuario.activo='Y'
+      usuario.active='Y';
       this.services.addUser(usuario).subscribe({
         next: () => {
           console.log('Usuario creado correctamente');
+          console.log(usuario)
           this.dialogRef.close(true); // Cierra el formulario y notifica éxito
         },
         error: (err) => console.error('Error al crear usuario', err),
