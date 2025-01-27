@@ -12,7 +12,7 @@ export class ToolService {
 
   constructor(private services:GeneralService) { }
   getHerramientasDispo():Observable<Herramienta[]>{
-    return this.services.getServiceEntitys<Herramienta>(this.apiURL,"Cantidad")
+    return this.services.getServiceEntitys<Herramienta>(this.apiURL,"/Cantidad")
     //return this.services.getService<Herramienta>(this.apiURL)
   }
   getTools():Observable<Herramienta[]>{

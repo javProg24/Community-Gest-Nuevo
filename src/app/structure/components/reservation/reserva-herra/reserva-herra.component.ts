@@ -94,7 +94,7 @@ export class ReservaHerraComponent implements OnInit{
   ]
   selectedTab:number=0;
   usuarios!:Usuario[];
-  title:string = 'Reservas de Herramientas'
+  title:string = 'Reservas'
   HerrllList:Reserva_Herr[]=[]
   columns: string[] = [];
   isEdit:boolean=false;
@@ -157,6 +157,7 @@ export class ReservaHerraComponent implements OnInit{
     private dialog:MatDialog
   ){}
   ngOnInit(): void {
+    
     this.formGroup=this.fb.group({
       usuario:['',[Validators.required,]],
       herramienta:['',[Validators.required,]],
@@ -165,11 +166,17 @@ export class ReservaHerraComponent implements OnInit{
       estado:['',[Validators.required,]],
       hora_Inicio:['',[Validators.required,]],
       hora_Fin:['',[Validators.required,]],
-      Nombre_Apellido_Instalacion:['',[Validators.required,]],
+      Nombre_Apellido_Instalacion:[''],
     })
     this.getHerramientas()
     this.getUser()
     this.getReseHer()
+    // this.formGroup.get('fecha')?.valueChanges.subscribe((fechaSeleccionada: Date) => {
+    //   if (fechaSeleccionada) {
+    //     const diaSemana = this.obtenerDiaSemana(fechaSeleccionada);
+    //     this.formGroup.patchValue({ dia: diaSemana });
+    //   }
+    // });
   }
   getUser(){
     this.userSer.getUsers().subscribe((data:Usuario[])=>{
@@ -194,6 +201,12 @@ export class ReservaHerraComponent implements OnInit{
           
           // console.log(this.instalaciones);
     })
+  }
+  obtenerDiaSemana(fecha: Date): string {
+    const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const diaIndex = new Date(fecha).getDay();
+    const dia = diasSemana[diaIndex];
+    return dia.charAt(0).toUpperCase() + dia.slice(1); 
   }
   items=[
     {value:'Reservada',label:'Reservada'},
@@ -239,6 +252,7 @@ formatToString(hour: any): string {
 
 
   onSubmit() {
+    console.log(this.formGroup.value)
     if(this.formGroup.invalid){
       console.log("formulario invalido")
       return
@@ -269,6 +283,7 @@ formatToString(hour: any): string {
       })
     }
     else{
+      console.log(this.formGroup.value)
       this.reserva.addReserva_Her(newReserva).subscribe({
         next: (add) => {
           console.log(newReserva)

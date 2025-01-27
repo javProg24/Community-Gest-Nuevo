@@ -117,7 +117,7 @@ export class ReservaInstallComponent implements OnInit{
     {value:'Finalizada',label:'Finalizada'},
   ]
   columns: string[] = [];
-  title = 'Instalaciones';
+  title = 'Reservas';
   constructor(private fb:FormBuilder,
     private reservaService:ReservationService,
     private userSer:UserService,
@@ -137,6 +137,12 @@ export class ReservaInstallComponent implements OnInit{
     this.getReserIn()
     this.getUser()
     this.getInstalacion()
+    
+  }
+  getDayName(date: string): string {
+    const daysOfWeek = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+    const d = new Date(date);
+    return daysOfWeek[d.getDay()];
   }
   getUser(){
     this.userSer.getUsers().subscribe((data:Usuario[])=>{
@@ -219,7 +225,7 @@ export class ReservaInstallComponent implements OnInit{
     }
     setTimeout(()=>{
       this.notification={message:'',type:'info'}
-    },1500)
+    },100)
   } 
   
   onAction(accion: Accion) {
