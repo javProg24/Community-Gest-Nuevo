@@ -51,7 +51,7 @@ export class ReservaInstallComponent implements OnInit{
     const searchQuery = input.value.trim();
     if (searchQuery) {
       this.reservaService.searchReserva_Ins(
-        { instalacion: searchQuery }
+        { instalaciones: searchQuery }
       ).subscribe(
         (datos: Reserva_Instalacion[]) => {
           this.installList = datos; // Actualizar la lista con los datos recibidos
@@ -262,6 +262,7 @@ export class ReservaInstallComponent implements OnInit{
     })
   }
   obtenerReservas(reserva:Reserva_Instalacion){
+    console.log(reserva)
     this.isEdit=true
     this.selectedTab=0
     if(reserva&&reserva.id){

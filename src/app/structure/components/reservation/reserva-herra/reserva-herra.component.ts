@@ -171,12 +171,12 @@ export class ReservaHerraComponent implements OnInit{
     this.getHerramientas()
     this.getUser()
     this.getReseHer()
-    // this.formGroup.get('fecha')?.valueChanges.subscribe((fechaSeleccionada: Date) => {
-    //   if (fechaSeleccionada) {
-    //     const diaSemana = this.obtenerDiaSemana(fechaSeleccionada);
-    //     this.formGroup.patchValue({ dia: diaSemana });
-    //   }
-    // });
+    this.formGroup.get('fecha')?.valueChanges.subscribe((fechaSeleccionada: Date) => {
+      if (fechaSeleccionada) {
+        const diaSemana = this.obtenerDiaSemana(fechaSeleccionada);
+        this.formGroup.patchValue({ dia: diaSemana });
+      }
+    });
   }
   getUser(){
     this.userSer.getUsers().subscribe((data:Usuario[])=>{
@@ -301,7 +301,7 @@ formatToString(hour: any): string {
     }
     setTimeout(()=>{
       this.notification={message:'',type:'info'}
-    },1500)
+    },1000)
   }
   formGroup!:FormGroup;
   eliminar(objeto:Reserva_Herr){
