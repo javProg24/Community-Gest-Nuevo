@@ -34,6 +34,7 @@ export class HistoryComponent implements OnInit{
       Nombre_Apellido_Instalacion:[""],
     })
     this.getReserIn()
+    this.getReserHerr()
   }
   getReserIn(){
     this.columns=getEntityProperties('reserva_Install')
