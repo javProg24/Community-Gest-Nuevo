@@ -91,6 +91,7 @@
                     <mat-label>Buscar por nombre del usuario</mat-label>
                     <input 
                       matInput 
+                      formControlName="Nombre_Apellido_Herramienta"
                       type="search" 
                       #InputNombre 
                       (keyup)="search_Nombre(InputNombre)">
@@ -99,10 +100,20 @@
                     <mat-label>Buscar por el apellido del usuario</mat-label>
                     <input 
                       matInput 
+                      formControlName="Nombre_Apellido_Herramienta"
                       type="search" 
-                      
                       #InputApellido 
                       (keyup)="search_Apellido(InputApellido)">
+                  </mat-form-field>
+
+                  <mat-form-field class="search-field">
+                    <mat-label>Buscar por la Herramienta</mat-label>
+                    <input 
+                      matInput 
+                      type="search" 
+                      formControlName="Nombre_Apellido_Herramienta" 
+                      #InputInst
+                      (keyup)="search_Herr(InputInst)">
                   </mat-form-field>
                 </div>
             </div> 

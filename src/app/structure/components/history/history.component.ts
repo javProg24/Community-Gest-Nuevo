@@ -33,6 +33,7 @@ export class HistoryComponent implements OnInit{
   ngOnInit(): void {
     this.form=this.fb.group({
       Nombre_Apellido_Instalacion:[""],
+      Nombre_Apellido_Herramienta:[""],
     })
     this.getReserIn()
     this.getReserHerr()
@@ -49,7 +50,7 @@ export class HistoryComponent implements OnInit{
       this.herrList=data
     })
   }
-  search_Apellido(input: HTMLInputElement) {
+  search_Apellido_I(input: HTMLInputElement) {
     const searchQuery = input.value.trim();
     if (searchQuery) {
       this.reservaService.searchReserva_Ins_Fi(
@@ -64,7 +65,38 @@ export class HistoryComponent implements OnInit{
       this.getReserIn()
     }
   }
-  search_Nombre(input: HTMLInputElement) {
+  search_Inst(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    if (searchQuery) {
+      this.reservaService.searchReserva_Ins_Fi(
+        { instalacion: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Instalacion[]) => {
+          this.installList = datos; // Actualizar la lista con los datos recibidos
+          console.log(datos)
+        }
+      );
+    }
+    else{
+      this.getReserIn()
+    }
+  }
+  search_Herr(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    if (searchQuery) {
+      this.reservaService.searchReserva_Herr_Fi(
+        { herramienta: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Herr[]) => {
+          this.herrList = datos; // Actualizar la lista con los datos recibidos
+        }
+      );
+    }
+    else{
+      this.getReserHerr()
+    }
+  }
+  search_Nombre_I(input: HTMLInputElement) {
     const searchQuery = input.value.trim();
     
     // Verificar si se ingresó algo
@@ -79,6 +111,38 @@ export class HistoryComponent implements OnInit{
     }
     else{
       this.getReserIn()
+    }
+  }
+  search_Apellido_H(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    if (searchQuery) {
+      this.reservaService.searchReserva_Herr_Fi(
+        { apellido: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Herr[]) => {
+          this.herrList = datos; // Actualizar la lista con los datos recibidos
+        }
+      );
+    }
+    else{
+      this.getReserHerr()
+    }
+  }
+  search_Nombre_H(input: HTMLInputElement) {
+    const searchQuery = input.value.trim();
+    
+    // Verificar si se ingresó algo
+    if (searchQuery) {
+      this.reservaService.searchReserva_Herr_Fi(
+        { nombre: searchQuery }
+      ).subscribe(
+        (datos: Reserva_Herr[]) => {
+          this.herrList= datos; // Actualizar la lista con los datos recibidos
+        }
+      );
+    }
+    else{
+      this.getReserHerr()
     }
   }
 }

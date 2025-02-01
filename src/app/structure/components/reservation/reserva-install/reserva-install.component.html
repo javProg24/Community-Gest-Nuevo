@@ -95,6 +95,16 @@
                       (keyup)="search_Apellido(InputApellido)">
                   </mat-form-field>
                   
+                  <mat-form-field class="search-field">
+                    <mat-label>Buscar por la instalacion</mat-label>
+                    <input 
+                      matInput 
+                      type="search" 
+                      formControlName="Nombre_Apellido_Instalacion" 
+                      #InputInst
+                      (keyup)="search_Inst(InputInst)">
+                  </mat-form-field>
+
                 </div>
             </div> 
         </div>

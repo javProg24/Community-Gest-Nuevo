@@ -36,11 +36,11 @@ import { MatDialog } from '@angular/material/dialog';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReservaHerraComponent implements OnInit{
-  search_Inst(input: HTMLInputElement) {
+  search_Herr(input: HTMLInputElement) {
       const searchQuery = input.value.trim();
       if (searchQuery) {
         this.reserva.searchReserva_Her(
-          { instalacion: searchQuery }
+          { herramienta: searchQuery }
         ).subscribe(
           (datos: Reserva_Herr[]) => {
             this.HerrllList = datos; // Actualizar la lista con los datos recibidos
@@ -169,7 +169,7 @@ export class ReservaHerraComponent implements OnInit{
       estado:['',[Validators.required,]],
       hora_Inicio:['',[Validators.required,]],
       hora_Fin:['',[Validators.required,]],
-      
+      Nombre_Apellido_Herramienta:[""],
     })
     this.getHerramientas()
     this.getUser()

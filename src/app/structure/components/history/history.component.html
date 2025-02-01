@@ -9,9 +9,8 @@
                         matInput 
                         type="search" 
                         formControlName="Nombre_Apellido_Instalacion" 
-                        
-                        #InputNombre 
-                        (keyup)="search_Nombre(InputNombre)">
+                        #InputNombre_I
+                        (keyup)="search_Nombre_I(InputNombre_I)">
                     </mat-form-field>
                     <mat-form-field class="search-field">
                       <mat-label>Buscar por el apellido del usuario</mat-label>
@@ -19,10 +18,20 @@
                         matInput 
                         type="search" 
                         formControlName="Nombre_Apellido_Instalacion" 
-                        #InputApellido 
-                        (keyup)="search_Apellido(InputApellido)">
+                        #InputApellido_I
+                        (keyup)="search_Apellido_I(InputApellido_I)">
                     </mat-form-field>
                     
+                    <mat-form-field class="search-field">
+                      <mat-label>Buscar por la instalacion</mat-label>
+                      <input 
+                        matInput 
+                        type="search" 
+                        formControlName="Nombre_Apellido_Instalacion" 
+                        #InputInst
+                        (keyup)="search_Inst(InputInst)">
+                    </mat-form-field>
+
                   </div>              
         </div>
         <app-table [titulo]="title_i" [columnas]="columns_I" [datos]="installList"></app-table>
@@ -36,19 +45,30 @@
                       <input 
                         matInput 
                         type="search" 
-                        formControlName="Nombre_Apellido_Instalacion" 
-                        #InputNombre 
-                        (keyup)="search_Nombre(InputNombre)">
+                        formControlName="Nombre_Apellido_Herramienta" 
+                        #InputNombre_H
+                        (keyup)="search_Nombre_H(InputNombre_H)">
                     </mat-form-field>
                     <mat-form-field class="search-field">
                       <mat-label>Buscar por el apellido del usuario</mat-label>
                       <input 
                         matInput 
                         type="search" 
-                        formControlName="Nombre_Apellido_Instalacion" 
-                        #InputApellido 
-                        (keyup)="search_Apellido(InputApellido)">
+                        formControlName="Nombre_Apellido_Herramienta" 
+                        #InputApellido_H 
+                        (keyup)="search_Apellido_H(InputApellido_H)">
                     </mat-form-field>
+
+                    <mat-form-field class="search-field">
+                      <mat-label>Buscar por la Herramienta</mat-label>
+                      <input 
+                        matInput 
+                        type="search" 
+                        formControlName="Nombre_Apellido_Herramienta" 
+                        #InputHer
+                        (keyup)="search_Herr(InputHer)">
+                    </mat-form-field>
+
                   </div>              
         </div>
         <app-table [titulo]="title_h" [columnas]="columns_H" [datos]="herrList"></app-table>
