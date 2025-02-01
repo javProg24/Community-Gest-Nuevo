@@ -82,7 +82,7 @@ button{
 }
 .search-fields {
     display: flex;
-    justify-content: space-between; /* Espaciado entre los campos */
+    justify-content: space-around; /* Espaciado entre los campos */
   }
   
   .search-field {
