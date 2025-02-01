@@ -22,7 +22,8 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class HistoryComponent implements OnInit{
   form!: FormGroup;
-  columns: string[] = [];
+  columns_I: string[] = [];
+  columns_H: string[] = [];
   title_i = 'Instalaciones';
   title_h='Herramientas'
   installList: Reserva_Instalacion[] = [];
@@ -37,13 +38,13 @@ export class HistoryComponent implements OnInit{
     this.getReserHerr()
   }
   getReserIn(){
-    this.columns=getEntityProperties('reserva_Install')
+    this.columns_I=getEntityProperties('reserva_Install')
         this.reservaService.getReserva_Ins_Fi().subscribe(data=>{
           this.installList=data;
     })
   }
   getReserHerr(){
-    this.columns=getEntityProperties('reserva_Herra')
+    this.columns_H=getEntityProperties('reserva_Herra')
     this.reservaService.getReserva_Herr_Fi().subscribe(data=>{
       this.herrList=data
     })
