@@ -14,8 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 @Component({
   selector: 'app-user-form',
   imports: [MatFormFieldModule, MatCardModule, ReactiveFormsModule,
-    MatLabel, MatInputModule, MatButtonModule, NgIf,NgFor,
-    MatRadioButton,MatRadioGroup,MatSelectModule],
+    MatLabel, MatInputModule, MatButtonModule, NgIf, NgFor,
+    MatSelectModule],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.css'
 })
