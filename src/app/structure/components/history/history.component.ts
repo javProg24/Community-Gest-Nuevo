@@ -22,9 +22,9 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class HistoryComponent implements OnInit{
   form!: FormGroup;
-
   columns: string[] = [];
-  title = 'Instalaciones';
+  title_i = 'Instalaciones';
+  title_h='Herramientas'
   installList: Reserva_Instalacion[] = [];
   herrList:Reserva_Herr[]=[];
   constructor(private reservaService:ReservationService,private fb:FormBuilder,){
@@ -47,21 +47,6 @@ export class HistoryComponent implements OnInit{
     this.reservaService.getReserva_Herr_Fi().subscribe(data=>{
       this.herrList=data
     })
-  }
-  search_Inst(input: HTMLInputElement) {
-    const searchQuery = input.value.trim();
-    if (searchQuery) {
-      this.reservaService.searchReserva_Ins_Fi(
-        { instalacion: searchQuery }
-      ).subscribe(
-        (datos: Reserva_Instalacion[]) => {
-          this.installList = datos; // Actualizar la lista con los datos recibidos
-        }
-      );
-    }
-    else{
-      this.getReserIn()
-    }
   }
   search_Apellido(input: HTMLInputElement) {
     const searchQuery = input.value.trim();

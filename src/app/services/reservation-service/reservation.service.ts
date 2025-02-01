@@ -29,23 +29,11 @@ export class ReservationService {
     return this.services.getServiceEntitys<Reserva_Instalacion>(this.API_Re_Ins,"/Reservas_Inst_Finalizada")
   }
   getReserva_Herr_Fi():Observable<Reserva_Herr[]>{
-    return this.services.getServiceEntitys<Reserva_Herr>(this.API_Re_Ins,"/Reservas_Herr_Finalizada")
+    return this.services.getServiceEntitys<Reserva_Herr>(this.API_Re_Her,"/Reservas_Herr_Finalizada")
   }
   searchReserva_Ins(dato?: { [key: string]: string }): Observable<Reserva_Instalacion[]> {
       return this.services.searchService<Reserva_Instalacion>(`${this.API_Re_Ins}/search`,dato)
   }
-  // search_2(input:string):Observable<Reserva_Instalacion[]>{
-  //   return this.services.getServiceEntitys<Reserva_Instalacion>(this.API_Re_Ins,"/Instalacion_Reservas").pipe(
-  //     map((reservas)=>
-  //       reservas.filter((reservas)=>
-  //         (input?
-  //           reservas.usuario?.nombre?.toLowerCase().includes(input.toLowerCase())||
-  //           reservas.usuario?.apellido?.toLowerCase().includes(input.toLowerCase())
-  //         :true)
-  //       )
-  //     )
-  //   )
-  // }
   searchReserva_Her(dato?: { [key: string]: string }): Observable<Reserva_Herr[]> {
     return this.services.searchService<Reserva_Herr>(`${this.API_Re_Her}/search`,dato)
   }
