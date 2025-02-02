@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormField, MatFormFieldModule } from '@angular/material/form-field';
@@ -167,6 +167,7 @@ export class ReservaHerraComponent implements OnInit{
     this.columns = getEntityProperties('reserva_Herra');
     this.reservaService.getReserva_Her().subscribe((data) => {
       this.reservasList = data;
+      this.cdr.detectChanges();
       console.log("Reservas actualizadas:", data);
     });
   }
@@ -180,7 +181,8 @@ export class ReservaHerraComponent implements OnInit{
     private serviceHe:ToolService,
     private fb:FormBuilder,
     private reservaService:ReservationService,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private cdr: ChangeDetectorRef
   ){}
   ngOnInit(): void {
     this.formGroup = this.fb.group({
@@ -191,6 +193,7 @@ export class ReservaHerraComponent implements OnInit{
       estado: ['', [Validators.required]],
       hora_Inicio: ['', [Validators.required]],
       hora_Fin: ['', [Validators.required]],
+      Nombre_Apellido_Herramienta:[null]
     });
     this.getReseHer();
     this.getHerramientas()
