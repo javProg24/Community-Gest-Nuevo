@@ -16,7 +16,7 @@ const entityMap:{[key: string]:any}={
     'reporte':reporteResponse,
     'reserva_Install':Reserva_Instalacion_Response,
     'reserva_Herra':reserva_Herra_Response,
-    'horario':TimetableResponse,
+    
 }
 export const getEntityProperties=(entidad:string):Array<string>=>{
     const EntityClass=entityMap[entidad]

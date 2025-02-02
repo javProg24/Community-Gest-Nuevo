@@ -1,6 +1,6 @@
-import { Instalacion as Instalacion } from "./instalation";
+import { Instalacion } from "./instalation";
 import { Herramienta } from "./tool";
-import { Usuario as Usuario } from "./user";
+import { Usuario  } from "./user";
 
 export interface Reserva_Instalacion{
     id?: number;

@@ -44,7 +44,7 @@ export class InstallationComponent implements OnInit {
 
   getInstall() {
     this.columns = getEntityProperties('install');
-    this.services.getInstall().subscribe((data) => {
+    this.services.getInstalaciones().subscribe((data) => {
       this.installList = data;
     });
   }

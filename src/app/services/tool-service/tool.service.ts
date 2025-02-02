@@ -49,4 +49,5 @@ export class ToolService {
     const urlTool = `${this.apiURL}/${herramienta.id}`
     return this.services.deleteService<void>(this.apiURL, id);
   }
+  
 }

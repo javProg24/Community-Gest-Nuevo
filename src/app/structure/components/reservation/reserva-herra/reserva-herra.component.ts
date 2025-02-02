@@ -22,6 +22,7 @@ import { Herramienta } from '../../../../models/tool';
 import { NotificationComponent } from "../../../shared/notification/notification.component";
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-reserva-herra',
   standalone: true,
@@ -39,11 +40,11 @@ export class ReservaHerraComponent implements OnInit{
   search_Herr(input: HTMLInputElement) {
       const searchQuery = input.value.trim();
       if (searchQuery) {
-        this.reserva.searchReserva_Her(
+        this.reservaService.searchReserva_Her(
           { herramienta: searchQuery }
         ).subscribe(
           (datos: Reserva_Herr[]) => {
-            this.HerrllList = datos; // Actualizar la lista con los datos recibidos
+            this.reservasList = datos; // Actualizar la lista con los datos recibidos
           }
         );
       }
@@ -54,11 +55,11 @@ export class ReservaHerraComponent implements OnInit{
     search_Apellido(input: HTMLInputElement) {
       const searchQuery = input.value.trim();
       if (searchQuery) {
-        this.reserva.searchReserva_Her(
+        this.reservaService.searchReserva_Her(
           { apellido: searchQuery }
         ).subscribe(
           (datos: Reserva_Herr[]) => {
-            this.HerrllList = datos; // Actualizar la lista con los datos recibidos
+            this.reservasList = datos; // Actualizar la lista con los datos recibidos
           }
         );
       }
@@ -71,11 +72,11 @@ export class ReservaHerraComponent implements OnInit{
       
       // Verificar si se ingresó algo
       if (searchQuery) {
-        this.reserva.searchReserva_Her(
+        this.reservaService.searchReserva_Her(
           { nombre: searchQuery }
         ).subscribe(
           (datos: Reserva_Herr[]) => {
-            this.HerrllList = datos; // Actualizar la lista con los datos recibidos
+            this.reservasList = datos; // Actualizar la lista con los datos recibidos
           }
         );
       }
@@ -95,7 +96,7 @@ export class ReservaHerraComponent implements OnInit{
   selectedTab:number=0;
   usuarios!:Usuario[];
   title:string = 'Reservas'
-  HerrllList:Reserva_Herr[]=[]
+  reservasList:Reserva_Herr[]=[]
   columns: string[] = [];
   isEdit:boolean=false;
   currentId!:number;
@@ -111,12 +112,25 @@ export class ReservaHerraComponent implements OnInit{
   editar(objeto:Reserva_Herr){
     let id=objeto.id
     console.log(objeto)
-    this.reserva.getReserva_ID_Her(id).subscribe((reserva:Reserva_Herr)=>{
+    this.reservaService.getReserva_ID_Her(id).subscribe((reserva:Reserva_Herr)=>{
       const reservaSeleccionada = reserva
       this.obtenerReservas(reservaSeleccionada)
     })
   }
   obtenerReservas(reserva:Reserva_Herr){
+    console.log(reserva.horaInicio + '-' +reserva.horaFin)
+    
+    const parseHora = (hora: string | null): Date | null => {
+      if (!hora) return null;
+      const [hh, mm] = hora.split(":").map(Number);  // Divide en horas y minutos
+      const date = new Date();
+      date.setHours(hh, mm, 0, 0);  // Establece las horas, minutos y segundos
+      return date;
+    }
+
+    const horaInicio = parseHora(reserva.horaInicio);
+    const horaFin = parseHora(reserva.horaFin);
+
     this.isEdit=true
     this.selectedTab=0
     if(reserva&&reserva.id){
@@ -124,15 +138,17 @@ export class ReservaHerraComponent implements OnInit{
     }
     let usuarioSeleccinado = this.usuarios.find((u)=>u.id==reserva.usuario_ID)
     let herramientaSeleccionada=this.herramientas.find((h)=>h.id==reserva.herramienta_ID)
-    this.formGroup.setValue({
+    this.formGroup.patchValue({
       usuario:usuarioSeleccinado,
       herramienta:herramientaSeleccionada,
       fecha:reserva.fecha,
       dia:reserva.dia,
-      hora_Inicio:reserva.horaInicio,
-      hora_Fin:reserva.horaFin,
+      hora_Inicio:horaInicio,
+      hora_Fin:horaFin,
       estado:reserva.disponibilidad
     })
+    console.log(this.formGroup.value.hora_Inicio)
+    console.log(this.formGroup.value.hora_Fin)
   }
   close() {
     this.formGroup.reset({
@@ -147,33 +163,39 @@ export class ReservaHerraComponent implements OnInit{
   this.currentId=0;
   this.isEdit=false;
   }
-  getReseHer(){
+  getReseHer() {
+    this.columns = getEntityProperties('reserva_Herra');
+    this.reservaService.getReserva_Her().subscribe((data) => {
+      this.reservasList = data;
+      console.log("Reservas actualizadas:", data);
+    });
+  }
+  getReserActualizas(){
     this.columns=getEntityProperties('reserva_Herra')
-    this.reserva.getReserva_Her().subscribe((data)=>{
-      this.HerrllList=data
+    this.reservaService.getReserva_Her().subscribe((data)=>{
+      this.reservasList=data
     })
   }
   constructor(private userSer:UserService,
     private serviceHe:ToolService,
     private fb:FormBuilder,
-    private reserva:ReservationService,
+    private reservaService:ReservationService,
     private dialog:MatDialog
   ){}
   ngOnInit(): void {
-    
-    this.formGroup=this.fb.group({
-      usuario:['',[Validators.required,]],
-      herramienta:['',[Validators.required,]],
-      fecha:['',[Validators.required,]],
-      dia:['',[Validators.required,]],
-      estado:['',[Validators.required,]],
-      hora_Inicio:['',[Validators.required,]],
-      hora_Fin:['',[Validators.required,]],
-      Nombre_Apellido_Herramienta:[""],
-    })
+    this.formGroup = this.fb.group({
+      usuario: ['', [Validators.required]],
+      herramienta: ['', [Validators.required]],
+      fecha: ['', [Validators.required]],
+      dia: ['', [Validators.required]],
+      estado: ['', [Validators.required]],
+      hora_Inicio: ['', [Validators.required]],
+      hora_Fin: ['', [Validators.required]],
+    });
+    this.getReseHer();
     this.getHerramientas()
     this.getUser()
-    this.getReseHer()
+    
     this.formGroup.get('fecha')?.valueChanges.subscribe((fechaSeleccionada: Date) => {
       if (fechaSeleccionada) {
         const diaSemana = this.obtenerDiaSemana(fechaSeleccionada);
@@ -201,8 +223,6 @@ export class ReservaHerraComponent implements OnInit{
   getHerramientas(){
     this.serviceHe.getHerramientasDispo().subscribe((data:Herramienta[])=>{
           this.herramientas=data;
-          
-          // console.log(this.instalaciones);
     })
   }
   obtenerDiaSemana(fecha: Date): string {
@@ -222,9 +242,10 @@ export class ReservaHerraComponent implements OnInit{
   clearForm():void{
     this.formGroup.reset({
         usuario:'',
-        instalacion:'',
+        herramienta:'',
         dia:'',
-        horario:'',
+        hora_Inicio:'',
+        hora_Fin:'',
         fecha:'',
         estado:'',
     });
@@ -273,7 +294,7 @@ formatToString(hour: any): string {
     console.log(this.formGroup.value.herramienta);
     if(this.isEdit){
       newReserva.id=this.currentId;
-      this.reserva.updateReserva_Her(newReserva).subscribe({
+      this.reservaService.updateReserva_Her(newReserva).subscribe({
         next:(update)=>{
           this.notification={message:'La reserva se ha actualizado',type:'success'}
           console.log(newReserva)
@@ -287,7 +308,7 @@ formatToString(hour: any): string {
     }
     else{
       console.log(this.formGroup.value)
-      this.reserva.addReserva_Her(newReserva).subscribe({
+      this.reservaService.addReserva_Her(newReserva).subscribe({
         next: (add) => {
           console.log(newReserva)
           
@@ -307,27 +328,26 @@ formatToString(hour: any): string {
     },1000)
   }
   formGroup!:FormGroup;
-  eliminar(objeto:Reserva_Herr){
-    console.log("eliminar",objeto.id);
-    const dialogRef=this.dialog.open(DialogComponent,{
-      data:{
-        titulo:'Eliminar Registro',
-        message:'¿Está seguro de que desea eliminar esta reserva?'
+  eliminar(objeto: Reserva_Herr) {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      data: {
+        titulo: 'Eliminar Registro',
+        message: '¿Está seguro de que desea eliminar esta reserva?'
       }
-    })
-    let id = objeto.id
-    dialogRef.afterClosed().subscribe(
-      result=>{
-        if(result){
-          this.reserva.deleteReserva_Inst(id).subscribe(()=>{
-            this.notification={message:'La reserva se ha eliminada',type:'warning'}
-            setTimeout(()=>{
-              this.notification={message:'',type:'info'}
-            },1000)
-            this.getReseHer()
-          })
+    });
+    let id = objeto.id;
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        if (id !== undefined) {
+          this.reservaService.desactiveReserva_Her(id).subscribe(() => {
+            this.notification = { message: 'La reserva se ha eliminado', type: 'warning' };
+            setTimeout(() => {
+              this.notification = { message: '', type: 'info' };
+            }, 1000);
+            this.getReseHer(); // Actualiza la tabla después de eliminar
+          });
         }
       }
-    )
+    });
   }
 }

@@ -84,7 +84,6 @@
         </div>
     </mat-tab>
     <mat-tab label="Registros" >
-        <div class="search-container">
             <div class="search-container">
                 <div class="search-fields" [formGroup]="formGroup">
                   <mat-form-field class="search-field">
@@ -117,9 +116,8 @@
                   </mat-form-field>
                 </div>
             </div> 
-        </div>
         <div class="table-section">
-            <app-table [title]="title" [columnas]="columns" [datos]="HerrllList" (action)="onAction($event)"></app-table>
+            <app-table [title]="title" [columnas]="columns" [datos]="reservasList" (action)="onAction($event)"></app-table>
         </div>
         
     </mat-tab>

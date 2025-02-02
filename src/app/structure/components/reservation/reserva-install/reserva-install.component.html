@@ -21,7 +21,7 @@
                     <mat-form-field appearance="fill" class="full-width">
                         <mat-label>Instalacion</mat-label>
                         <mat-select formControlName="instalacion" (selectionChange)="horario($event)">
-                            <mat-option *ngFor="let instalacion of instalaciones;" [value]="instalacion">
+                            <mat-option *ngFor="let instalacion of (isEdit ? instalaciones:instalaciones_Dispo);" [value]="instalacion">
                                 {{instalacion.nombre}}
                             </mat-option>
                         </mat-select>
@@ -109,7 +109,7 @@
             </div> 
         </div>
         <div class="table-section">
-            <app-table [title]="title" [columnas]="columns" [datos]="installList" (action)="onAction($event)"></app-table>
+            <app-table [title]="title" [columnas]="columns" [datos]="reservasList" (action)="onAction($event)"></app-table>
             <!-- <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
                 <ng-container matColumnDef="usuario">
                     <th mat-header-cell *matHeaderCellDef> Usuario </th>
