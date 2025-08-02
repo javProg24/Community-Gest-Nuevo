@@ -58,12 +58,6 @@ export class UserFormComponent implements OnInit {
         validators: [Validators.required, Validators.pattern(/^\d{10}$/)],
       }),
     });
-
-    // Si hay un usuario actual (para editar), llenamos el formulario
-    // if (this.currentUser) {
-    //   this.isEditMode = true;
-    //   this.formGroup.patchValue(this.currentUser);
-    // }
     if(this.formData){
       if(this.formData.id){
         this.isEditMode=true

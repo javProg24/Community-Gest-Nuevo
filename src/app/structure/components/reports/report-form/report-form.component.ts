@@ -3,13 +3,12 @@ import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatFormField, MatFormFieldModule, MatLabel } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatRadioButton, MatRadioModule } from '@angular/material/radio';
 import { Reporte } from '../../../../models/report';
 import { ReportService } from '../../../../services/report-service/report.service';
-import { getEntityProperties } from '../../../../models/tabla-columna';
 
 @Component({
   selector: 'app-report-form',

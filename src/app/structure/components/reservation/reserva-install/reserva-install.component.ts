@@ -8,7 +8,6 @@ import { MatOptionModule, MatNativeDateModule } from '@angular/material/core';
 import { MatDatepicker, MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule, MatFormField, MatError } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { UserService } from '../../../../services/user-service/user.service';
@@ -25,12 +24,13 @@ import { Instalacion } from '../../../../models/instalation';
 import { NotificationComponent } from "../../../shared/notification/notification.component";
 import { DialogComponent } from '../../../shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-reserva-install',
   standalone:true,
   imports: [MatCardModule,
     ReactiveFormsModule, MatFormFieldModule,
-    MatDatepickerModule, MatInputModule,
+    MatDatepickerModule,
     MatPaginatorModule, MatCheckboxModule,
     MatSelectModule, MatOptionModule,
     NgFor, MatNativeDateModule,
@@ -40,7 +40,7 @@ import { MatDialog } from '@angular/material/dialog';
     MatIconModule, MatButtonModule,
     MatTableModule, TableComponent,
     NotificationComponent, NgIf,
-    MatDatepicker,MatError,MatInputModule,],
+    MatDatepicker,MatError,MatInputModule],
   templateUrl: './reserva-install.component.html',
   styleUrl: './reserva-install.component.css',
   providers:[DatePipe]
@@ -267,12 +267,6 @@ export class ReservaInstallComponent implements OnInit{
   }
   editar(objeto: Reserva_Instalacion) {
     console.log("todas las instalaciones",this.getInstalaciones())
-    // let id = objeto.id;
-    // console.log(id)
-    // this.reservaService.getReserva_ID_Inst(id).subscribe((reserva: Reserva_Instalacion) => {
-    //   const reservaSeleccionada = reserva;
-    //   this.obtenerReservas(reservaSeleccionada)
-    // })
     let id = objeto.id;
     this.reservaService.getReserva_ID_Inst(id).subscribe((reserva: Reserva_Instalacion) => {
       const reservaSeleccionada = reserva;

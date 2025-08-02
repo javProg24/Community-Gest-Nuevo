@@ -60,9 +60,9 @@
         <tbody>
             @for(data of dataSource;track $index){
                 <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                    @for (nombre of columns; track $index) {
+                    @for (nombre_columnas of columns; track $index) {
                         <td class="px-6 py-4">
-                            {{ nombre === 'estado' ? (data[nombre] | estadoTexto) : data[nombre] }}
+                            {{ nombre_columnas === 'estado' ? (data[nombre_columnas] | estadoTexto) : data[nombre_columnas] }}
                             
                         </td>
                     }

@@ -154,11 +154,6 @@ export class UserComponent implements OnInit {
         }
       }
     )
-    // this.services.desactiveUsuario(id).subscribe(() => {
-    //   this.notification={message:'El reporte ha sido elimado',type:'warning'}
-    //   console.log(id);
-    //   this.getUsers(); // Refresca los datos después de eliminar
-    // });
   }
 
   openDialog() {
